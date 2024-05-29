@@ -5,7 +5,7 @@ import SocialMedia from "@/components/auth/social-media";
 
 const RegisterPage = () => {
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="mx-auto max-w-md mt-10">
       <CardContent className="space-y-6">
         <CardHeader>
           <div className="space-y-2 text-center">
