@@ -1,21 +1,21 @@
 "use client";
 
 import Image from "next/image";
+import React from "react";
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import React from "react";
 
 const CartModal = React.forwardRef(() => {
   const cartItems = true;
 
   return (
-    <Card className="w-max absolute p-4 rounded-md shadow-md top-4 -right-2 flex flex-col gap-6 z-50 bg-primary-foreground">
+    <Card className="w-[360px] p-4 absolute rounded-md shadow-md top-4 right-2 flex flex-col gap-6 z-50">
       {!cartItems ? (
         <div>Cart is Empty</div>
       ) : (
         <div className="flex flex-col gap-6">
-          <h2  className="text-xl">Shopping Cart</h2>
+          <h2 className="text-xl">Shopping Cart</h2>
           {/* LIST */}
           <div className="flex flex-col gap-8">
             {/* ITEM */}
@@ -91,7 +91,7 @@ const CartModal = React.forwardRef(() => {
               <span>Subtotal</span>
               <div>$49</div>
             </div>
-            <p className="text-gray-500 text-sm mt-2 mb-4 max-w-xs">
+            <p className="text-gray-500 text-sm mt-2 mb-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Accusantium, consequuntur!
             </p>
