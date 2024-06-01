@@ -9,22 +9,19 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-
-const formSchema = z.object({
-  search: z.string().min(1),
-});
+import { SearchSchema } from "@/schemas";
 
 const SearchBar = () => {
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof SearchSchema>>({
+    resolver: zodResolver(SearchSchema),
     defaultValues: {
       search: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof SearchSchema>) => {
     console.log(values);
     if (values.search) {
       router.push(`/search?s=${values.search}`);

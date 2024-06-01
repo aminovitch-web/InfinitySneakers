@@ -1,9 +1,11 @@
-import Image from "next/image";
+import React from "react";
 
-export default function Home() {
+const HomePage = () => {
   return (
-   <main className="min-h-screen">
-    home
-   </main>
+    <main className="min-h-screen">
+      home
+    </main>
   );
-}
+};
+
+export default HomePage;

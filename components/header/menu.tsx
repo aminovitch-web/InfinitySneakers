@@ -10,7 +10,7 @@ const Menu = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <nav>
       <IoIosMenu
         className="w-7 h-7 cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}
@@ -29,7 +29,7 @@ const Menu = () => {
           <Link href="/">Logout</Link>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
 

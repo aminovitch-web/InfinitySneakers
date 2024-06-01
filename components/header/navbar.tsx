@@ -8,7 +8,7 @@ import NavbarIcons from "@/components/header/navbar-icons";
 
 const Navbar = () => {
   return (
-    <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
+    <header className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
       {/* MOBILE */}
       <div className="flex items-center justify-between h-full md:hidden">
         <Link href="/" className="text-xl font-medium tracking-wide">
@@ -41,7 +41,7 @@ const Navbar = () => {
           <NavbarIcons />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

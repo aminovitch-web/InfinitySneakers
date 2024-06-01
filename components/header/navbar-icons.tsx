@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
+import Image from "next/image";
 
 import {
   HoverCard,
@@ -18,16 +19,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import Image from "next/image";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Card } from "@/components/ui/card";
 
 const NavbarIcons = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isUserCardOpen, setIsUserCardOpen] = useState(false);
+  const [isShoppingCardOpen, setIsShoppingCardOpen] = useState(false);
+
   const cartItems = true;
 
   const handleLinkClick = () => {
-    setIsOpen(false);
+    setIsUserCardOpen(false);
+    setIsShoppingCardOpen(false);
   };
 
   // TEMPORARY
@@ -46,7 +53,11 @@ const NavbarIcons = () => {
   return (
     <div className="flex items-center gap-6 xl:gap-7">
       <div>
-        <HoverCard openDelay={60} open={isOpen} onOpenChange={setIsOpen}>
+        <HoverCard
+          openDelay={60}
+          open={isUserCardOpen}
+          onOpenChange={setIsUserCardOpen}
+        >
           <HoverCardTrigger asChild>
             <Button variant="icon" className="p-0">
               <FaRegUser className="w-5 h-5" />
@@ -73,7 +84,7 @@ const NavbarIcons = () => {
                         className="w-full"
                         onClick={handleLinkClick}
                       >
-                        <Button variant="ghost">
+                        <Button variant="ghost" className="w-full">
                           <p className="text-sm">{link.name}</p>
                         </Button>
                       </Link>
@@ -87,6 +98,7 @@ const NavbarIcons = () => {
           </HoverCardContent>
         </HoverCard>
       </div>
+
       <div>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -99,8 +111,9 @@ const NavbarIcons = () => {
           </TooltipContent>
         </Tooltip>
       </div>
+
       <div className="relative">
-        <Popover>
+        <Popover open={isShoppingCardOpen} onOpenChange={setIsShoppingCardOpen}>
           <PopoverTrigger asChild>
             <div className="cursor-pointer">
               <Tooltip>
@@ -147,7 +160,7 @@ const NavbarIcons = () => {
                           {/* TITLE */}
                           <div className="flex items-center justify-between gap-8">
                             <h3 className="font-semibold">Product Name</h3>
-                            <div className="p-[6px] bg-InfinitySneakers rounded-sm text-white text-sm">
+                            <div className="p-[6px] bg-primary-foreground rounded-sm text-sm">
                               $49
                             </div>
                           </div>
@@ -183,7 +196,7 @@ const NavbarIcons = () => {
                           {/* TITLE */}
                           <div className="flex items-center justify-between gap-8">
                             <h3 className="font-semibold">Product Name</h3>
-                            <div className="p-[6px] bg-InfinitySneakers rounded-sm text-white text-sm">
+                            <div className="p-[6px] bg-primary-foreground rounded-sm text-sm">
                               $49
                             </div>
                           </div>
@@ -214,8 +227,12 @@ const NavbarIcons = () => {
                       Accusantium, consequuntur!
                     </p>
                     <div className="flex justify-between text-sm">
-                      <Button variant="secondary">View Cart</Button>
-                      <Button>Checkout</Button>
+                      <Button asChild variant="secondary">
+                        <Link href="/cart" onClick={handleLinkClick}>
+                          View Cart
+                        </Link>
+                      </Button>
+                      <Button variant="infinitySneakers">Checkout</Button>
                     </div>
                   </div>
                 </div>
