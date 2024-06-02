@@ -31,9 +31,7 @@ export default auth(
       return;
     }
 
-    if (!isLoggedIn && !isPublicRoute) {
-      console.log(nextUrl);
-      
+    if (!isLoggedIn && !isPublicRoute) {      
       return Response.redirect(new URL("/login", nextUrl));
     }
 

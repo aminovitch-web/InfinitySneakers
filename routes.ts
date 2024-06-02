@@ -17,7 +17,8 @@ export const authRoutes =[
     "/login",
     "/register",
     "/forgot-password",
-    "/reset-password"
+    "/reset-password",
+    "/auth-error"
 ]
 
 /**
