@@ -5,7 +5,8 @@
  */
 export const publicRoutes = [
     "/",
-    "/cart"
+    "/cart",
+    "/new-verification"
 ]
 
 /**
@@ -19,7 +20,6 @@ export const authRoutes =[
     "/forgot-password",
     "/reset-password",
     "/auth-error",
-    "/new-verification"
 ]
 
 /**
