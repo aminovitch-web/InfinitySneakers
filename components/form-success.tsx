@@ -10,7 +10,7 @@ const FormSuccess = ({ message }: FormSuccessProps) => {
   return (
     <div className="bg-emerald-500/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-emerald-500 font-medium">
       <CheckCircledIcon className="w-4 h-4" />
-      <p>{message}</p>
+      <p className="flex-1">{message}</p>
     </div>
   );
 };

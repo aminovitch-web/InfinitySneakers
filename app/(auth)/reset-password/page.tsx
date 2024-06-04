@@ -11,7 +11,7 @@ const ResetPasswordPage = () => {
             <div className="space-y-2 text-center">
               <h1 className="text-3xl font-bold">Reset Password</h1>
               <p className="text-gray-500 dark:text-gray-400">
-                Enter your new password to reset your account.
+                Enter your new password
               </p>
             </div>
           </CardHeader>

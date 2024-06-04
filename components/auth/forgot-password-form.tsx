@@ -8,7 +8,7 @@ import * as z from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ForgotPasswordSchema } from "@/schemas";
-import { forgotPassword } from "@/actions/forgotPassword";
+import { forgotPassword } from "@/actions/forgot-password";
 import {
   Form,
   FormLabel,
@@ -78,7 +78,7 @@ const ForgotPasswordForm = () => {
           variant="infinitySneakers"
           disabled={isPending}
         >
-          Send Email
+          Send Reset Email
         </Button>
       </form>
     </Form>

@@ -28,8 +28,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Prevent sign in without email verification
       if (!existingUser?.emailVerified) return false;
 
-      // TODO: Add 2FA check
-
       return true;
     },
     async session({ token, session }) {

@@ -4,11 +4,12 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ResetPasswordSchema } from "@/schemas";
-import { resetPassword } from "@/actions/resetPassword";
+import { resetPassword } from "@/actions/reset-password";
 import {
   Form,
   FormLabel,
@@ -21,6 +22,9 @@ import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 
 const ResetPasswordForm = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -38,7 +42,7 @@ const ResetPasswordForm = () => {
     setSuccess("");
 
     startTransition(() => {
-      resetPassword(values).then((data) => {
+      resetPassword(values, token).then((data) => {
         setError(data.error);
         setSuccess(data.success);
       });
