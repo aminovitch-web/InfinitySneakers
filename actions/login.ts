@@ -2,6 +2,7 @@
 
 import * as z from "zod";
 import { AuthError } from "next-auth";
+import bcrypt from "bcryptjs";
 
 import { signIn } from "@/auth";
 import { LoginSchema } from "@/schemas";
@@ -9,6 +10,7 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { generateVerificationToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
 import { sendVerificationEmail } from "@/lib/mail";
+import { getVerificationTokenByEmail } from "@/data/verification-token";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -21,6 +23,19 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
   const existingUser = await getUserByEmail(email);
 
+  if (existingUser?.password) {
+    const passwordsMatch = await bcrypt.compare(
+      password,
+      existingUser?.password
+    );
+    if (!passwordsMatch) {
+      return {
+        error:
+          "Looks like either your email address or password were incorrect. Please try again.",
+      };
+    }
+  }
+
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return {
       error:
@@ -29,15 +44,39 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email
-    );
+    // check if verification token exists
+    const existingToken = await getVerificationTokenByEmail(email);
+    if (existingToken) {
+      // if yes, check if token expired
+      if (new Date(existingToken.expires) < new Date()) {
+        // if yes, delete token and send new token
+        const verificationToken = await generateVerificationToken(email);
+        // send email
+        await sendVerificationEmail(
+          verificationToken.email,
+          verificationToken.token
+        );
+        return {
+          success: "Verification token expired. New token sent",
+        };
+      } else {
+        // if no, send error
+        return {
+          error: "Please check your email to verify your account",
+        };
+      }
+    }
+
+    const verificationToken = await generateVerificationToken(email);
+
     await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token
     );
 
-    return { success: "Confirmation email sent!" };
+    return {
+      success: "Verification email sent",
+    };
   }
 
   try {
@@ -46,6 +85,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
+    
   } catch (error) {
     if (error instanceof AuthError)
       switch (error.type) {

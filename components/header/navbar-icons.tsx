@@ -25,8 +25,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Card } from "@/components/ui/card";
+import { logout } from "@/actions/logout";
+import { useIsAuthenticated } from "@/hooks/use-is-authenticated";
 
-const NavbarIcons = () => {
+const NavbarIcons = ({ session }: any) => {
   const [isUserCardOpen, setIsUserCardOpen] = useState(false);
   const [isShoppingCardOpen, setIsShoppingCardOpen] = useState(false);
 
@@ -37,8 +39,7 @@ const NavbarIcons = () => {
     setIsShoppingCardOpen(false);
   };
 
-  // TEMPORARY
-  const isLoggedIn = false;
+  const isLoggedIn = !!session?.user;
 
   const profileCardLinks = isLoggedIn
     ? [
@@ -49,6 +50,10 @@ const NavbarIcons = () => {
         { name: "Login", href: "/login" },
         { name: "Register", href: "/register" },
       ];
+
+  const logoutUser = () => {
+    logout();
+  };
 
   return (
     <div className="flex items-center gap-6 xl:gap-7">
@@ -90,7 +95,18 @@ const NavbarIcons = () => {
                       </Link>
                     ))}
 
-                    {isLoggedIn && <Button variant="outline">Logout</Button>}
+                    {isLoggedIn && (
+                      <Button
+                        variant="outline"
+                        type="submit"
+                        onClick={() => {
+                          handleLinkClick();
+                          logoutUser();
+                        }}
+                      >
+                        Logout
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>

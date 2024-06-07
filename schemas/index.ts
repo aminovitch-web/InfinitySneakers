@@ -72,3 +72,25 @@ export const SearchSchema = z.object({
     message: "Required!",
   }),
 });
+
+export const SettingSchema = z
+  .object({
+    name: z.optional(z.string()),
+    surname: z.optional(z.string()),
+    email: z.optional(z.string().email()),
+    password: z.optional(
+      z.string().min(6, {
+        message: "Minimum 6 characters required!",
+      })
+    ),
+    newPassword: z.optional(
+      z.string().min(6, {
+        message: "Minimum 6 characters required!",
+      })
+    ),
+  })
+  .refine((data) => {
+    if (data.password && !data.newPassword) return false;
+
+    return true;
+  });

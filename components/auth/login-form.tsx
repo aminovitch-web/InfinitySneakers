@@ -23,6 +23,7 @@ import { login } from "@/actions/login";
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
+
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with different provider!"
@@ -46,8 +47,14 @@ const LoginForm = () => {
 
     startTransition(() => {
       login(values).then((data) => {
-        setError(data?.error);        
-        setSuccess(data?.success);
+        if (data?.error) {
+          form.reset();
+          setError(data.error);
+        }
+        if (data?.success) {
+          form.reset();
+          setSuccess(data.success);
+        }
       });
     });
   };

@@ -6,7 +6,7 @@ import Menu from "@/components/header/menu";
 import SearchBar from "@/components/header/search-bar";
 import NavbarIcons from "@/components/header/navbar-icons";
 
-const Navbar = () => {
+const Navbar = ({ session }: any) => {  
   return (
     <header className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
       {/* MOBILE */}
@@ -38,7 +38,7 @@ const Navbar = () => {
         {/* RIGHT */}
         <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
           <SearchBar />
-          <NavbarIcons />
+          <NavbarIcons session={session} />
         </div>
       </div>
     </header>
