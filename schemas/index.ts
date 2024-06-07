@@ -67,6 +67,13 @@ export const ResetPasswordSchema = z
     }
   );
 
+export const NewVerificationSchema = z.object({
+  code: z.string().min(6, {
+    message: "Minimum 6 characters required!",
+  }),
+  token: z.string().min(1),
+});
+
 export const SearchSchema = z.object({
   search: z.string().min(1, {
     message: "Required!",

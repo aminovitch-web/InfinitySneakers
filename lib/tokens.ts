@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 
 import { db } from "@/prisma";
@@ -31,6 +32,8 @@ export const generateVerificationToken = async (email: string) => {
   const token = uuidv4();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
 
+  const code = crypto.randomInt(100_000, 1_000_000).toString();
+
   const existingToken = await getVerificationTokenByEmail(email);
 
   if (existingToken) {
@@ -46,6 +49,7 @@ export const generateVerificationToken = async (email: string) => {
       email,
       token,
       expires,
+      code,
     },
   });
 

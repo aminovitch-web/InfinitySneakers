@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const NewVerificationPage = () => {
   return (
-    <div className="px-2">
-      <Card className="mx-auto max-w-md mt-10">
+    <div className="px-2 w-full">
+      <Card className="mx-auto max-w-md mt-10 w-full">
         <CardContent>
           <CardHeader>
             <div className="space-y-2 text-center">

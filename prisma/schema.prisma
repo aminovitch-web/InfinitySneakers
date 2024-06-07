@@ -54,6 +54,7 @@ model VerificationToken {
   email   String
   token   String   @unique
   expires DateTime
+  code    String
 
   @@unique([email, token])
 }

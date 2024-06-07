@@ -1,11 +1,16 @@
 "use server";
 
+import * as z from "zod";
+
 import { db } from "@/prisma";
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
+import { NewVerificationSchema } from "@/schemas";
 
-export const newVerification = async (token: string) => {
-  const existingToken = await getVerificationTokenByToken(token);
+export const newVerification = async (
+  values: z.infer<typeof NewVerificationSchema>
+) => {
+  const existingToken = await getVerificationTokenByToken(values.token);
 
   if (!existingToken) {
     return { error: "Token does not exist!" };
@@ -21,6 +26,10 @@ export const newVerification = async (token: string) => {
 
   if (!existingUser) {
     return { error: "Email does not exist!" };
+  }
+
+  if (existingToken.code !== values.code) {
+    return { error: "Please make sure you enter your code correctly." };
   }
 
   await db.user.update({
