@@ -5,6 +5,10 @@ import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
+import { IoIosLogOut } from "react-icons/io";
+import { CiSettings } from "react-icons/ci";
+import { MdOutlineLocalShipping, MdOutlineAccountCircle } from "react-icons/md";
+import { IoLogInOutline } from "react-icons/io5";
 
 import {
   HoverCard,
@@ -26,7 +30,6 @@ import {
 } from "@/components/ui/popover";
 import { Card } from "@/components/ui/card";
 import { logout } from "@/actions/logout";
-import { useIsAuthenticated } from "@/hooks/use-is-authenticated";
 
 const NavbarIcons = ({ session }: any) => {
   const [isUserCardOpen, setIsUserCardOpen] = useState(false);
@@ -43,12 +46,20 @@ const NavbarIcons = ({ session }: any) => {
 
   const profileCardLinks = isLoggedIn
     ? [
-        { name: "My Account", href: "/profile" },
-        { name: "Orders", href: "/profile/orders" },
+        { name: "Settings", href: "/settings", icon: <CiSettings size={20} /> },
+        {
+          name: "My Orders",
+          href: "/orders",
+          icon: <MdOutlineLocalShipping size={20} />,
+        },
       ]
     : [
-        { name: "Login", href: "/login" },
-        { name: "Register", href: "/register" },
+        { name: "Login", href: "/login", icon: <IoLogInOutline size={20} /> },
+        {
+          name: "Create an account",
+          href: "/register",
+          icon: <MdOutlineAccountCircle size={20} />,
+        },
       ];
 
   const logoutUser = () => {
@@ -70,7 +81,7 @@ const NavbarIcons = ({ session }: any) => {
           </HoverCardTrigger>
           <HoverCardContent className="w-60">
             <div className="flex justify-between space-x-4">
-              <div className="space-y-2 flex flex-col gap-2 text-center w-full p-2">
+              <div className="space-y-2 flex flex-col gap-2 w-full p-2">
                 <div>
                   {!isLoggedIn && (
                     <div>
@@ -89,7 +100,11 @@ const NavbarIcons = ({ session }: any) => {
                         className="w-full"
                         onClick={handleLinkClick}
                       >
-                        <Button variant="ghost" className="w-full">
+                        <Button
+                          variant="ghost"
+                          className="w-full flex items-start justify-start gap-3"
+                        >
+                          {link?.icon}
                           <p className="text-sm">{link.name}</p>
                         </Button>
                       </Link>
@@ -99,12 +114,14 @@ const NavbarIcons = ({ session }: any) => {
                       <Button
                         variant="outline"
                         type="submit"
+                        className="w-full flex items-start justify-start gap-3"
                         onClick={() => {
                           handleLinkClick();
                           logoutUser();
                         }}
                       >
-                        Logout
+                        <IoIosLogOut size={20} />
+                        Sign out
                       </Button>
                     )}
                   </div>

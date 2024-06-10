@@ -35,7 +35,7 @@ export default async function RootLayout({
           >
             <TooltipProvider skipDelayDuration={10000}>
               <Navbar session={session} />
-              {children}
+              <div className="min-h-screen">{children}</div>
               <Footer />
             </TooltipProvider>
           </ThemeProvider>
