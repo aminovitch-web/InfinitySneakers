@@ -26,7 +26,13 @@ export const authRoutes = [
 export const apiAuthPrefix = "/api/auth";
 
 /**
- * The default redirect path after logged in
+ * The customer redirect path after logged in
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const CUSTOMER_LOGIN_REDIRECT = "/";
+
+/**
+ * The admin redirect path after logged in
+ * @type {string}
+ */
+export const ADMIN_LOGIN_REDIRECT = "/dashboard";

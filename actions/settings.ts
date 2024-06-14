@@ -7,8 +7,8 @@ import { db } from "@/prisma";
 import { SettingSchema } from "@/schemas";
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
-import { generateVerificationToken } from "@/lib/tokens";
-import { sendVerificationEmail } from "@/lib/mail";
+import { generateSettingsToken } from "@/lib/tokens";
+import { sendSettingsEmail } from "@/lib/mail";
 
 export const settings = async (values: z.infer<typeof SettingSchema>) => {
   const user = await currentUser();
@@ -37,11 +37,12 @@ export const settings = async (values: z.infer<typeof SettingSchema>) => {
       return { error: "Email already in use!" };
     }
 
-    const verificationToken = await generateVerificationToken(values.email);
+    const settingsToken = await generateSettingsToken(values.email);
 
-    await sendVerificationEmail(
-      verificationToken.email,
-      verificationToken.token
+    await sendSettingsEmail(
+      settingsToken.email,
+      settingsToken.token,
+      settingsToken.code
     );
 
     return { success: "Verification email sent!" };

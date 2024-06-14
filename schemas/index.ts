@@ -101,3 +101,15 @@ export const SettingSchema = z
 
     return true;
   });
+
+export const NewEmailSchema = z.object({
+  code: z.string().min(6, {
+    message: "Minimum 6 characters required!",
+  }),
+  token: z.string().min(1),
+});
+
+export const BillboardSchema = z.object({
+  label: z.string().min(3),
+  imageUrl: z.string().url(),
+});

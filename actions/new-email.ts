@@ -4,13 +4,13 @@ import * as z from "zod";
 
 import { db } from "@/prisma";
 import { getUserByEmail } from "@/data/user";
-import { getVerificationTokenByToken } from "@/data/verification-token";
-import { NewVerificationSchema } from "@/schemas";
+import { NewEmailSchema } from "@/schemas";
+import { getSettingsTokenByToken } from "@/data/settings-token";
 
-export const newVerification = async (
-  values: z.infer<typeof NewVerificationSchema>
+export const newEmail = async (
+  values: z.infer<typeof NewEmailSchema>
 ) => {
-  const existingToken = await getVerificationTokenByToken(values.token);
+  const existingToken = await getSettingsTokenByToken(values.token);
 
   if (!existingToken) {
     return { error: "Token does not exist!" };
@@ -23,9 +23,6 @@ export const newVerification = async (
   }
 
   const existingUser = await getUserByEmail(existingToken.email);
-  if (!existingUser) {
-    return { error: "Email does not exist!" };
-  }
 
   if (existingToken.code !== values.code) {
     return { error: "Please make sure you enter your code correctly." };
@@ -34,12 +31,11 @@ export const newVerification = async (
   await db.user.update({
     where: { id: existingUser?.id },
     data: {
-      emailVerified: new Date(),
       email: existingToken.email,
     },
   });
 
-  await db.verificationToken.delete({
+  await db.settingsToken.delete({
     where: { id: existingToken.id },
   });
 

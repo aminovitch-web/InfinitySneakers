@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 
 import authConfig from "@/auth.config";
 import {
-  DEFAULT_LOGIN_REDIRECT,
+  CUSTOMER_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
@@ -24,7 +24,7 @@ export default auth((req): Response | void => {
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+      return Response.redirect(new URL(CUSTOMER_LOGIN_REDIRECT, nextUrl));
     }
     return;
   }

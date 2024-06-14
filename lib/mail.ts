@@ -27,3 +27,18 @@ export const sendVerificationEmail = async (
     html: `<p>Your Code: ${code}<br/>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
   });
 };
+
+export const sendSettingsEmail = async (
+  email: string,
+  token: string,
+  code: string
+) => {
+  const confirmLink = `http://localhost:3000/new-email?token=${token}`;
+
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: email,
+    subject: "Confirm your email",
+    html: `<p>Your Code: ${code}<br/>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
+  });
+};

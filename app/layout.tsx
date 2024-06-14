@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 
 import { auth } from "@/auth";
 import "@/app/globals.css";
@@ -34,6 +35,7 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <TooltipProvider skipDelayDuration={10000}>
+              <Toaster />
               <Navbar session={session} />
               <div className="min-h-screen">{children}</div>
               <Footer />

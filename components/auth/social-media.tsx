@@ -4,12 +4,15 @@ import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { CUSTOMER_LOGIN_REDIRECT } from "@/routes";
+import { useCurrentRole } from "@/hooks/use-current-role";
 
 const SocialMedia = () => {
+  const role = useCurrentRole();
+
   const onClick = (provider: "google" | "facebook") => {
     signIn(provider, {
-      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      callbackUrl: CUSTOMER_LOGIN_REDIRECT,
     });
   };
 
