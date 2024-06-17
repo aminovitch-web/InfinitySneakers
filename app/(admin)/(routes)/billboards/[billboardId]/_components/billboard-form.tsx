@@ -23,7 +23,6 @@ import Heading from "@/components/ui/heading";
 import ImageUpload from "@/components/ui/image-upload";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-// import { useOrigin } from "@/hooks/use-origin";
 import { Billboard } from "@prisma/client";
 
 import { BillboardSchema } from "@/schemas";
@@ -64,13 +63,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     },
   });
 
-  // onDelete -> delete store -> refresh page -> redirect to root page (root layout will check if user has store and open createStore Modal if not found -> create store page will check if user has store and redirect to dashboard if found )
-
   const onSubmit = async (data: BillboardFormValues) => {
     try {
       setLoading(true);
-
-      //& if initialData is true then we are updating the store else we are creating a new store (initialData is null)
 
       if (initialData) {
         await axios.patch(`/api/billboards/${params.billboardId}`, data);
@@ -78,8 +73,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         await axios.post(`/api/billboards`, data);
       }
 
+      router.push("/billboards");
       router.refresh();
-      router.push(`/billboards`);
+
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
@@ -93,9 +89,10 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       setLoading(true);
       // Delete
       await axios.delete(`/api/billboards/${params.billboardId}`);
-      router.refresh();
 
       router.push("/billboards");
+      router.refresh();
+
       toast.success("Billboard deleted successfully");
     } catch (error) {
       toast.error(
