@@ -110,6 +110,11 @@ export const NewEmailSchema = z.object({
 });
 
 export const BillboardSchema = z.object({
-  label: z.string().min(3),
+  label: z.string().min(1),
   imageUrl: z.string().url(),
+});
+
+export const CategorySchema = z.object({
+  name: z.string().min(1),
+  billboardId: z.string().min(1),
 });
