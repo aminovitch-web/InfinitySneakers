@@ -10,11 +10,11 @@ import { CategoryColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { ApiList } from "@/components/api-list";
 
-interface CategoryClientProps {
+interface CategoriesClientProps {
   data: CategoryColumn[];
 }
 
-const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
+const CategoriesClient: React.FC<CategoriesClientProps> = ({ data }) => {
   const router = useRouter();
 
   return (
@@ -52,4 +52,4 @@ const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
   );
 };
 
-export default CategoryClient;
+export default CategoriesClient;

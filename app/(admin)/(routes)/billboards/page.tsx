@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-import BillboardClient from "./_components/client";
+import BillboardsClient from "./_components/client";
 import { db } from "@/prisma";
 import { BillboardColumn } from "./_components/columns";
 
@@ -20,7 +20,7 @@ const BillboardsPage = async () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 pt-6">
-        <BillboardClient data={formattedBillboards} />
+        <BillboardsClient data={formattedBillboards} />
       </div>
     </div>
   );

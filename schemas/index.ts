@@ -118,3 +118,15 @@ export const CategorySchema = z.object({
   name: z.string().min(1),
   billboardId: z.string().min(1),
 });
+
+export const SizeSchema = z.object({
+  name: z.string().min(1),
+  value: z.string().min(1),
+});
+
+export const ColorSchema = z.object({
+  name: z.string().min(1),
+  value: z.string().min(4).regex(/^#/, {
+    message: "String must be a valid hex code",
+  }),
+});

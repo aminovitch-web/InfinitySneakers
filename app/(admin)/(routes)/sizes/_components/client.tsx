@@ -6,27 +6,27 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { BillboardColumn, columns } from "./columns";
+import { SizeColumn, columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import { ApiList } from "@/components/api-list";
 
-interface BillboardsClientProps {
-  data: BillboardColumn[];
+interface SizesClientProps {
+  data: SizeColumn[];
 }
 
-const BillboardsClient: React.FC<BillboardsClientProps> = ({ data }) => {
+const SizesClient: React.FC<SizesClientProps> = ({ data }) => {
   const router = useRouter();
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards (${data.length})`}
-          description="Manage billboards for your store"
+          title={`Sizes (${data.length})`}
+          description="Manage sizes for your store"
         />
         <Button
           variant="infinitySneakers"
-          onClick={() => router.push("/billboards/new")}
+          onClick={() => router.push("/sizes/new")}
         >
           <PlusIcon className="mr-2 h-4 w-4" />
           Add New
@@ -37,19 +37,19 @@ const BillboardsClient: React.FC<BillboardsClientProps> = ({ data }) => {
       <DataTable
         columns={columns}
         data={data}
-        searchKey="label"
-        searchPlaceholder="Filter labels"
+        searchKey="name"
+        searchPlaceholder="Filter names"
       />
 
       <Heading
         title="API"
         className="mt-10"
-        description="API calls for Billboards."
+        description="API calls for Sizes."
       />
       <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <ApiList entityName="sizes" entityIdName="sizeId" />
     </>
   );
 };
 
-export default BillboardsClient;
+export default SizesClient;

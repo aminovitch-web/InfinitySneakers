@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-import CategoryClient from "./_components/client";
+import CategoriesClient from "./_components/client";
 import { db } from "@/prisma";
 import { CategoryColumn } from "./_components/columns";
 
@@ -24,7 +24,7 @@ const CategoriesPage = async () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 pt-6">
-        <CategoryClient data={formattedCategories} />
+        <CategoriesClient data={formattedCategories} />
       </div>
     </div>
   );
