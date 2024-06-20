@@ -38,7 +38,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <div>
-      <div className="mb-4 flex items-center gap-4">
+      <div className="flex items-center gap-4">
         {value.map((url) => (
           <div
             key={url}
@@ -69,6 +69,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
               type="button"
               disabled={disabled}
               variant="secondary"
+              className="mt-4"
               onClick={onClick}
             >
               <LuImagePlus className="h-4 w-4 mr-2" />

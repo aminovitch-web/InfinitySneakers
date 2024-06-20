@@ -140,7 +140,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 max-w-xl"
+          className="space-y-8 max-w-2xl"
         >
           <FormField
             control={form.control}
