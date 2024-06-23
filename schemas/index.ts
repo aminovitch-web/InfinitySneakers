@@ -1,9 +1,5 @@
+import { UserRole } from "@prisma/client";
 import * as z from "zod";
-
-// Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
-const passwordValidation = new RegExp(
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-);
 
 export const LoginSchema = z.object({
   email: z.string().email({
@@ -140,4 +136,12 @@ export const ProductSchema = z.object({
   sizeId: z.string().min(1),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
+});
+
+export const UserSchema = z.object({
+  name: z.string().min(1),
+  surname: z.optional(z.string()),
+  email: z.string().email(),
+  role: z.nativeEnum(UserRole),
+  active: z.boolean().default(false),
 });

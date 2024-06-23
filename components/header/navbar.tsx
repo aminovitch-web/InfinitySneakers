@@ -41,6 +41,11 @@ const Navbar = ({ session }: any) => {
       name: "Products",
       isActive: pathname === "/products" ? true : false,
     },
+    {
+      href: "/users",
+      name: "Users",
+      isActive: pathname === "/users" ? true : false,
+    },
   ];
 
   const publicLinks = [
@@ -106,7 +111,7 @@ const Navbar = ({ session }: any) => {
         {/* RIGHT */}
         <div
           className={`${
-            session?.user?.role !== "ADMIN" ? "w-2/3 xl:w-1/2" : ""
+            session?.user?.role !== "ADMIN" ? "w-[55%]" : ""
           } flex items-center justify-between gap-8`}
         >
           {session?.user?.role !== "ADMIN" && <SearchBar />}

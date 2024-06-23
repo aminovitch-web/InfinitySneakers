@@ -27,7 +27,10 @@ model User {
   image         String?
   password      String?
   role          UserRole  @default(CUSTOMER)
+  active        Boolean   @default(true)
   accounts      Account[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Account {

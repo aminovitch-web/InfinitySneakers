@@ -56,6 +56,11 @@ const Menu = ({ session }: { session: any }) => {
       name: "Products",
       isActive: pathname === "/products" ? true : false,
     },
+    {
+      href: "/users",
+      name: "Users",
+      isActive: pathname === "/users" ? true : false,
+    },
   ];
 
   const publicLinks = [
