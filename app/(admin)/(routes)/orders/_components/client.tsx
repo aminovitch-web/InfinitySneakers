@@ -23,7 +23,7 @@ const OrderClient: React.FC<OrderClientProps> = ({ data }) => {
       <DataTable
         columns={columns}
         data={data}
-        searchKey="names"
+        searchKey="name"
         searchPlaceholder="Filter names"
       />
     </>

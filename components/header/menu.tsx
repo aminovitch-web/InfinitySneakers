@@ -27,6 +27,11 @@ const Menu = ({ session }: { session: any }) => {
 
   const adminLinks = [
     {
+      href: "/dashboard",
+      name: "Dashboard",
+      isActive: pathname === "/dashboard" ? true : false,
+    },
+    {
       href: "/billboards",
       name: "Billboards",
       isActive: pathname === "/billboards" ? true : false,

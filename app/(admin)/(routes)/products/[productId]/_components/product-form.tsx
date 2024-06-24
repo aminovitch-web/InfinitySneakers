@@ -35,6 +35,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import Link from "next/link";
 
 interface ProductFormProps {
   initialData:
@@ -86,7 +88,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       isArchived: false,
     },
   });
-  console.log(form.getValues());
 
   const onSubmit = async (data: ProductFormValues) => {
     try {

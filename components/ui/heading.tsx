@@ -1,6 +1,6 @@
 interface HeadingProps {
   title: string;
-  description: string;
+  description?: string;
   className?: string;
 }
 const Heading: React.FC<HeadingProps> = ({ title, description, className }) => {
