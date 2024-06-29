@@ -18,8 +18,13 @@ export default auth((req): Response | void => {
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isApiRoute = nextUrl.pathname.startsWith("/api");
+  const isSwaggerRoute = nextUrl.pathname.startsWith("/api-doc");
 
   if (isApiRoute) {
+    return;
+  }
+
+  if (isSwaggerRoute && process.env.NODE_ENV === "development") {
     return;
   }
 

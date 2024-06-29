@@ -1,0 +1,35 @@
+openapi: "3.0.0"
+info:
+  title: "InfinitySneakers API Routes"
+  version: "1.0"
+tags:
+  - name: "Billboards"
+    description: "Billboard management"
+  - name: "Categories"
+    description: "Category management"
+  - name: "Colors"
+    description: "Color management"
+  - name: "Products"
+    description: "Product management"
+  - name: "Sizes"
+    description: "Size management"
+  - name: "Users"
+    description: "User management"
+components:
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
+security: []
+paths:
+  /api/billboards:
+    get:
+      summary: List of billboards
+      tags:
+        - Billboards
+      responses:
+        "200":
+          description: List of billboards successfully returned.
+        "404":
+          description: Billboards not found.

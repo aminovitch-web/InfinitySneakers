@@ -5,23 +5,23 @@ import { useState } from "react";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import { usePathname } from "next/navigation";
 
-import { Separator } from "@/components/ui/separator";
 import { logout } from "@/actions/logout";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useSession } from "next-auth/react";
 
-const Menu = ({ session }: { session: any }) => {
+const Menu = () => {
+  const { data } = useSession();
+
   const [open, setOpen] = useState(false);
-  const isLoggedIn = !!session?.user;
+  const isLoggedIn = !!data?.user;
 
   const pathname = usePathname();
 
@@ -111,7 +111,7 @@ const Menu = ({ session }: { session: any }) => {
             </Button>
           </DrawerClose>
           <DrawerHeader className="w-full flex flex-col items-center gap-6 mt-8">
-            {session?.user?.role === "ADMIN"
+            {data?.user?.role === "ADMIN"
               ? adminLinks.map((link) => (
                   <Link
                     href={link.href}

@@ -30,8 +30,11 @@ import {
 } from "@/components/ui/popover";
 import { Card } from "@/components/ui/card";
 import { logout } from "@/actions/logout";
+import { useSession } from "next-auth/react";
 
-const NavbarIcons = ({ session }: any) => {
+const NavbarIcons = () => {
+  const { data } = useSession();
+
   const [isUserCardOpen, setIsUserCardOpen] = useState(false);
   const [isShoppingCardOpen, setIsShoppingCardOpen] = useState(false);
 
@@ -42,7 +45,7 @@ const NavbarIcons = ({ session }: any) => {
     setIsShoppingCardOpen(false);
   };
 
-  const isLoggedIn = !!session?.user;
+  const isLoggedIn = !!data?.user;
 
   const profileCardLinks = isLoggedIn
     ? [
@@ -63,7 +66,9 @@ const NavbarIcons = ({ session }: any) => {
       ];
 
   const logoutUser = () => {
-    logout();
+    logout().then(() => {
+      window.location.replace("/login");
+    });
   };
 
   return (
@@ -132,7 +137,7 @@ const NavbarIcons = ({ session }: any) => {
         </HoverCard>
       </div>
 
-      {session?.user?.role !== "ADMIN" && (
+      {data?.user?.role !== "ADMIN" && (
         <>
           <div>
             <Tooltip>

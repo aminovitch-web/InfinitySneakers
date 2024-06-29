@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,7 @@ import {
 import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import { login } from "@/actions/login";
+import { CUSTOMER_LOGIN_REDIRECT } from "@/routes";
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -58,8 +59,15 @@ const LoginForm = () => {
         }
       });
     });
-
   };
+
+  useEffect(() => {
+    if (success) {
+      // using replace so the user can't go back to the login page if they
+      // press the back button
+      window.location.replace(CUSTOMER_LOGIN_REDIRECT);
+    }
+  }, [success]);
 
   return (
     <Form {...form}>

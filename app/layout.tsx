@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
-import { Toaster } from "react-hot-toast";
 
-import { auth } from "@/auth";
 import "@/app/globals.css";
 import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer";
-import { ThemeProvider } from "@/components/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import Providers from "@/app/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,27 +18,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
   return (
-    <SessionProvider session={session}>
-      <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TooltipProvider skipDelayDuration={10000}>
-              <Toaster />
-              <Navbar session={session} />
-              <div className="min-h-screen">{children}</div>
-              <Footer />
-            </TooltipProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </SessionProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <Providers>
+          <Navbar />
+          <div className="min-h-screen">{children}</div>
+          <Footer />
+        </Providers>
+      </body>
+    </html>
   );
 }

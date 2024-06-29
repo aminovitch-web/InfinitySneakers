@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/prisma";
 
+
 export async function POST(req: Request) {
   try {
     const session = await auth();

@@ -5,11 +5,8 @@ import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import { CUSTOMER_LOGIN_REDIRECT } from "@/routes";
-import { useCurrentRole } from "@/hooks/use-current-role";
 
 const SocialMedia = () => {
-  const role = useCurrentRole();
-
   const onClick = (provider: "google" | "facebook") => {
     signIn(provider, {
       callbackUrl: CUSTOMER_LOGIN_REDIRECT,

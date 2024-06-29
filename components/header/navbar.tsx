@@ -6,8 +6,11 @@ import { usePathname } from "next/navigation";
 import Menu from "@/components/header/menu";
 import SearchBar from "@/components/header/search-bar";
 import NavbarIcons from "@/components/header/navbar-icons";
+import { useSession } from "next-auth/react";
 
-const Navbar = ({ session }: any) => {
+const Navbar = () => {
+  const { data } = useSession();
+
   const pathname = usePathname();
 
   const adminLinks = [
@@ -78,7 +81,7 @@ const Navbar = ({ session }: any) => {
         <Link href="/" className="text-xl font-medium tracking-wide">
           InfinitySneakers
         </Link>
-        <Menu session={session} />
+        <Menu />
       </div>
       {/* BIGGER SCREENS */}
       <div className="hidden lg:flex items-center justify-between gap-8 h-full">
@@ -88,7 +91,7 @@ const Navbar = ({ session }: any) => {
             InfinitySneakers
           </Link>
           <div className="hidden lg:flex gap-4">
-            {session?.user?.role === "ADMIN"
+            {data?.user?.role === "ADMIN"
               ? adminLinks.map((link) => (
                   <Link
                     href={link.href}
@@ -116,11 +119,11 @@ const Navbar = ({ session }: any) => {
         {/* RIGHT */}
         <div
           className={`${
-            session?.user?.role !== "ADMIN" ? "w-[55%]" : ""
+            data?.user.role !== "ADMIN" ? "w-[55%]" : ""
           } flex items-center justify-between gap-8`}
         >
-          {session?.user?.role !== "ADMIN" && <SearchBar />}
-          <NavbarIcons session={session} />
+          {data?.user?.role !== "ADMIN" && <SearchBar />}
+          <NavbarIcons />
         </div>
       </div>
     </header>
