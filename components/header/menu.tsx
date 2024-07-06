@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { logout } from "@/actions/logout";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useSession } from "next-auth/react";
+import { Separator } from "@/components/ui/separator";
 
 const Menu = () => {
   const { data } = useSession();
@@ -111,6 +112,8 @@ const Menu = () => {
             </Button>
           </DrawerClose>
           <DrawerHeader className="w-full flex flex-col items-center gap-6 mt-8">
+            <h4 className="text-xl font-medium">InfinitySneakers</h4>
+            <Separator />
             {data?.user?.role === "ADMIN"
               ? adminLinks.map((link) => (
                   <Link
