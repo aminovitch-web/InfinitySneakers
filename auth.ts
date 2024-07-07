@@ -54,6 +54,7 @@ export const {
         session.user.surname = token.surname;
         session.user.email = token.email as string;
         session.user.isOAuth = token.isOAuth as boolean;
+        session.user.wishlist = token.wishlist;
       }
 
       return session;
@@ -72,6 +73,7 @@ export const {
       token.surname = existingUser.surname as string;
       token.email = existingUser.email;
       token.role = existingUser.role;
+      token.wishlist = existingUser.wishlist;
 
       return token;
     },

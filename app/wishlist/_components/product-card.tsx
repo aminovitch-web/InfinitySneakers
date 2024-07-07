@@ -7,13 +7,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
-import { Product } from "@/types";
 import Currency from "@/components/currency";
 import IconButton from "@/components/ui/icon-button";
 import newWishlist from "@/actions/wishlist/new-wishlist";
 
 interface ProductCard {
-  data: Product;
+  data: any;
 }
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
@@ -25,7 +24,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   useEffect(() => {
     const checkWishlist = async () => {
       const liked = session?.data?.user?.wishlist.some(
-        (item: any) => item.productId === data.id
+        (item: any) => item.productId === data?.product?.id
       );
 
       setIsLiked(liked);
@@ -40,7 +39,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
     try {
       await newWishlist(userId, {
         userId: userId,
-        productId: data.id,
+        productId: data?.product?.id,
       });
       setIsLiked(!isLiked);
       session.update({
@@ -58,7 +57,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       {/* Images and Actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
         <Image
-          src={data.images?.[0].url}
+          src={data?.product?.images?.[0].url}
           alt="Image"
           fill
           className="aspect-square object-cover rounded-md"
@@ -92,12 +91,14 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       </div>
       {/* Description */}
       <div>
-        <p className="font-semibold text-lg">{data.name}</p>
-        <p className="text-sm text-InfinitySneakers">{data.category.name}</p>
+        <p className="font-semibold text-lg">{data?.product?.name}</p>
+        <p className="text-sm text-InfinitySneakers">
+          {data?.product?.category.name}
+        </p>
       </div>
       {/* Price */}
       <div className="flex items-center justify-between">
-        <Currency value={data.price} />
+        <Currency value={data?.product?.price} />
       </div>
     </div>
   );

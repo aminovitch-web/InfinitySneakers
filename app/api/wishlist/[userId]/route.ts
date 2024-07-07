@@ -19,9 +19,17 @@ export async function GET(
       return new NextResponse("User id is required", { status: 400 });
     }
 
-    const wishlist = await db.size.findMany({
+    const wishlist = await db.wishlist.findMany({
+      include: {
+        product: {
+          include: {
+            category: true,
+            images: true,
+          },
+        },
+      },
       where: {
-        id: params.userId,
+        userId: params.userId,
       },
     });
 
@@ -40,19 +48,6 @@ export async function POST(
     const session = await auth();
     const userId = session?.user.id;
 
-    const user = await db.user.findUnique({
-      include: {
-        wishlist: true,
-      },
-      where: {
-        id: userId,
-      },
-    });
-
-    const body = await req.json();
-
-    const { productId } = body;
-
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
@@ -61,19 +56,26 @@ export async function POST(
       return new NextResponse("User id is required", { status: 400 });
     }
 
+    const body = await req.json();
+    const { productId } = body;
+
     if (!productId) {
       return new NextResponse("Product id is required", { status: 400 });
     }
 
-    const isLiked = user?.wishlist.includes(productId);
+    const isLiked = session.user.wishlist.some(
+      (item: any) => item.productId === productId
+    );
 
     if (isLiked) {
       // Dislike
-      await db.wishlist.deleteMany({
+      const deletedWishlist = await db.wishlist.deleteMany({
         where: {
-          userId,
+          userId: userId,
+          productId: productId,
         },
       });
+      return NextResponse.json(deletedWishlist);
     }
 
     const wishlist = await db.wishlist.create({

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useCallback } from "react";
 import Particles from "react-tsparticles";
@@ -22,6 +22,7 @@ const ParticlesBg = () => {
       id="tsparticles"
       init={particlesInit}
       loaded={particlesLoaded}
+      height="100%"
       options={{
         fpsLimit: 120, // Limit frames per second for smooth animation
         interactivity: {

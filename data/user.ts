@@ -3,6 +3,18 @@ import { db } from "@/prisma";
 export const getUserByEmail = async (email: string) => {
   try {
     const user = await db.user.findUnique({
+      include: {
+        wishlist: {
+          include: {
+            product: {
+              include: {
+                category: true,
+                images: true,
+              },
+            },
+          },
+        },
+      },
       where: {
         email,
       },
@@ -17,6 +29,18 @@ export const getUserByEmail = async (email: string) => {
 export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({
+      include: {
+        wishlist: {
+          include: {
+            product: {
+              include: {
+                category: true,
+                images: true,
+              },
+            },
+          },
+        },
+      },
       where: {
         id,
       },
