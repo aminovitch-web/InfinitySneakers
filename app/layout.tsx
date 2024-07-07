@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer";
 import Providers from "@/app/providers";
+import ParticlesBg from "@/components/particles-bg";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,10 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
+          <div className="hidden sm:block">
+            {/* Background particles animation */}
+            <ParticlesBg />
+          </div>
           <Navbar />
           <div className="min-h-screen">{children}</div>
           <Footer />

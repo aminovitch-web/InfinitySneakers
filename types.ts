@@ -37,3 +37,9 @@ export interface Color {
   name: string;
   value: string;
 }
+
+export interface Wishlist {
+  id: string;
+  productId: string;
+  userId: string;
+}

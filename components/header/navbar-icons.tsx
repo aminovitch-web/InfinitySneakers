@@ -9,6 +9,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLocalShipping, MdOutlineAccountCircle } from "react-icons/md";
 import { IoLogInOutline } from "react-icons/io5";
+import { useSession } from "next-auth/react";
 
 import {
   HoverCard,
@@ -30,7 +31,6 @@ import {
 } from "@/components/ui/popover";
 import { Card } from "@/components/ui/card";
 import { logout } from "@/actions/logout";
-import { useSession } from "next-auth/react";
 
 const NavbarIcons = () => {
   const { data } = useSession();
@@ -142,9 +142,12 @@ const NavbarIcons = () => {
           <div>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button className="flex items-center justify-center">
+                <Link
+                  href="/wishlist"
+                  className="flex items-center justify-center"
+                >
                   <FaRegHeart className="w-5 h-5 cursor-pointer" />
-                </button>
+                </Link>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Wish List</p>
