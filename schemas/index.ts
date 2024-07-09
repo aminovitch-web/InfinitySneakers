@@ -129,6 +129,7 @@ export const ColorSchema = z.object({
 
 export const ProductSchema = z.object({
   name: z.string().min(1),
+  description: z.string().min(1),
   images: z.object({ url: z.string() }).array(),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),

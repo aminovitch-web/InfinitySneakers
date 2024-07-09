@@ -30,7 +30,7 @@ body,
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
-    --InfinitySneakers: #8A865D;
+    --InfinitySneakers: #8a865d;
     --InfinitySneakers-foreground: #797549;
   }
 
@@ -64,4 +64,951 @@ body,
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+/*!
+ * Quill Editor v1.3.7
+ * https://quilljs.com/
+ * Copyright (c) 2014, Jason Chen
+ * Copyright (c) 2013, salesforce.com
+ */
+ .ql-container {
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  height: 100%;
+  margin: 0px;
+  position: relative;
+}
+.ql-container.ql-disabled .ql-tooltip {
+  visibility: hidden;
+}
+.ql-container.ql-disabled .product-description ul[data-checked] > li::before {
+  pointer-events: none;
+}
+.ql-clipboard {
+  left: -100000px;
+  height: 1px;
+  overflow-y: hidden;
+  position: absolute;
+  top: 50%;
+}
+.ql-clipboard p {
+  margin: 0;
+  padding: 0;
+}
+.product-description {
+  box-sizing: border-box;
+  line-height: 1.42;
+  height: 100%;
+  outline: none;
+  overflow-y: auto;
+  padding: 12px 15px;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.product-description > * {
+  cursor: text;
+}
+.product-description p,
+.product-description ol,
+.product-description ul,
+.product-description pre,
+.product-description blockquote,
+.product-description h1,
+.product-description h2,
+.product-description h3,
+.product-description h4,
+.product-description h5,
+.product-description h6 {
+  margin: 0;
+  padding: 0;
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.product-description ol,
+.product-description ul {
+  padding-left: 1.5em;
+}
+.product-description ol > li,
+.product-description ul > li {
+  list-style-type: none;
+}
+.product-description ul > li::before {
+  content: '\2022';
+}
+.product-description ul[data-checked=true],
+.product-description ul[data-checked=false] {
+  pointer-events: none;
+}
+.product-description ul[data-checked=true] > li *,
+.product-description ul[data-checked=false] > li * {
+  pointer-events: all;
+}
+.product-description ul[data-checked=true] > li::before,
+.product-description ul[data-checked=false] > li::before {
+  color: #777;
+  cursor: pointer;
+  pointer-events: all;
+}
+.product-description ul[data-checked=true] > li::before {
+  content: '\2611';
+}
+.product-description ul[data-checked=false] > li::before {
+  content: '\2610';
+}
+.product-description li::before {
+  display: inline-block;
+  white-space: nowrap;
+  width: 1.2em;
+}
+.product-description li:not(.ql-direction-rtl)::before {
+  margin-left: -1.5em;
+  margin-right: 0.3em;
+  text-align: right;
+}
+.product-description li.ql-direction-rtl::before {
+  margin-left: 0.3em;
+  margin-right: -1.5em;
+}
+.product-description ol li:not(.ql-direction-rtl),
+.product-description ul li:not(.ql-direction-rtl) {
+  padding-left: 1.5em;
+}
+.product-description ol li.ql-direction-rtl,
+.product-description ul li.ql-direction-rtl {
+  padding-right: 1.5em;
+}
+.product-description ol li {
+  counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  counter-increment: list-0;
+}
+.product-description ol li:before {
+  content: counter(list-0, decimal) '. ';
+}
+.product-description ol li.ql-indent-1 {
+  counter-increment: list-1;
+}
+.product-description ol li.ql-indent-1:before {
+  content: counter(list-1, lower-alpha) '. ';
+}
+.product-description ol li.ql-indent-1 {
+  counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.product-description ol li.ql-indent-2 {
+  counter-increment: list-2;
+}
+.product-description ol li.ql-indent-2:before {
+  content: counter(list-2, lower-roman) '. ';
+}
+.product-description ol li.ql-indent-2 {
+  counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.product-description ol li.ql-indent-3 {
+  counter-increment: list-3;
+}
+.product-description ol li.ql-indent-3:before {
+  content: counter(list-3, decimal) '. ';
+}
+.product-description ol li.ql-indent-3 {
+  counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
+}
+.product-description ol li.ql-indent-4 {
+  counter-increment: list-4;
+}
+.product-description ol li.ql-indent-4:before {
+  content: counter(list-4, lower-alpha) '. ';
+}
+.product-description ol li.ql-indent-4 {
+  counter-reset: list-5 list-6 list-7 list-8 list-9;
+}
+.product-description ol li.ql-indent-5 {
+  counter-increment: list-5;
+}
+.product-description ol li.ql-indent-5:before {
+  content: counter(list-5, lower-roman) '. ';
+}
+.product-description ol li.ql-indent-5 {
+  counter-reset: list-6 list-7 list-8 list-9;
+}
+.product-description ol li.ql-indent-6 {
+  counter-increment: list-6;
+}
+.product-description ol li.ql-indent-6:before {
+  content: counter(list-6, decimal) '. ';
+}
+.product-description ol li.ql-indent-6 {
+  counter-reset: list-7 list-8 list-9;
+}
+.product-description ol li.ql-indent-7 {
+  counter-increment: list-7;
+}
+.product-description ol li.ql-indent-7:before {
+  content: counter(list-7, lower-alpha) '. ';
+}
+.product-description ol li.ql-indent-7 {
+  counter-reset: list-8 list-9;
+}
+.product-description ol li.ql-indent-8 {
+  counter-increment: list-8;
+}
+.product-description ol li.ql-indent-8:before {
+  content: counter(list-8, lower-roman) '. ';
+}
+.product-description ol li.ql-indent-8 {
+  counter-reset: list-9;
+}
+.product-description ol li.ql-indent-9 {
+  counter-increment: list-9;
+}
+.product-description ol li.ql-indent-9:before {
+  content: counter(list-9, decimal) '. ';
+}
+.product-description .ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 3em;
+}
+.product-description li.ql-indent-1:not(.ql-direction-rtl) {
+  padding-left: 4.5em;
+}
+.product-description .ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 3em;
+}
+.product-description li.ql-indent-1.ql-direction-rtl.ql-align-right {
+  padding-right: 4.5em;
+}
+.product-description .ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 6em;
+}
+.product-description li.ql-indent-2:not(.ql-direction-rtl) {
+  padding-left: 7.5em;
+}
+.product-description .ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 6em;
+}
+.product-description li.ql-indent-2.ql-direction-rtl.ql-align-right {
+  padding-right: 7.5em;
+}
+.product-description .ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 9em;
+}
+.product-description li.ql-indent-3:not(.ql-direction-rtl) {
+  padding-left: 10.5em;
+}
+.product-description .ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 9em;
+}
+.product-description li.ql-indent-3.ql-direction-rtl.ql-align-right {
+  padding-right: 10.5em;
+}
+.product-description .ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 12em;
+}
+.product-description li.ql-indent-4:not(.ql-direction-rtl) {
+  padding-left: 13.5em;
+}
+.product-description .ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 12em;
+}
+.product-description li.ql-indent-4.ql-direction-rtl.ql-align-right {
+  padding-right: 13.5em;
+}
+.product-description .ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 15em;
+}
+.product-description li.ql-indent-5:not(.ql-direction-rtl) {
+  padding-left: 16.5em;
+}
+.product-description .ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 15em;
+}
+.product-description li.ql-indent-5.ql-direction-rtl.ql-align-right {
+  padding-right: 16.5em;
+}
+.product-description .ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 18em;
+}
+.product-description li.ql-indent-6:not(.ql-direction-rtl) {
+  padding-left: 19.5em;
+}
+.product-description .ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 18em;
+}
+.product-description li.ql-indent-6.ql-direction-rtl.ql-align-right {
+  padding-right: 19.5em;
+}
+.product-description .ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 21em;
+}
+.product-description li.ql-indent-7:not(.ql-direction-rtl) {
+  padding-left: 22.5em;
+}
+.product-description .ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 21em;
+}
+.product-description li.ql-indent-7.ql-direction-rtl.ql-align-right {
+  padding-right: 22.5em;
+}
+.product-description .ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 24em;
+}
+.product-description li.ql-indent-8:not(.ql-direction-rtl) {
+  padding-left: 25.5em;
+}
+.product-description .ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 24em;
+}
+.product-description li.ql-indent-8.ql-direction-rtl.ql-align-right {
+  padding-right: 25.5em;
+}
+.product-description .ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 27em;
+}
+.product-description li.ql-indent-9:not(.ql-direction-rtl) {
+  padding-left: 28.5em;
+}
+.product-description .ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 27em;
+}
+.product-description li.ql-indent-9.ql-direction-rtl.ql-align-right {
+  padding-right: 28.5em;
+}
+.product-description .ql-video {
+  display: block;
+  max-width: 100%;
+}
+.product-description .ql-video.ql-align-center {
+  margin: 0 auto;
+}
+.product-description .ql-video.ql-align-right {
+  margin: 0 0 0 auto;
+}
+.product-description .ql-bg-black {
+  background-color: #000;
+}
+.product-description .ql-bg-red {
+  background-color: #e60000;
+}
+.product-description .ql-bg-orange {
+  background-color: #f90;
+}
+.product-description .ql-bg-yellow {
+  background-color: #ff0;
+}
+.product-description .ql-bg-green {
+  background-color: #008a00;
+}
+.product-description .ql-bg-blue {
+  background-color: #06c;
+}
+.product-description .ql-bg-purple {
+  background-color: #93f;
+}
+.product-description .ql-color-white {
+  color: #fff;
+}
+.product-description .ql-color-red {
+  color: #e60000;
+}
+.product-description .ql-color-orange {
+  color: #f90;
+}
+.product-description .ql-color-yellow {
+  color: #ff0;
+}
+.product-description .ql-color-green {
+  color: #008a00;
+}
+.product-description .ql-color-blue {
+  color: #06c;
+}
+.product-description .ql-color-purple {
+  color: #93f;
+}
+.product-description .ql-font-serif {
+  font-family: Georgia, Times New Roman, serif;
+}
+.product-description .ql-font-monospace {
+  font-family: Monaco, Courier New, monospace;
+}
+.product-description .ql-size-small {
+  font-size: 0.75em;
+}
+.product-description .ql-size-large {
+  font-size: 1.5em;
+}
+.product-description .ql-size-huge {
+  font-size: 2.5em;
+}
+.product-description .ql-direction-rtl {
+  direction: rtl;
+  text-align: inherit;
+}
+.product-description .ql-align-center {
+  text-align: center;
+}
+.product-description .ql-align-justify {
+  text-align: justify;
+}
+.product-description .ql-align-right {
+  text-align: right;
+}
+.product-description.ql-blank::before {
+  color: rgba(0,0,0,0.6);
+  content: attr(data-placeholder);
+  font-style: italic;
+  left: 15px;
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+}
+.product-description.ql-toolbar:after,
+.product-description .ql-toolbar:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+.product-description.ql-toolbar button,
+.product-description .ql-toolbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  height: 24px;
+  padding: 3px 5px;
+  width: 28px;
+}
+.product-description.ql-toolbar button svg,
+.product-description .ql-toolbar button svg {
+  float: left;
+  height: 100%;
+}
+.product-description.ql-toolbar button:active:hover,
+.product-description .ql-toolbar button:active:hover {
+  outline: none;
+}
+.product-description.ql-toolbar input.ql-image[type=file],
+.product-description .ql-toolbar input.ql-image[type=file] {
+  display: none;
+}
+.product-description.ql-toolbar button:hover,
+.product-description .ql-toolbar button:hover,
+.product-description.ql-toolbar button:focus,
+.product-description .ql-toolbar button:focus,
+.product-description.ql-toolbar button.ql-active,
+.product-description .ql-toolbar button.ql-active,
+.product-description.ql-toolbar .ql-picker-label:hover,
+.product-description .ql-toolbar .ql-picker-label:hover,
+.product-description.ql-toolbar .ql-picker-label.ql-active,
+.product-description .ql-toolbar .ql-picker-label.ql-active,
+.product-description.ql-toolbar .ql-picker-item:hover,
+.product-description .ql-toolbar .ql-picker-item:hover,
+.product-description.ql-toolbar .ql-picker-item.ql-selected,
+.product-description .ql-toolbar .ql-picker-item.ql-selected {
+  color: #06c;
+}
+.product-description.ql-toolbar button:hover .ql-fill,
+.product-description .ql-toolbar button:hover .ql-fill,
+.product-description.ql-toolbar button:focus .ql-fill,
+.product-description .ql-toolbar button:focus .ql-fill,
+.product-description.ql-toolbar button.ql-active .ql-fill,
+.product-description .ql-toolbar button.ql-active .ql-fill,
+.product-description.ql-toolbar .ql-picker-label:hover .ql-fill,
+.product-description .ql-toolbar .ql-picker-label:hover .ql-fill,
+.product-description.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.product-description .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+.product-description.ql-toolbar .ql-picker-item:hover .ql-fill,
+.product-description .ql-toolbar .ql-picker-item:hover .ql-fill,
+.product-description.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.product-description .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+.product-description.ql-toolbar button:hover .ql-stroke.ql-fill,
+.product-description .ql-toolbar button:hover .ql-stroke.ql-fill,
+.product-description.ql-toolbar button:focus .ql-stroke.ql-fill,
+.product-description .ql-toolbar button:focus .ql-stroke.ql-fill,
+.product-description.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.product-description .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+.product-description.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.product-description .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+.product-description.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.product-description .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+.product-description.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.product-description .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+.product-description.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+.product-description .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+  fill: #06c;
+}
+.product-description.ql-toolbar button:hover .ql-stroke,
+.product-description .ql-toolbar button:hover .ql-stroke,
+.product-description.ql-toolbar button:focus .ql-stroke,
+.product-description .ql-toolbar button:focus .ql-stroke,
+.product-description.ql-toolbar button.ql-active .ql-stroke,
+.product-description .ql-toolbar button.ql-active .ql-stroke,
+.product-description.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.product-description .ql-toolbar .ql-picker-label:hover .ql-stroke,
+.product-description.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.product-description .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+.product-description.ql-toolbar .ql-picker-item:hover .ql-stroke,
+.product-description .ql-toolbar .ql-picker-item:hover .ql-stroke,
+.product-description.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.product-description .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+.product-description.ql-toolbar button:hover .ql-stroke-miter,
+.product-description .ql-toolbar button:hover .ql-stroke-miter,
+.product-description.ql-toolbar button:focus .ql-stroke-miter,
+.product-description .ql-toolbar button:focus .ql-stroke-miter,
+.product-description.ql-toolbar button.ql-active .ql-stroke-miter,
+.product-description .ql-toolbar button.ql-active .ql-stroke-miter,
+.product-description.ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.product-description .ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
+.product-description.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.product-description .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
+.product-description.ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.product-description .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
+.product-description.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
+.product-description .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+  stroke: #06c;
+}
+@media (pointer: coarse) {
+  .product-description.ql-toolbar button:hover:not(.ql-active),
+  .product-description .ql-toolbar button:hover:not(.ql-active) {
+    color: #444;
+  }
+  .product-description.ql-toolbar button:hover:not(.ql-active) .ql-fill,
+  .product-description .ql-toolbar button:hover:not(.ql-active) .ql-fill,
+  .product-description.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
+  .product-description .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
+    fill: #444;
+  }
+  .product-description.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+  .product-description .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
+  .product-description.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
+  .product-description .ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter {
+    stroke: #444;
+  }
+}
+.product-description {
+  box-sizing: border-box;
+}
+.product-description * {
+  box-sizing: border-box;
+}
+.product-description .ql-hidden {
+  display: none;
+}
+.product-description .ql-out-bottom,
+.product-description .ql-out-top {
+  visibility: hidden;
+}
+.product-description .ql-tooltip {
+  position: absolute;
+  transform: translateY(10px);
+}
+.product-description .ql-tooltip a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.product-description .ql-tooltip.ql-flip {
+  transform: translateY(-10px);
+}
+.product-description .ql-formats {
+  display: inline-block;
+  vertical-align: middle;
+}
+.product-description .ql-formats:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+.product-description .ql-stroke {
+  fill: none;
+  stroke: #444;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+.product-description .ql-stroke-miter {
+  fill: none;
+  stroke: #444;
+  stroke-miterlimit: 10;
+  stroke-width: 2;
+}
+.product-description .ql-fill,
+.product-description .ql-stroke.ql-fill {
+  fill: #444;
+}
+.product-description .ql-empty {
+  fill: none;
+}
+.product-description .ql-even {
+  fill-rule: evenodd;
+}
+.product-description .ql-thin,
+.product-description .ql-stroke.ql-thin {
+  stroke-width: 1;
+}
+.product-description .ql-transparent {
+  opacity: 0.4;
+}
+.product-description .ql-direction svg:last-child {
+  display: none;
+}
+.product-description .ql-direction.ql-active svg:last-child {
+  display: inline;
+}
+.product-description .ql-direction.ql-active svg:first-child {
+  display: none;
+}
+.product-description .product-description h1 {
+  font-size: 2em;
+}
+.product-description .product-description h2 {
+  font-size: 1.5em;
+}
+.product-description .product-description h3 {
+  font-size: 1.17em;
+}
+.product-description .product-description h4 {
+  font-size: 1em;
+}
+.product-description .product-description h5 {
+  font-size: 0.83em;
+}
+.product-description .product-description h6 {
+  font-size: 0.67em;
+}
+.product-description .product-description a {
+  text-decoration: underline;
+}
+.product-description .product-description blockquote {
+  border-left: 4px solid #ccc;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+.product-description .product-description code,
+.product-description .product-description pre {
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+.product-description .product-description pre {
+  white-space: pre-wrap;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 5px 10px;
+}
+.product-description .product-description code {
+  font-size: 85%;
+  padding: 2px 4px;
+}
+.product-description .product-description pre.ql-syntax {
+  background-color: #23241f;
+  color: #f8f8f2;
+  overflow: visible;
+}
+.product-description .product-description img {
+  max-width: 100%;
+}
+.product-description .ql-picker {
+  color: #444;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  font-weight: 500;
+  height: 24px;
+  position: relative;
+  vertical-align: middle;
+}
+.product-description .ql-picker-label {
+  cursor: pointer;
+  display: inline-block;
+  height: 100%;
+  padding-left: 8px;
+  padding-right: 2px;
+  position: relative;
+  width: 100%;
+}
+.product-description .ql-picker-label::before {
+  display: inline-block;
+  line-height: 22px;
+}
+.product-description .ql-picker-options {
+  background-color: #fff;
+  display: none;
+  min-width: 100%;
+  padding: 4px 8px;
+  position: absolute;
+  white-space: nowrap;
+}
+.product-description .ql-picker-options .ql-picker-item {
+  cursor: pointer;
+  display: block;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.product-description .ql-picker.ql-expanded .ql-picker-label {
+  color: #ccc;
+  z-index: 2;
+}
+.product-description .ql-picker.ql-expanded .ql-picker-label .ql-fill {
+  fill: #ccc;
+}
+.product-description .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
+  stroke: #ccc;
+}
+.product-description .ql-picker.ql-expanded .ql-picker-options {
+  display: block;
+  margin-top: -1px;
+  top: 100%;
+  z-index: 1;
+}
+.product-description .ql-color-picker,
+.product-description .ql-icon-picker {
+  width: 28px;
+}
+.product-description .ql-color-picker .ql-picker-label,
+.product-description .ql-icon-picker .ql-picker-label {
+  padding: 2px 4px;
+}
+.product-description .ql-color-picker .ql-picker-label svg,
+.product-description .ql-icon-picker .ql-picker-label svg {
+  right: 4px;
+}
+.product-description .ql-icon-picker .ql-picker-options {
+  padding: 4px 0px;
+}
+.product-description .ql-icon-picker .ql-picker-item {
+  height: 24px;
+  width: 24px;
+  padding: 2px 4px;
+}
+.product-description .ql-color-picker .ql-picker-options {
+  padding: 3px 5px;
+  width: 152px;
+}
+.product-description .ql-color-picker .ql-picker-item {
+  border: 1px solid transparent;
+  float: left;
+  height: 16px;
+  margin: 2px;
+  padding: 0px;
+  width: 16px;
+}
+.product-description .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+  position: absolute;
+  margin-top: -9px;
+  right: 0;
+  top: 50%;
+  width: 18px;
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-label]:not([data-label=''])::before,
+.product-description .ql-picker.ql-font .ql-picker-label[data-label]:not([data-label=''])::before,
+.product-description .ql-picker.ql-size .ql-picker-label[data-label]:not([data-label=''])::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-label]:not([data-label=''])::before,
+.product-description .ql-picker.ql-font .ql-picker-item[data-label]:not([data-label=''])::before,
+.product-description .ql-picker.ql-size .ql-picker-item[data-label]:not([data-label=''])::before {
+  content: attr(data-label);
+}
+.product-description .ql-picker.ql-header {
+  width: 98px;
+}
+.product-description .ql-picker.ql-header .ql-picker-label::before,
+.product-description .ql-picker.ql-header .ql-picker-item::before {
+  content: 'Normal';
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+  content: 'Heading 1';
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+  content: 'Heading 2';
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+  content: 'Heading 3';
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
+  content: 'Heading 4';
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
+  content: 'Heading 5';
+}
+.product-description .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
+  content: 'Heading 6';
+}
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+  font-size: 2em;
+}
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+  font-size: 1.5em;
+}
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+  font-size: 1.17em;
+}
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
+  font-size: 1em;
+}
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
+  font-size: 0.83em;
+}
+.product-description .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
+  font-size: 0.67em;
+}
+.product-description .ql-picker.ql-font {
+  width: 108px;
+}
+.product-description .ql-picker.ql-font .ql-picker-label::before,
+.product-description .ql-picker.ql-font .ql-picker-item::before {
+  content: 'Sans Serif';
+}
+.product-description .ql-picker.ql-font .ql-picker-label[data-value=serif]::before,
+.product-description .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
+  content: 'Serif';
+}
+.product-description .ql-picker.ql-font .ql-picker-label[data-value=monospace]::before,
+.product-description .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+  content: 'Monospace';
+}
+.product-description .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
+  font-family: Georgia, Times New Roman, serif;
+}
+.product-description .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+  font-family: Monaco, Courier New, monospace;
+}
+.product-description .ql-picker.ql-size {
+  width: 98px;
+}
+.product-description .ql-picker.ql-size .ql-picker-label::before,
+.product-description .ql-picker.ql-size .ql-picker-item::before {
+  content: 'Normal';
+}
+.product-description .ql-picker.ql-size .ql-picker-label[data-value=small]::before,
+.product-description .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
+  content: 'Small';
+}
+.product-description .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
+.product-description .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  content: 'Large';
+}
+.product-description .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
+.product-description .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  content: 'Huge';
+}
+.product-description .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
+  font-size: 10px;
+}
+.product-description .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  font-size: 18px;
+}
+.product-description .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  font-size: 32px;
+}
+.product-description .ql-color-picker.ql-background .ql-picker-item {
+  background-color: #fff;
+}
+.product-description .ql-color-picker.ql-color .ql-picker-item {
+  background-color: #000;
+}
+.ql-toolbar.product-description {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  padding: 8px;
+}
+.ql-toolbar.product-description .ql-formats {
+  margin-right: 15px;
+}
+.ql-toolbar.product-description .ql-picker-label {
+  border: 1px solid transparent;
+}
+.ql-toolbar.product-description .ql-picker-options {
+  border: 1px solid transparent;
+  box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+}
+.ql-toolbar.product-description .ql-picker.ql-expanded .ql-picker-label {
+  border-color: #ccc;
+}
+.ql-toolbar.product-description .ql-picker.ql-expanded .ql-picker-options {
+  border-color: #ccc;
+}
+.ql-toolbar.product-description .ql-color-picker .ql-picker-item.ql-selected,
+.ql-toolbar.product-description .ql-color-picker .ql-picker-item:hover {
+  border-color: #000;
+}
+.ql-toolbar.product-description + .ql-container.product-description {
+  border-top: 0px;
+}
+.product-description .ql-tooltip {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px #ddd;
+  color: #444;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.product-description .ql-tooltip::before {
+  content: "Visit URL:";
+  line-height: 26px;
+  margin-right: 8px;
+}
+.product-description .ql-tooltip input[type=text] {
+  display: none;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  height: 26px;
+  margin: 0px;
+  padding: 3px 5px;
+  width: 170px;
+}
+.product-description .ql-tooltip a.ql-preview {
+  display: inline-block;
+  max-width: 200px;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+.product-description .ql-tooltip a.ql-action::after {
+  border-right: 1px solid #ccc;
+  content: 'Edit';
+  margin-left: 16px;
+  padding-right: 8px;
+}
+.product-description .ql-tooltip a.ql-remove::before {
+  content: 'Remove';
+  margin-left: 8px;
+}
+.product-description .ql-tooltip a {
+  line-height: 26px;
+}
+.product-description .ql-tooltip.ql-editing a.ql-preview,
+.product-description .ql-tooltip.ql-editing a.ql-remove {
+  display: none;
+}
+.product-description .ql-tooltip.ql-editing input[type=text] {
+  display: inline-block;
+}
+.product-description .ql-tooltip.ql-editing a.ql-action::after {
+  border-right: 0px;
+  content: 'Save';
+  padding-right: 0px;
+}
+.product-description .ql-tooltip[data-mode=link]::before {
+  content: "Enter link:";
+}
+.product-description .ql-tooltip[data-mode=formula]::before {
+  content: "Enter formula:";
+}
+.product-description .ql-tooltip[data-mode=video]::before {
+  content: "Enter video:";
+}
+.product-description a {
+  color: #06c;
+}
+.ql-container.product-description {
+  border: 1px solid #ccc;
 }

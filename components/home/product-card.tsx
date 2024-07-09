@@ -61,13 +61,14 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
           src={data.images?.[0].url}
           alt="Image"
           fill
+          sizes="30vw"
           className="aspect-square object-cover rounded-md"
         />
 
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
             <Link
-              href={`/products/${data.id}`}
+              href={`/${data.id}`}
               className="rounded-full flex items-center justify-center bg-white border border-InfinitySneakers shadow-md p-2 hover:scale-110 transition"
             >
               <FiShoppingCart className="text-gray-600" size={20} />

@@ -90,7 +90,7 @@ const Navbar = () => {
           <Link href="/" className="text-xl font-medium tracking-wide">
             InfinitySneakers
           </Link>
-          <div className="hidden lg:flex gap-4">
+          <div className="hidden lg:flex gap-4 max-xl:text-[15px] max-xl:gap-[10px]">
             {data?.user?.role === "ADMIN"
               ? adminLinks.map((link) => (
                   <Link

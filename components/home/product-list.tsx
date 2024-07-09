@@ -3,7 +3,7 @@ import NoResults from "@/components/no-results";
 import ProductCard from "@/components/home/product-card";
 
 interface ProductListProps {
-  title: string;
+  title?: string;
   items: Product[];
 }
 

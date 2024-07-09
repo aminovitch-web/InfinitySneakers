@@ -12,6 +12,7 @@ export async function POST(req: Request) {
 
     const {
       name,
+      description,
       price,
       categoryId,
       colorId,
@@ -31,6 +32,10 @@ export async function POST(req: Request) {
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
+    }
+
+    if (!description) {
+      return new NextResponse("Description is required", { status: 400 });
     }
 
     if (!images || !images.length) {
@@ -56,6 +61,7 @@ export async function POST(req: Request) {
     const product = await db.product.create({
       data: {
         name,
+        description,
         price,
         isFeatured,
         isArchived,

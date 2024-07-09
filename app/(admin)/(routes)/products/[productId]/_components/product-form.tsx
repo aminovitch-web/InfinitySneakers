@@ -8,6 +8,10 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 
 import { AlertModal } from "@/components/alert-modal";
 import { Button } from "@/components/ui/button";
@@ -24,7 +28,6 @@ import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Category, Color, Image, Product, Size } from "@prisma/client";
-
 import { ProductSchema } from "@/schemas";
 import ImageUpload from "@/components/ui/image-upload";
 import {
@@ -35,8 +38,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { IoMdAddCircleOutline } from "react-icons/io";
-import Link from "next/link";
 
 interface ProductFormProps {
   initialData:
@@ -79,6 +80,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     resolver: zodResolver(ProductSchema),
     defaultValues: initialData || {
       name: "",
+      description: "",
       images: [],
       price: 1,
       categoryId: "",
@@ -127,6 +129,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       setOpen(false);
     }
   };
+  console.log(form.getValues());
 
   return (
     <>
@@ -215,6 +218,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <ReactQuill
+                    theme="snow"
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
+
                   <FormMessage />
                 </FormItem>
               )}

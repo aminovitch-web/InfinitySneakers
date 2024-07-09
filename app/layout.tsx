@@ -23,13 +23,15 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <div className="hidden sm:block">
+          <div className="max-w-[2100px] mx-auto">
+            <Navbar />
+            <div className="min-h-screen ">{children}</div>
+          </div>
+          <Footer />
+          <div className="hidden sm:block relative z-0">
             {/* Background particles animation */}
             <ParticlesBg />
           </div>
-          <Navbar />
-          <div className="min-h-screen">{children}</div>
-          <Footer />
         </Providers>
       </body>
     </html>

@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,6 @@ import { CUSTOMER_LOGIN_REDIRECT } from "@/routes";
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
