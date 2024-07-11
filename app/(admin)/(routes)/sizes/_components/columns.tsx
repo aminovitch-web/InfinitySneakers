@@ -8,7 +8,6 @@ import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
 export type SizeColumn = {
   id: string;
   name: string;
-  value: string;
   createdAt: string;
 };
 
@@ -17,12 +16,6 @@ export const columns: ColumnDef<SizeColumn>[] = [
     accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
-    ),
-  },
-  {
-    accessorKey: "value",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Value" />
     ),
   },
   {

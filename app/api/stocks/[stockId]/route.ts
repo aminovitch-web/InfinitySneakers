@@ -5,29 +5,33 @@ import { db } from "@/prisma";
 
 export async function GET(
   req: Request,
-  { params }: { params: { sizeId: string } }
+  { params }: { params: { stockId: string } }
 ) {
   try {
-    if (!params.sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
+    if (!params.stockId) {
+      return new NextResponse("Stock id is required", { status: 400 });
     }
 
-    const size = await db.size.findUnique({
+    const stock = await db.stock.findUnique({
+      include: {
+        product: true,
+        size: true,
+      },
       where: {
-        id: params.sizeId,
+        id: params.stockId,
       },
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(stock);
   } catch (error) {
-    console.log("[SIZE_GET]", error);
+    console.log("[STOCK_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { sizeId: string } }
+  { params }: { params: { stockId: string } }
 ) {
   try {
     const session = await auth();
@@ -35,7 +39,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { name } = body;
+    const { quantity } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
@@ -45,33 +49,33 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    if (!name) {
-      return new NextResponse("Name is required", { status: 400 });
+    if (!quantity) {
+      return new NextResponse("Quantity is required", { status: 400 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
+    if (!params.stockId) {
+      return new NextResponse("Stock id is required", { status: 400 });
     }
 
-    const size = await db.size.updateMany({
+    const stock = await db.stock.updateMany({
       where: {
-        id: params.sizeId,
+        id: params.stockId,
       },
       data: {
-        name,
+        quantity,
       },
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(stock);
   } catch (error) {
-    console.log("[SIZE_PATCH]", error);
+    console.log("[STOCK_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { sizeId: string } }
+  { params }: { params: { stockId: string } }
 ) {
   try {
     const session = await auth();
@@ -85,19 +89,19 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    if (!params.sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
+    if (!params.stockId) {
+      return new NextResponse("Stock id is required", { status: 400 });
     }
 
-    const size = await db.size.deleteMany({
+    const stock = await db.stock.deleteMany({
       where: {
-        id: params.sizeId,
+        id: params.stockId,
       },
     });
 
-    return NextResponse.json(size);
+    return NextResponse.json(stock);
   } catch (error) {
-    console.log("[SIZE_DELETE]", error);
+    console.log("[STOCK_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

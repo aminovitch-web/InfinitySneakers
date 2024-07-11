@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-
 import ProductClient from "./_components/client";
 import { db } from "@/prisma";
 import { ProductColumn } from "./_components/columns";
@@ -9,7 +8,11 @@ const ProductsPage = async () => {
   const products = await db.product.findMany({
     include: {
       category: true,
-      size: true,
+      sizes: {
+        include: {
+          size: true,
+        },
+      },
       color: true,
     },
     orderBy: {
@@ -24,7 +27,7 @@ const ProductsPage = async () => {
     isArchived: item.isArchived,
     price: formatter.format(item.price),
     category: item.category.name,
-    size: item.size.name,
+    sizes: item.sizes.map((size) => size.size.name).join(", "), // Multiple sizes
     color: item.color.value,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));

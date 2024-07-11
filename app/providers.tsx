@@ -23,7 +23,7 @@ export default async function Providers({ children }: ProvidersProps) {
           disableTransitionOnChange
         >
           <TooltipProvider skipDelayDuration={10000}>
-            <Toaster />
+            <Toaster position="top-right" />
             {children}
           </TooltipProvider>
         </ThemeProvider>

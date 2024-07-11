@@ -17,9 +17,10 @@ export interface Product {
   description: string;
   price: string;
   isFeatured: boolean;
-  size: Size;
+  sizes: ProductSize[];
   color: Color;
   images: Image[];
+  stocks: Stock[];
 }
 
 export interface Image {
@@ -30,7 +31,20 @@ export interface Image {
 export interface Size {
   id: string;
   name: string;
-  value: string;
+}
+
+export interface Stock {
+  id: string;
+  productId: string;
+  sizeId: string;
+  quantity: number;
+}
+
+export interface ProductSize {
+  id: string;
+  productId: string;
+  sizeId: string;
+  size: Size;
 }
 
 export interface Color {

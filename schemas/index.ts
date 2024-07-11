@@ -117,7 +117,6 @@ export const CategorySchema = z.object({
 
 export const SizeSchema = z.object({
   name: z.string().min(1),
-  value: z.string().min(1),
 });
 
 export const ColorSchema = z.object({
@@ -130,13 +129,17 @@ export const ColorSchema = z.object({
 export const ProductSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
-  images: z.object({ url: z.string() }).array(),
+  images: z.object({ url: z.string() }).array().min(1),
   price: z.coerce.number().min(1),
   categoryId: z.string().min(1),
   colorId: z.string().min(1),
-  sizeId: z.string().min(1),
+  sizes: z.object({ label: z.string(), value: z.string() }).array().min(1),
   isFeatured: z.boolean().default(false).optional(),
   isArchived: z.boolean().default(false).optional(),
+});
+
+export const StockSchema = z.object({
+  quantity: z.number(),
 });
 
 export const UserSchema = z.object({

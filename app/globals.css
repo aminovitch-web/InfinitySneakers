@@ -66,14 +66,13 @@ body,
   }
 }
 
-
 /*!
  * Quill Editor v1.3.7
  * https://quilljs.com/
  * Copyright (c) 2014, Jason Chen
  * Copyright (c) 2013, salesforce.com
  */
- .ql-container {
+.ql-container {
   box-sizing: border-box;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -138,27 +137,27 @@ body,
   list-style-type: none;
 }
 .product-description ul > li::before {
-  content: '\2022';
+  content: "\2022";
 }
-.product-description ul[data-checked=true],
-.product-description ul[data-checked=false] {
+.product-description ul[data-checked="true"],
+.product-description ul[data-checked="false"] {
   pointer-events: none;
 }
-.product-description ul[data-checked=true] > li *,
-.product-description ul[data-checked=false] > li * {
+.product-description ul[data-checked="true"] > li *,
+.product-description ul[data-checked="false"] > li * {
   pointer-events: all;
 }
-.product-description ul[data-checked=true] > li::before,
-.product-description ul[data-checked=false] > li::before {
+.product-description ul[data-checked="true"] > li::before,
+.product-description ul[data-checked="false"] > li::before {
   color: #777;
   cursor: pointer;
   pointer-events: all;
 }
-.product-description ul[data-checked=true] > li::before {
-  content: '\2611';
+.product-description ul[data-checked="true"] > li::before {
+  content: "\2611";
 }
-.product-description ul[data-checked=false] > li::before {
-  content: '\2610';
+.product-description ul[data-checked="false"] > li::before {
+  content: "\2610";
 }
 .product-description li::before {
   display: inline-block;
@@ -187,13 +186,13 @@ body,
   counter-increment: list-0;
 }
 .product-description ol li:before {
-  content: counter(list-0, decimal) '. ';
+  content: counter(list-0, decimal) ". ";
 }
 .product-description ol li.ql-indent-1 {
   counter-increment: list-1;
 }
 .product-description ol li.ql-indent-1:before {
-  content: counter(list-1, lower-alpha) '. ';
+  content: counter(list-1, lower-alpha) ". ";
 }
 .product-description ol li.ql-indent-1 {
   counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
@@ -202,7 +201,7 @@ body,
   counter-increment: list-2;
 }
 .product-description ol li.ql-indent-2:before {
-  content: counter(list-2, lower-roman) '. ';
+  content: counter(list-2, lower-roman) ". ";
 }
 .product-description ol li.ql-indent-2 {
   counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
@@ -211,7 +210,7 @@ body,
   counter-increment: list-3;
 }
 .product-description ol li.ql-indent-3:before {
-  content: counter(list-3, decimal) '. ';
+  content: counter(list-3, decimal) ". ";
 }
 .product-description ol li.ql-indent-3 {
   counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
@@ -220,7 +219,7 @@ body,
   counter-increment: list-4;
 }
 .product-description ol li.ql-indent-4:before {
-  content: counter(list-4, lower-alpha) '. ';
+  content: counter(list-4, lower-alpha) ". ";
 }
 .product-description ol li.ql-indent-4 {
   counter-reset: list-5 list-6 list-7 list-8 list-9;
@@ -229,7 +228,7 @@ body,
   counter-increment: list-5;
 }
 .product-description ol li.ql-indent-5:before {
-  content: counter(list-5, lower-roman) '. ';
+  content: counter(list-5, lower-roman) ". ";
 }
 .product-description ol li.ql-indent-5 {
   counter-reset: list-6 list-7 list-8 list-9;
@@ -238,7 +237,7 @@ body,
   counter-increment: list-6;
 }
 .product-description ol li.ql-indent-6:before {
-  content: counter(list-6, decimal) '. ';
+  content: counter(list-6, decimal) ". ";
 }
 .product-description ol li.ql-indent-6 {
   counter-reset: list-7 list-8 list-9;
@@ -247,7 +246,7 @@ body,
   counter-increment: list-7;
 }
 .product-description ol li.ql-indent-7:before {
-  content: counter(list-7, lower-alpha) '. ';
+  content: counter(list-7, lower-alpha) ". ";
 }
 .product-description ol li.ql-indent-7 {
   counter-reset: list-8 list-9;
@@ -256,7 +255,7 @@ body,
   counter-increment: list-8;
 }
 .product-description ol li.ql-indent-8:before {
-  content: counter(list-8, lower-roman) '. ';
+  content: counter(list-8, lower-roman) ". ";
 }
 .product-description ol li.ql-indent-8 {
   counter-reset: list-9;
@@ -265,7 +264,7 @@ body,
   counter-increment: list-9;
 }
 .product-description ol li.ql-indent-9:before {
-  content: counter(list-9, decimal) '. ';
+  content: counter(list-9, decimal) ". ";
 }
 .product-description .ql-indent-1:not(.ql-direction-rtl) {
   padding-left: 3em;
@@ -456,7 +455,7 @@ body,
   text-align: right;
 }
 .product-description.ql-blank::before {
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
   content: attr(data-placeholder);
   font-style: italic;
   left: 15px;
@@ -467,7 +466,7 @@ body,
 .product-description.ql-toolbar:after,
 .product-description .ql-toolbar:after {
   clear: both;
-  content: '';
+  content: "";
   display: table;
 }
 .product-description.ql-toolbar button,
@@ -490,8 +489,8 @@ body,
 .product-description .ql-toolbar button:active:hover {
   outline: none;
 }
-.product-description.ql-toolbar input.ql-image[type=file],
-.product-description .ql-toolbar input.ql-image[type=file] {
+.product-description.ql-toolbar input.ql-image[type="file"],
+.product-description .ql-toolbar input.ql-image[type="file"] {
   display: none;
 }
 .product-description.ql-toolbar button:hover,
@@ -537,7 +536,10 @@ body,
 .product-description.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
 .product-description .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
 .product-description.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
-.product-description .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+.product-description
+  .ql-toolbar
+  .ql-picker-item.ql-selected
+  .ql-stroke.ql-fill {
   fill: #06c;
 }
 .product-description.ql-toolbar button:hover .ql-stroke,
@@ -577,14 +579,22 @@ body,
   }
   .product-description.ql-toolbar button:hover:not(.ql-active) .ql-fill,
   .product-description .ql-toolbar button:hover:not(.ql-active) .ql-fill,
-  .product-description.ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill,
-  .product-description .ql-toolbar button:hover:not(.ql-active) .ql-stroke.ql-fill {
+  .product-description.ql-toolbar
+    button:hover:not(.ql-active)
+    .ql-stroke.ql-fill,
+  .product-description
+    .ql-toolbar
+    button:hover:not(.ql-active)
+    .ql-stroke.ql-fill {
     fill: #444;
   }
   .product-description.ql-toolbar button:hover:not(.ql-active) .ql-stroke,
   .product-description .ql-toolbar button:hover:not(.ql-active) .ql-stroke,
   .product-description.ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter,
-  .product-description .ql-toolbar button:hover:not(.ql-active) .ql-stroke-miter {
+  .product-description
+    .ql-toolbar
+    button:hover:not(.ql-active)
+    .ql-stroke-miter {
     stroke: #444;
   }
 }
@@ -618,7 +628,7 @@ body,
 }
 .product-description .ql-formats:after {
   clear: both;
-  content: '';
+  content: "";
   display: table;
 }
 .product-description .ql-stroke {
@@ -802,12 +812,24 @@ body,
   top: 50%;
   width: 18px;
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-label]:not([data-label=''])::before,
-.product-description .ql-picker.ql-font .ql-picker-label[data-label]:not([data-label=''])::before,
-.product-description .ql-picker.ql-size .ql-picker-label[data-label]:not([data-label=''])::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-label]:not([data-label=''])::before,
-.product-description .ql-picker.ql-font .ql-picker-item[data-label]:not([data-label=''])::before,
-.product-description .ql-picker.ql-size .ql-picker-item[data-label]:not([data-label=''])::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-label]:not([data-label=""])::before,
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-label[data-label]:not([data-label=""])::before,
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-label[data-label]:not([data-label=""])::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-label]:not([data-label=""])::before,
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-item[data-label]:not([data-label=""])::before,
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-label]:not([data-label=""])::before {
   content: attr(data-label);
 }
 .product-description .ql-picker.ql-header {
@@ -815,48 +837,84 @@ body,
 }
 .product-description .ql-picker.ql-header .ql-picker-label::before,
 .product-description .ql-picker.ql-header .ql-picker-item::before {
-  content: 'Normal';
+  content: "Normal";
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
-  content: 'Heading 1';
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-value="1"]::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="1"]::before {
+  content: "Heading 1";
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
-  content: 'Heading 2';
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-value="2"]::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="2"]::before {
+  content: "Heading 2";
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
-  content: 'Heading 3';
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-value="3"]::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="3"]::before {
+  content: "Heading 3";
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
-  content: 'Heading 4';
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-value="4"]::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="4"]::before {
+  content: "Heading 4";
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
-  content: 'Heading 5';
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-value="5"]::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="5"]::before {
+  content: "Heading 5";
 }
-.product-description .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
-  content: 'Heading 6';
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-label[data-value="6"]::before,
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="6"]::before {
+  content: "Heading 6";
 }
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="1"]::before {
   font-size: 2em;
 }
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="2"]::before {
   font-size: 1.5em;
 }
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="3"]::before {
   font-size: 1.17em;
 }
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="4"]::before {
   font-size: 1em;
 }
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="5"]::before {
   font-size: 0.83em;
 }
-.product-description .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
+.product-description
+  .ql-picker.ql-header
+  .ql-picker-item[data-value="6"]::before {
   font-size: 0.67em;
 }
 .product-description .ql-picker.ql-font {
@@ -864,20 +922,32 @@ body,
 }
 .product-description .ql-picker.ql-font .ql-picker-label::before,
 .product-description .ql-picker.ql-font .ql-picker-item::before {
-  content: 'Sans Serif';
+  content: "Sans Serif";
 }
-.product-description .ql-picker.ql-font .ql-picker-label[data-value=serif]::before,
-.product-description .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
-  content: 'Serif';
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-label[data-value="serif"]::before,
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-item[data-value="serif"]::before {
+  content: "Serif";
 }
-.product-description .ql-picker.ql-font .ql-picker-label[data-value=monospace]::before,
-.product-description .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
-  content: 'Monospace';
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-label[data-value="monospace"]::before,
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-item[data-value="monospace"]::before {
+  content: "Monospace";
 }
-.product-description .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-item[data-value="serif"]::before {
   font-family: Georgia, Times New Roman, serif;
 }
-.product-description .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+.product-description
+  .ql-picker.ql-font
+  .ql-picker-item[data-value="monospace"]::before {
   font-family: Monaco, Courier New, monospace;
 }
 .product-description .ql-picker.ql-size {
@@ -885,27 +955,45 @@ body,
 }
 .product-description .ql-picker.ql-size .ql-picker-label::before,
 .product-description .ql-picker.ql-size .ql-picker-item::before {
-  content: 'Normal';
+  content: "Normal";
 }
-.product-description .ql-picker.ql-size .ql-picker-label[data-value=small]::before,
-.product-description .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
-  content: 'Small';
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-label[data-value="small"]::before,
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-value="small"]::before {
+  content: "Small";
 }
-.product-description .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
-.product-description .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
-  content: 'Large';
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-label[data-value="large"]::before,
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-value="large"]::before {
+  content: "Large";
 }
-.product-description .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
-.product-description .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
-  content: 'Huge';
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-label[data-value="huge"]::before,
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-value="huge"]::before {
+  content: "Huge";
 }
-.product-description .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-value="small"]::before {
   font-size: 10px;
 }
-.product-description .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-value="large"]::before {
   font-size: 18px;
 }
-.product-description .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+.product-description
+  .ql-picker.ql-size
+  .ql-picker-item[data-value="huge"]::before {
   font-size: 32px;
 }
 .product-description .ql-color-picker.ql-background .ql-picker-item {
@@ -917,7 +1005,7 @@ body,
 .ql-toolbar.product-description {
   border: 1px solid #ccc;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   padding: 8px;
 }
 .ql-toolbar.product-description .ql-formats {
@@ -928,7 +1016,7 @@ body,
 }
 .ql-toolbar.product-description .ql-picker-options {
   border: 1px solid transparent;
-  box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
 }
 .ql-toolbar.product-description .ql-picker.ql-expanded .ql-picker-label {
   border-color: #ccc;
@@ -956,7 +1044,7 @@ body,
   line-height: 26px;
   margin-right: 8px;
 }
-.product-description .ql-tooltip input[type=text] {
+.product-description .ql-tooltip input[type="text"] {
   display: none;
   border: 1px solid #ccc;
   font-size: 13px;
@@ -974,12 +1062,12 @@ body,
 }
 .product-description .ql-tooltip a.ql-action::after {
   border-right: 1px solid #ccc;
-  content: 'Edit';
+  content: "Edit";
   margin-left: 16px;
   padding-right: 8px;
 }
 .product-description .ql-tooltip a.ql-remove::before {
-  content: 'Remove';
+  content: "Remove";
   margin-left: 8px;
 }
 .product-description .ql-tooltip a {
@@ -989,21 +1077,21 @@ body,
 .product-description .ql-tooltip.ql-editing a.ql-remove {
   display: none;
 }
-.product-description .ql-tooltip.ql-editing input[type=text] {
+.product-description .ql-tooltip.ql-editing input[type="text"] {
   display: inline-block;
 }
 .product-description .ql-tooltip.ql-editing a.ql-action::after {
   border-right: 0px;
-  content: 'Save';
+  content: "Save";
   padding-right: 0px;
 }
-.product-description .ql-tooltip[data-mode=link]::before {
+.product-description .ql-tooltip[data-mode="link"]::before {
   content: "Enter link:";
 }
-.product-description .ql-tooltip[data-mode=formula]::before {
+.product-description .ql-tooltip[data-mode="formula"]::before {
   content: "Enter formula:";
 }
-.product-description .ql-tooltip[data-mode=video]::before {
+.product-description .ql-tooltip[data-mode="video"]::before {
   content: "Enter video:";
 }
 .product-description a {
@@ -1011,4 +1099,18 @@ body,
 }
 .ql-container.product-description {
   border: 1px solid #ccc;
+}
+
+.css-13cymwt-control {
+  background-color: transparent !important;
+}
+
+.css-1nmdiq5-menu {
+  background-color: #ffffff !important;
+  color: #000 !important;
+}
+
+.css-1p3m7a8-multiValue {
+  background-color: #ffffff !important;
+  color: #000 !important;
 }

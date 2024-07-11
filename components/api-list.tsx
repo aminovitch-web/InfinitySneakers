@@ -23,14 +23,14 @@ export const ApiList: React.FC<ApiListProps> = ({
         variant="public"
         description={`${baseUrl}/${entityName}`}
       />
-      
+
       <ApiAlert
         title="GET"
         variant="public"
         description={`${baseUrl}/${entityName}/{${entityIdName}}`}
       />
 
-      {entityName !== "users" && (
+      {entityName !== "users" && entityName !== "stocks" && (
         <ApiAlert
           title="POST"
           variant="admin"
@@ -44,11 +44,13 @@ export const ApiList: React.FC<ApiListProps> = ({
         description={`${baseUrl}/${entityName}/{${entityIdName}}`}
       />
 
-      <ApiAlert
-        title="DELETE"
-        variant="admin"
-        description={`${baseUrl}/${entityName}/{${entityIdName}}`}
-      />
+      {entityName !== "stocks" && (
+        <ApiAlert
+          title="DELETE"
+          variant="admin"
+          description={`${baseUrl}/${entityName}/{${entityIdName}}`}
+        />
+      )}
     </>
   );
 };

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       price,
       categoryId,
       colorId,
-      sizeId,
+      sizes,
       images,
       isFeatured,
       isArchived,
@@ -54,8 +54,8 @@ export async function POST(req: Request) {
       return new NextResponse("Color id is required", { status: 400 });
     }
 
-    if (!sizeId) {
-      return new NextResponse("Size id is required", { status: 400 });
+    if (!sizes || !sizes.length) {
+      return new NextResponse("Sizes are required", { status: 400 });
     }
 
     const product = await db.product.create({
@@ -67,19 +67,35 @@ export async function POST(req: Request) {
         isArchived,
         categoryId,
         colorId,
-        sizeId,
         images: {
           createMany: {
-            data: [...images.map((image: { url: string }) => image)],
+            data: images.map((image: { url: string }) => image),
           },
         },
+        sizes: {
+          create: sizes.map((size: any) => ({
+            size: {
+              connect: { id: size?.value },
+            },
+          })),
+        },
       },
+    });
+
+    const stockData = sizes.map((size: any) => ({
+      productId: product.id,
+      sizeId: size?.value,
+      quantity: 0,
+    }));
+
+    await db.stock.createMany({
+      data: stockData,
     });
 
     return NextResponse.json(product);
   } catch (error) {
     console.log("[PRODUCTS_POST]", error);
-    return new NextResponse("Interal error", { status: 500 });
+    return new NextResponse("Internal error", { status: 500 });
   }
 }
 
@@ -91,19 +107,33 @@ export async function GET(req: Request) {
     const sizeId = searchParams.get("sizeId") || undefined;
     const isFeatured = searchParams.get("isFeatured");
 
+    const sizeFilter = sizeId
+      ? {
+          sizes: {
+            some: {
+              sizeId,
+            },
+          },
+        }
+      : {};
+
     const products = await db.product.findMany({
       where: {
         categoryId,
         colorId,
-        sizeId,
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
+        ...sizeFilter,
       },
       include: {
         images: true,
         category: true,
         color: true,
-        size: true,
+        sizes: {
+          include: {
+            size: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -113,6 +143,6 @@ export async function GET(req: Request) {
     return NextResponse.json(products);
   } catch (error) {
     console.log("[PRODUCTS_GET]", error);
-    return new NextResponse("Interal error", { status: 500 });
+    return new NextResponse("Internal error", { status: 500 });
   }
 }

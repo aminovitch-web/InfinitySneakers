@@ -9,6 +9,8 @@ import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import dynamic from "next/dynamic";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
@@ -27,11 +29,11 @@ import {
 import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Category, Color, Image, Product, Size } from "@prisma/client";
+import { Category, Color, Image, Product, Size, Stock } from "@prisma/client";
 import { ProductSchema } from "@/schemas";
 import ImageUpload from "@/components/ui/image-upload";
 import {
-  Select,
+  Select as Select2,
   SelectContent,
   SelectItem,
   SelectTrigger,
@@ -40,14 +42,10 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface ProductFormProps {
-  initialData:
-    | (Product & {
-        images: Image[];
-      })
-    | null;
+  initialData: any;
   categories: Category[];
   colors: Color[];
-  sizes: Size[];
+  sizes: any;
 }
 
 type ProductFormValues = z.infer<typeof ProductSchema>;
@@ -60,6 +58,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 }) => {
   const params = useParams();
   const router = useRouter();
+  const animatedComponents = makeAnimated();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -85,7 +84,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       price: 1,
       categoryId: "",
       colorId: "",
-      sizeId: "",
+      sizes: [],
       isFeatured: false,
       isArchived: false,
     },
@@ -129,7 +128,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       setOpen(false);
     }
   };
-  console.log(form.getValues());
 
   return (
     <>
@@ -155,8 +153,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       </div>
       <Separator />
 
-      {/* Form  and spreading the form using react hook form */}
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -170,15 +166,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 <FormLabel>Images</FormLabel>
                 <FormControl>
                   <ImageUpload
-                    value={field.value.map((image) => image.url)}
+                    value={(Array.isArray(field.value) ? field.value : []).map(
+                      (image) => image.url
+                    )}
                     disabled={loading}
                     onChange={(url) =>
                       field.onChange((field.value = [...field.value, { url }]))
                     }
                     onRemove={(url) =>
-                      field.onChange([
-                        ...field.value.filter((current) => current.url !== url),
-                      ])
+                      field.onChange(
+                        (Array.isArray(field.value) ? field.value : []).filter(
+                          (current) => current.url !== url
+                        )
+                      )
                     }
                   />
                 </FormControl>
@@ -186,7 +186,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 gap-8">
             <FormField
               control={form.control}
               name="name"
@@ -235,20 +235,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     value={field.value}
                     onChange={field.onChange}
                   />
-
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 gap-8">
             <FormField
               control={form.control}
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select
+                  <Select2
                     disabled={loading}
                     onValueChange={field.onChange}
                     value={field.value}
@@ -256,10 +255,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Select a category"
-                        />
+                        <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -269,41 +265,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         </SelectItem>
                       ))}
                     </SelectContent>
-                  </Select>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="sizeId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Size</FormLabel>
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Select a size"
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {sizes.map((size) => (
-                        <SelectItem key={size.id} value={size.id}>
-                          {size.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-
+                  </Select2>
                   <FormMessage />
                 </FormItem>
               )}
@@ -314,7 +276,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Color</FormLabel>
-                  <Select
+                  <Select2
                     disabled={loading}
                     onValueChange={field.onChange}
                     value={field.value}
@@ -322,10 +284,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Select a color"
-                        />
+                        <SelectValue placeholder="Select a color" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -335,8 +294,48 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         </SelectItem>
                       ))}
                     </SelectContent>
-                  </Select>
+                  </Select2>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+            <FormField
+              control={form.control}
+              name="sizes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sizes</FormLabel>
+                  <Select
+                    isMulti
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    isDisabled={loading}
+                    options={sizes.map((size: any) => ({
+                      value: size.id,
+                      label: size.name,
+                    }))}
+                    value={field?.value
+                      ?.map((size: any) => {
+                        const sizeData = sizes.find(
+                          (s: any) => s?.id === size?.value
+                        );
 
+                        return size
+                          ? { value: sizeData?.id, label: sizeData?.name }
+                          : null;
+                      })
+                      .filter(Boolean)}
+                    onChange={(selectedOptions) =>
+                      field.onChange(
+                        selectedOptions.map((option) => ({
+                          value: option?.value,
+                          label: option?.label,
+                        }))
+                      )
+                    }
+                  />
                   <FormMessage />
                 </FormItem>
               )}
@@ -361,12 +360,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       Featured products will be displayed on the homepage
                     </FormDescription>
                   </div>
-
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="isArchived"
@@ -387,7 +384,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       them at any time.
                     </FormDescription>
                   </div>
-
                   <FormMessage />
                 </FormItem>
               )}

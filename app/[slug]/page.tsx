@@ -1,14 +1,15 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 import getProducts from "@/actions/product/get-products";
 import ProductList from "@/components/home/product-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import WishlistCheck from "./_components/wishlist-check";
 import Currency from "@/components/currency";
 import getProduct from "@/actions/product/get-product";
 import ProductImages from "./_components/product-images";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+
+import Sizes from "./_components/sizes";
 
 interface SingleProductPageProps {
   params: {
@@ -31,9 +32,9 @@ const SingleProductPage: React.FC<SingleProductPageProps> = async ({
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-10">
       <div className="relative flex flex-col lg:flex-row gap-16">
-        {/* IMG */}
+        {/* IMGS */}
         {product?.images !== undefined ? (
-          <div className="w-full lg:w-1/2 lg:sticky top-20 h-max z-50">
+          <div className="w-full lg:w-1/2 lg:sticky top-10 h-max z-50">
             <ProductImages items={product?.images} />
           </div>
         ) : (
@@ -53,12 +54,22 @@ const SingleProductPage: React.FC<SingleProductPageProps> = async ({
             </h3>
           </div>
 
-          <div className="flex items-center  gap-4">
-            <Button variant="infinitySneakers" className="px-10 py-6 w-52 text-lg">
-              Add to Bag
-            </Button>
-            <WishlistCheck product={product} />
+          <div className="flex flex-col gap-2">
+            <h4 className="font-medium">
+              Color: <span className="font-bold">{product?.color.name}</span>
+            </h4>
+            <div className="w-10 h-10 relative cursor-pointer flex flex-wrap gap-2">
+              <Image
+                src={product?.images[0]?.url}
+                alt=""
+                fill
+                sizes="50vw"
+                className="rounded-md border-2 border-InfinitySneakers hover:scale-105 transition object-cover"
+              />
+            </div>
           </div>
+
+          <Sizes product={product} />
 
           <div
             className="product-description"
@@ -67,7 +78,7 @@ const SingleProductPage: React.FC<SingleProductPageProps> = async ({
         </div>
       </div>
 
-      <div className="mt-12 flex flex-col gap-y-4">
+      <div className="mt-16 flex flex-col gap-y-4">
         <Separator />
 
         <Tabs defaultValue="suggestedProducts" className="mt-10">

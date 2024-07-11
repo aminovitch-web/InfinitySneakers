@@ -63,6 +63,11 @@ const Menu = () => {
       isActive: pathname === "/products" ? true : false,
     },
     {
+      href: "/stocks",
+      name: "Stocks",
+      isActive: pathname === "/stocks" ? true : false,
+    },
+    {
       href: "/users",
       name: "Users",
       isActive: pathname === "/users" ? true : false,

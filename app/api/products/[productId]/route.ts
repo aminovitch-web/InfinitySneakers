@@ -9,18 +9,27 @@ export async function GET(
 ) {
   try {
     if (!params.productId) {
-      return new NextResponse("Billboard id is required", { status: 400 });
+      return new NextResponse("Product id is required", { status: 400 });
     }
 
     const product = await db.product.findUnique({
       where: {
         id: params.productId,
       },
-
       include: {
         category: true,
         color: true,
-        size: true,
+        stocks: {
+          include: {
+            product: true,
+            size: true,
+          },
+        },
+        sizes: {
+          include: {
+            size: true,
+          },
+        },
         images: true,
       },
     });
@@ -48,7 +57,7 @@ export async function PATCH(
       price,
       categoryId,
       colorId,
-      sizeId,
+      sizes,
       images,
       isFeatured,
       isArchived,
@@ -75,11 +84,11 @@ export async function PATCH(
     }
 
     if (!colorId) {
-      return new NextResponse("Color Id  is required", { status: 400 });
+      return new NextResponse("Color Id is required", { status: 400 });
     }
 
-    if (!sizeId) {
-      return new NextResponse("Size Id is required", { status: 400 });
+    if (!sizes || !sizes.length) {
+      return new NextResponse("Sizes are required", { status: 400 });
     }
 
     if (!price) {
@@ -105,14 +114,17 @@ export async function PATCH(
         price,
         categoryId,
         colorId,
-        sizeId,
+        isFeatured,
+        isArchived,
         images: {
           deleteMany: {},
         },
-        isFeatured,
-        isArchived,
+        sizes: {
+          deleteMany: {},
+        },
       },
     });
+
     const product = await db.product.update({
       where: {
         id: params.productId,
@@ -120,8 +132,15 @@ export async function PATCH(
       data: {
         images: {
           createMany: {
-            data: [...images.map((image: { url: string }) => image)],
+            data: images.map((image: { url: string }) => image),
           },
+        },
+        sizes: {
+          create: sizes.map((size: any) => ({
+            size: {
+              connect: { id: size?.value },
+            },
+          })),
         },
       },
     });
@@ -152,6 +171,12 @@ export async function DELETE(
     if (!params.productId) {
       return new NextResponse("Product id is required", { status: 400 });
     }
+
+    await db.wishlist.deleteMany({
+      where: {
+        productId: params.productId,
+      },
+    });
 
     const product = await db.product.deleteMany({
       where: {

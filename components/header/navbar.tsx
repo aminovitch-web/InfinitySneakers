@@ -50,6 +50,11 @@ const Navbar = () => {
       isActive: pathname === "/products" ? true : false,
     },
     {
+      href: "/stocks",
+      name: "Stocks",
+      isActive: pathname === "/stocks" ? true : false,
+    },
+    {
       href: "/users",
       name: "Users",
       isActive: pathname === "/users" ? true : false,
@@ -86,11 +91,11 @@ const Navbar = () => {
       {/* BIGGER SCREENS */}
       <div className="hidden lg:flex items-center justify-between gap-8 h-full">
         {/* LEFT */}
-        <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
+        <div className="w-1/3 xl:w-1/2 flex items-center gap-8">
           <Link href="/" className="text-xl font-medium tracking-wide">
             InfinitySneakers
           </Link>
-          <div className="hidden lg:flex gap-4 max-xl:text-[15px] max-xl:gap-[10px]">
+          <div className="hidden lg:flex gap-3 max-xl:text-[15px] max-xl:gap-[10px]">
             {data?.user?.role === "ADMIN"
               ? adminLinks.map((link) => (
                   <Link

@@ -9,7 +9,7 @@ export type ProductColumn = {
   id: string;
   name: string;
   price: string;
-  size: string;
+  sizes: string;
   category: string;
   color: string;
   isFeatured: boolean;
@@ -45,9 +45,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
     ),
   },
   {
-    accessorKey: "size",
+    accessorKey: "sizes",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Size" />
+      <DataTableColumnHeader column={column} title="Sizes" />
     ),
   },
   {

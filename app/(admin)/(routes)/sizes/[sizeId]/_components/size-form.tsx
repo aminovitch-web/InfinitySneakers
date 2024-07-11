@@ -49,12 +49,10 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
 
   const action = initialData ? "Save Changes" : "Create Size";
 
-  //   const origin = useOrigin();
   const form = useForm<SizeFormValues>({
     resolver: zodResolver(SizeSchema),
     defaultValues: initialData || {
       name: "",
-      value: "",
     },
   });
 
@@ -138,23 +136,6 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
                   <Input
                     disabled={loading}
                     placeholder="Size name"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="value"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Value</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={loading}
-                    placeholder="Size value"
                     {...field}
                   />
                 </FormControl>
