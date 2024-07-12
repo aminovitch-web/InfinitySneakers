@@ -4,12 +4,13 @@ import { useState } from "react";
 import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
-import Image from "next/image";
 import { IoIosLogOut } from "react-icons/io";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineLocalShipping, MdOutlineAccountCircle } from "react-icons/md";
 import { IoLogInOutline } from "react-icons/io5";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
 
 import {
   HoverCard,
@@ -29,16 +30,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Card } from "@/components/ui/card";
 import { logout } from "@/actions/logout";
+import { RootState } from "@/store/store";
+import { CartItem } from "@/types";
+import { Card } from "@/components/ui/card";
+import Currency from "@/components/currency";
+import { removeItem } from "@/store/slices/cart-slice";
 
 const NavbarIcons = () => {
   const { data } = useSession();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart);
 
   const [isUserCardOpen, setIsUserCardOpen] = useState(false);
   const [isShoppingCardOpen, setIsShoppingCardOpen] = useState(false);
-
-  const cartItems = true;
 
   const handleLinkClick = () => {
     setIsUserCardOpen(false);
@@ -69,6 +74,10 @@ const NavbarIcons = () => {
     logout().then(() => {
       window.location.replace("/login");
     });
+  };
+
+  const handleRemoveItem = (productId: string, size: string) => {
+    dispatch(removeItem({ productId, size }));
   };
 
   return (
@@ -169,7 +178,7 @@ const NavbarIcons = () => {
                         onClick={(prev) => !prev}
                       />
                       <span className="w-5 h-5 absolute -top-4 -right-3 bg-InfinitySneakers text-white rounded-full text-sm flex items-center justify-center">
-                        2
+                        {cartItems?.items?.length}
                       </span>
                     </button>
                   </TooltipTrigger>
@@ -181,97 +190,97 @@ const NavbarIcons = () => {
             </PopoverTrigger>
             <PopoverContent asChild>
               <Card className="w-[360px] p-4 absolute rounded-md shadow-md top-4 -right-4 flex flex-col gap-6 z-50">
-                {!cartItems ? (
-                  <div>Cart is Empty</div>
+                {cartItems?.items.length < 1 ? (
+                  <div className="flex flex-col gap-4">
+                    <div>Cart is Empty</div>
+                    <Button asChild variant="infinitySneakers">
+                      <Link href="/shop" onClick={handleLinkClick}>
+                        Go Shop
+                      </Link>
+                    </Button>
+                  </div>
                 ) : (
                   <div className="flex flex-col gap-6">
                     <h2 className="text-xl">Shopping Cart</h2>
                     {/* LIST */}
                     <div className="flex flex-col gap-8">
                       {/* ITEM */}
-                      <div className="flex gap-4">
-                        <Image
-                          src={
-                            "https://images.pexels.com/photos/20508967/pexels-photo-20508967/free-photo-of-adam-model-ceket-ayakta.jpeg"
-                          }
-                          alt=""
-                          width={72}
-                          height={96}
-                          className="object-cover rounded-md"
-                        />
-                        <div className="flex flex-col justify-between w-full">
-                          {/* TOP */}
-                          <div>
-                            {/* TITLE */}
-                            <div className="flex items-center justify-between gap-8">
-                              <h3 className="font-semibold">Product Name</h3>
-                              <div className="p-[6px] bg-primary-foreground rounded-sm text-sm">
-                                $49
+                      {cartItems?.items.map((item: CartItem, i) => (
+                        <div className="flex gap-4" key={i}>
+                          <div className="w-28 h-max aspect-square relative ">
+                            <Image
+                              src={item.product.images[0].url}
+                              alt={item.product.name || ""}
+                              sizes="30vw"
+                              className="rounded-lg object-cover"
+                              fill
+                            />
+                          </div>
+
+                          <div className="flex flex-col justify-between w-full">
+                            {/* TOP */}
+                            <div className="flex flex-col gap-2 mb-2">
+                              {/* TITLE */}
+                              <div className="flex items-center justify-between gap-8">
+                                <Link
+                                  href={`/shop/${item.product.slug}/${item.product.id}`}
+                                  onClick={handleLinkClick}
+                                >
+                                  <h3 className="font-semibold">
+                                    {item.product.name}
+                                  </h3>
+                                </Link>
+
+                                <div className="p-[6px] bg-primary-foreground rounded-sm text-sm">
+                                  <Currency value={item.product.price} />
+                                </div>
+                              </div>
+                              <div className="flex items-center justify-between gap-8">
+                                <h3 className="text-sm">
+                                  Color:{" "}
+                                  <span className="font-bold">
+                                    {item.product.color.name}
+                                  </span>
+                                </h3>
+                                <h3 className="text-sm">
+                                  Size:{" "}
+                                  <span className="font-bold">
+                                    {item.size.name}
+                                  </span>
+                                </h3>
                               </div>
                             </div>
-                          </div>
-                          {/* DESC */}
-                          <div className="text-sm text-gray-500">avaible</div>
-                          {/* BOTTOM */}
-                          <div className="flex justify-between text-sm items-center">
-                            <span className="text-gray-500">Qty. 2</span>
-                            <Button
-                              variant="link"
-                              className="text-InfinitySneakers"
-                            >
-                              Remove
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                      {/* ITEM */}
-                      <div className="flex gap-4">
-                        <Image
-                          src={
-                            "https://images.pexels.com/photos/20508967/pexels-photo-20508967/free-photo-of-adam-model-ceket-ayakta.jpeg"
-                          }
-                          alt=""
-                          width={72}
-                          height={96}
-                          className="object-cover rounded-md"
-                        />
-                        <div className="flex flex-col justify-between w-full">
-                          {/* TOP */}
-                          <div>
-                            {/* TITLE */}
-                            <div className="flex items-center justify-between gap-8">
-                              <h3 className="font-semibold">Product Name</h3>
-                              <div className="p-[6px] bg-primary-foreground rounded-sm text-sm">
-                                $49
-                              </div>
+                            {/* BOTTOM */}
+                            <div className="flex justify-between text-sm items-center">
+                              <span className="text-gray-500">
+                                Qty. {item.quantity}
+                              </span>
+                              <Button
+                                variant="link"
+                                className="text-InfinitySneakers"
+                                onClick={() =>
+                                  handleRemoveItem(
+                                    item.product.id,
+                                    item.size.id
+                                  )
+                                }
+                              >
+                                Remove
+                              </Button>
                             </div>
                           </div>
-                          {/* DESC */}
-                          <div className="text-sm text-gray-500">avaible</div>
-                          {/* BOTTOM */}
-                          <div className="flex justify-between text-sm items-center">
-                            <span className="text-gray-500">Qty. 2</span>
-                            <Button
-                              variant="link"
-                              className="text-InfinitySneakers"
-                            >
-                              Remove
-                            </Button>
-                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
                     {/* BOTTOM */}
                     <div>
                       <div className="flex items-center justify-between font-semibold">
                         <span>Subtotal</span>
-                        <div>$49</div>
+                        <div>
+                          <Currency value={cartItems?.totalAmount} />
+                        </div>
                       </div>
-                      <p className="text-gray-500 text-sm mt-2 mb-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Accusantium, consequuntur!
-                      </p>
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-sm mt-6">
                         <Button asChild variant="secondary">
                           <Link href="/cart" onClick={handleLinkClick}>
                             View Cart

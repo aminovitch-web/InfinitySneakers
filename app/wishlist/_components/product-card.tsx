@@ -67,7 +67,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
             <Link
-              href={`/${data?.product?.id}`}
+              href={`/shop/${data?.product.slug}/${data?.product.id}`}
               className="rounded-full flex items-center justify-center bg-white border border-InfinitySneakers shadow-md p-2 hover:scale-110 transition"
             >
               <FiShoppingCart className="text-gray-600" size={20} />

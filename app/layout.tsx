@@ -6,6 +6,7 @@ import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer";
 import Providers from "@/app/providers";
 import ParticlesBg from "@/components/particles-bg";
+import ClearOldRecentlyViewedItems from "@/components/clear-old-recently-viewed-items";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default async function RootLayout({
             {/* Background particles animation */}
             <ParticlesBg />
           </div>
+          <ClearOldRecentlyViewedItems />
         </Providers>
       </body>
     </html>

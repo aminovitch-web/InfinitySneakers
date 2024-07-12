@@ -39,6 +39,10 @@ export default auth((req): Response | void => {
     return;
   }
 
+  if (nextUrl.pathname.startsWith("/shop")) {
+    return;
+  }
+
   if (!isLoggedIn && !isPublicRoute) {
     return Response.redirect(new URL("/login", nextUrl));
   }

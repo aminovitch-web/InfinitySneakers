@@ -1,33 +1,33 @@
-import { notFound } from "next/navigation";
-import Image from "next/image";
+"use client";
 
-import getProducts from "@/actions/product/get-products";
+import { useEffect } from "react";
+import Image from "next/image";
+import { useDispatch } from "react-redux";
+
+import { addItem } from "@/store/slices/recently-viewed-slice";
+import { Product } from "@/types";
 import ProductList from "@/components/home/product-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Currency from "@/components/currency";
-import getProduct from "@/actions/product/get-product";
-import ProductImages from "./_components/product-images";
+import ProductImages from "./product-images";
 import { Separator } from "@/components/ui/separator";
+import Sizes from "./sizes";
+import RecentlyViewedItems from "./recently-viewed-items";
 
-import Sizes from "./_components/sizes";
-
-interface SingleProductPageProps {
-  params: {
-    slug: string;
-  };
+interface ProductPageContentProps {
+  product: Product;
+  suggestedProducts: Product[];
 }
 
-const SingleProductPage: React.FC<SingleProductPageProps> = async ({
-  params,
+const ProductPageContent: React.FC<ProductPageContentProps> = ({
+  product,
+  suggestedProducts,
 }) => {
-  const product = await getProduct(params.slug);
-  const suggestedProducts = await getProducts({
-    categoryId: product?.category?.id,
-  });
+  const dispatch = useDispatch();
 
-  if (!product || (Array.isArray(product) && product.length === 0)) {
-    return notFound();
-  }
+  useEffect(() => {
+    dispatch(addItem(product));
+  }, [dispatch, product]);
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-10">
@@ -100,11 +100,7 @@ const SingleProductPage: React.FC<SingleProductPageProps> = async ({
             />
           </TabsContent>
           <TabsContent value="recentlyViewedItems">
-            <ProductList
-              items={suggestedProducts.filter(
-                (item) => item.id !== product?.id
-              )}
-            />
+            <RecentlyViewedItems />
           </TabsContent>
         </Tabs>
       </div>
@@ -112,4 +108,4 @@ const SingleProductPage: React.FC<SingleProductPageProps> = async ({
   );
 };
 
-export default SingleProductPage;
+export default ProductPageContent;

@@ -134,6 +134,7 @@ model Product {
   categoryId  String
   category    Category      @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name        String
+  slug        String
   price       Float
   description String
   isFeatured  Boolean       @default(false)

@@ -2,23 +2,26 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Product, Stock } from "@/types";
+import { Product, Size } from "@/types";
 import WishlistCheck from "./wishlist-check";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "@/store/slices/cart-slice";
+import { RootState } from "@/store/store";
+import toast from "react-hot-toast";
 
 const Sizes = ({ product }: { product: Product }) => {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<Size | null>(null);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  const handleSizeClick = (sizeId: string) => {
-    setSelectedSize(sizeId);
+  const handleSizeClick = (size: Size) => {
+    setSelectedSize(size);
     setQuantity(1); // Reset quantity when size changes
   };
 
   const selectedStock = product?.stocks.find(
-    (stock) => stock.sizeId === selectedSize
+    (stock) => stock.sizeId === selectedSize?.id
   );
 
   const handleQuantity = (type: "i" | "d") => {
@@ -32,15 +35,32 @@ const Sizes = ({ product }: { product: Product }) => {
     }
   };
 
+  const getCurrentCartQuantity = () => {
+    const cartItem = cartItems.find(
+      (item) =>
+        item.product.id === product.id && item.size.id === selectedSize?.id
+    );
+    return cartItem ? cartItem.quantity : 0;
+  };
+
   const addToCart = () => {
     if (selectedSize && selectedStock) {
-      // Perform add to cart action here
-      dispatch(addItem({ product, quantity }));
+      const currentQuantityInCart = getCurrentCartQuantity();
+      const totalQuantity = currentQuantityInCart + quantity;
+
+      if (totalQuantity > selectedStock.quantity) {
+        toast.error("Unfortunately you cannot add more than this size.", {
+          position: "top-center",
+          duration: 4000,
+        });
+      } else {
+        dispatch(addItem({ product, quantity, size: selectedSize }));
+      }
     }
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 mt-4">
       <h4 className="font-medium">Select a Size</h4>
       <div className="gap-2 grid grid-cols-4">
         {product?.sizes.map((size) => {
@@ -49,11 +69,13 @@ const Sizes = ({ product }: { product: Product }) => {
           return (
             <Button
               variant={
-                selectedSize === size.sizeId ? "infinitySneakers" : "outline"
+                selectedSize?.id === size.sizeId
+                  ? "infinitySneakers"
+                  : "outline"
               }
               key={size.id}
               className="text-center"
-              onClick={() => handleSizeClick(size.sizeId)}
+              onClick={() => handleSizeClick(size.size)}
               disabled={stock && stock?.quantity < 1}
             >
               {size.size.name}

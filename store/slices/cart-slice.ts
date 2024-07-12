@@ -1,12 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-interface CartItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  total: number;
-}
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItem, Product, Size } from "@/types";
+import toast from "react-hot-toast";
 
 interface CartState {
   items: CartItem[];
@@ -22,33 +16,83 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem: (state, action) => {
-      const { product, quantity } = action.payload;
-
-      const existingItem = state.items.find((item) => item.id === product.id);
+    addItem: (
+      state,
+      action: PayloadAction<{
+        product: Product;
+        quantity: number;
+        size: Size;
+      }>
+    ) => {
+      const { product, quantity, size } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.product.id === product.id && item.size.id === size.id
+      );
 
       if (existingItem) {
         existingItem.quantity += quantity;
-        existingItem.total += product.price * quantity;
+        existingItem.total = parseFloat(
+          (existingItem.quantity * Number(product.price)).toFixed(2)
+        );
       } else {
         state.items.push({
-          id: product.id,
-          name: product.name,
+          product,
           quantity,
-          total: product.price * quantity,
-          price: product.price,
+          size,
+          total: parseFloat((Number(product.price) * quantity).toFixed(2)),
         });
       }
 
-      state.totalAmount += quantity * product.price;
+      toast.success("Your product has been added to your cart.", {
+        position: "top-center",
+        duration: 4000,
+      });
+
+      state.totalAmount = parseFloat(
+        (state.totalAmount + quantity * Number(product.price)).toFixed(2)
+      );
     },
-    removeItem: (state, action) => {
-      const { productId } = action.payload;
-      const existingItem = state.items.find((item) => item.id === productId);
+    updateItemQuantity: (
+      state,
+      action: PayloadAction<{
+        productId: string;
+        size: string;
+        quantity: number;
+      }>
+    ) => {
+      const { productId, size, quantity } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.product.id === productId && item.size.id === size
+      );
 
       if (existingItem) {
-        state.totalAmount -= existingItem.quantity * existingItem.price;
-        state.items = state.items.filter((item) => item.id !== productId);
+        state.totalAmount = parseFloat(
+          (state.totalAmount - existingItem.total).toFixed(2)
+        );
+        existingItem.quantity = quantity;
+        existingItem.total = parseFloat(
+          (quantity * Number(existingItem.product.price)).toFixed(2)
+        );
+        state.totalAmount = parseFloat(
+          (state.totalAmount + existingItem.total).toFixed(2)
+        );
+      }
+    },
+    removeItem: (
+      state,
+      action: PayloadAction<{ productId: string; size: string }>
+    ) => {
+      const { productId, size } = action.payload;
+      const existingItemIndex = state.items.findIndex(
+        (item) => item.product.id === productId && item.size.id === size
+      );
+
+      if (existingItemIndex !== -1) {
+        const existingItem = state.items[existingItemIndex];
+        state.totalAmount = parseFloat(
+          (state.totalAmount - existingItem.total).toFixed(2)
+        );
+        state.items.splice(existingItemIndex, 1);
       }
     },
     removeAll: (state) => {
@@ -58,5 +102,6 @@ const cartSlice = createSlice({
   },
 });
 
+export const { addItem, updateItemQuantity, removeItem, removeAll } =
+  cartSlice.actions;
 export const cartReducer = cartSlice.reducer;
-export const { addItem, removeItem, removeAll } = cartSlice.actions;

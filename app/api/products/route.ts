@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { db } from "@/prisma";
+import { createSlug } from "@/hooks/use-create-slug";
 
 export async function POST(req: Request) {
   try {
@@ -58,11 +59,14 @@ export async function POST(req: Request) {
       return new NextResponse("Sizes are required", { status: 400 });
     }
 
+    const slug = createSlug(name);
+
     const product = await db.product.create({
       data: {
         name,
         description,
         price,
+        slug,
         isFeatured,
         isArchived,
         categoryId,

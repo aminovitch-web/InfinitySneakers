@@ -10,20 +10,33 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
 
-const persistConfig = {
-  key: "root",
+import { cartReducer } from "./slices/cart-slice";
+import { recentlyViewedReducer } from "./slices/recently-viewed-slice";
+
+// Persist config for cart
+const cartPersistConfig = {
+  key: "cart",
   storage,
 };
 
-import { cartReducer } from "./slices/cart-slice";
+// Persist config for recentlyViewed
+const recentlyViewedPersistConfig = {
+  key: "recentlyViewed",
+  storage,
+};
 
-const persistedReducer = persistReducer(persistConfig, cartReducer);
+const rootReducer = combineReducers({
+  cart: persistReducer(cartPersistConfig, cartReducer),
+  recentlyViewed: persistReducer(
+    recentlyViewedPersistConfig,
+    recentlyViewedReducer
+  ),
+});
 
 export const store = configureStore({
-  reducer: {
-    cart: persistedReducer,
-  },
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

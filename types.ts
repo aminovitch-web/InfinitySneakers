@@ -14,6 +14,7 @@ export interface Product {
   id: string;
   category: Category;
   name: string;
+  slug: string;
   description: string;
   price: string;
   isFeatured: boolean;
@@ -21,6 +22,7 @@ export interface Product {
   color: Color;
   images: Image[];
   stocks: Stock[];
+  timestamp?: number;
 }
 
 export interface Image {
@@ -57,4 +59,11 @@ export interface Wishlist {
   id: string;
   productId: string;
   userId: string;
+}
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  size: Size
+  total: number;
 }
