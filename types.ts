@@ -64,6 +64,28 @@ export interface Wishlist {
 export interface CartItem {
   product: Product;
   quantity: number;
-  size: Size
+  size: Size;
   total: number;
+}
+
+export interface Order {
+  id: string;
+  orderItems: OrderItem[];
+  isPaid: boolean;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  totalAmount: number;
+  createdAt: Date;
+}
+
+export interface OrderItem {
+  id: string;
+  quantity: number;
+  size: string;
+  order: Order;
+  orderId: string;
+  product: Product;
+  productId: string;
 }

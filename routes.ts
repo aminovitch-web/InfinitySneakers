@@ -10,6 +10,7 @@ export const publicRoutes = [
   "/cart",
   "/contact",
   "/shop",
+  "/order-succes",
 ];
 
 /**

@@ -1,8 +1,7 @@
-import { notFound } from "next/navigation";
-
 import getProducts from "@/actions/product/get-products";
 import getProduct from "@/actions/product/get-product";
 import ProductPageContent from "./_components/product-page-content";
+import ProductRedirect from "./_components/product-redirect";
 
 interface SingleProductPageProps {
   params: {
@@ -19,15 +18,16 @@ const SingleProductPage: React.FC<SingleProductPageProps> = async ({
     categoryId: product?.category?.id,
   });
 
-  if (!product || (Array.isArray(product) && product.length === 0)) {
-    return notFound();
-  }
-
   return (
-    <ProductPageContent
-      product={product}
-      suggestedProducts={suggestedProducts}
-    />
+    <>
+      <ProductRedirect product={product} />
+      {product && (
+        <ProductPageContent
+          product={product}
+          suggestedProducts={suggestedProducts}
+        />
+      )}
+    </>
   );
 };
 

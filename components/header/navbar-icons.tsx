@@ -5,12 +5,12 @@ import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import Link from "next/link";
 import { IoIosLogOut } from "react-icons/io";
-import { CiSettings } from "react-icons/ci";
 import { MdOutlineLocalShipping, MdOutlineAccountCircle } from "react-icons/md";
 import { IoLogInOutline } from "react-icons/io5";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
+import { FaRegUserCircle } from "react-icons/fa";
 
 import {
   HoverCard,
@@ -35,7 +35,8 @@ import { RootState } from "@/store/store";
 import { CartItem } from "@/types";
 import { Card } from "@/components/ui/card";
 import Currency from "@/components/currency";
-import { removeItem } from "@/store/slices/cart-slice";
+import { removeAll, removeItem } from "@/store/slices/cart-slice";
+import onCheckout from "@/actions/checkout/checkout";
 
 const NavbarIcons = () => {
   const { data } = useSession();
@@ -54,10 +55,14 @@ const NavbarIcons = () => {
 
   const profileCardLinks = isLoggedIn
     ? [
-        { name: "Settings", href: "/settings", icon: <CiSettings size={20} /> },
+        {
+          name: "Profile",
+          href: "/profile",
+          icon: <FaRegUserCircle size={20} />,
+        },
         {
           name: "My Orders",
-          href: "/orders",
+          href: "/profile/orders",
           icon: <MdOutlineLocalShipping size={20} />,
         },
       ]
@@ -78,6 +83,12 @@ const NavbarIcons = () => {
 
   const handleRemoveItem = (productId: string, size: string) => {
     dispatch(removeItem({ productId, size }));
+  };
+
+  const onClickCheckout = () => {
+    onCheckout(cartItems?.items).then(() => {
+      dispatch(removeAll());
+    });
   };
 
   return (
@@ -286,7 +297,12 @@ const NavbarIcons = () => {
                             View Cart
                           </Link>
                         </Button>
-                        <Button variant="infinitySneakers">Checkout</Button>
+                        <Button
+                          variant="infinitySneakers"
+                          onClick={onClickCheckout}
+                        >
+                          Checkout
+                        </Button>
                       </div>
                     </div>
                   </div>

@@ -91,7 +91,7 @@ const Navbar = () => {
       {/* BIGGER SCREENS */}
       <div className="hidden lg:flex items-center justify-between gap-8 h-full">
         {/* LEFT */}
-        <div className="w-1/3 xl:w-1/2 flex items-center gap-8">
+        <div className="w-1/3 xl:w-1/2 flex items-center gap-6">
           <Link href="/" className="text-xl font-medium tracking-wide">
             InfinitySneakers
           </Link>

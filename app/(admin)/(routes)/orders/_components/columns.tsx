@@ -10,7 +10,7 @@ export type OrderColumn = {
   address: string;
   name: string;
   isPaid: boolean;
-  totalPrice: string;
+  totalAmount: string;
   products: string;
   createdAt: string;
 };
@@ -37,9 +37,9 @@ export const columns: ColumnDef<OrderColumn>[] = [
     header: "Address",
   },
   {
-    accessorKey: "totalPrice",
+    accessorKey: "totalAmount",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total Price" />
+      <DataTableColumnHeader column={column} title="Total Amount" />
     ),
   },
   {

@@ -3,14 +3,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { LuTrash } from "react-icons/lu";
+import Link from "next/link";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/store/store";
 import { CartItem } from "@/types";
-import Image from "next/image";
 import Currency from "@/components/currency";
 import { updateItemQuantity, removeItem } from "@/store/slices/cart-slice";
-import Link from "next/link";
 import Summary from "./_components/summary";
 
 const CartPage = () => {
@@ -39,7 +39,7 @@ const CartPage = () => {
         </div>
       </header>
 
-      <main className="grid lg:grid-cols-[3fr_1fr] gap-8 mt-6">
+      <main className="grid lg:grid-cols-[1.9fr_1fr] gap-8 mt-6">
         {cartItems.items.length < 1 ? (
           <div className="flex flex-col gap-6 items-start">
             <div className="flex text-neutral-500">Cart is Empty</div>

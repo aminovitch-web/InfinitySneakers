@@ -17,9 +17,12 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const Menu = () => {
   const { data } = useSession();
+  const cartItems = useSelector((state: RootState) => state.cart);
 
   const [open, setOpen] = useState(false);
   const isLoggedIn = !!data?.user;
@@ -92,7 +95,7 @@ const Menu = () => {
     },
     {
       href: "/cart",
-      name: "Cart (1)",
+      name: `Cart (${cartItems?.items?.length})`,
       isActive: pathname === "/cart" ? true : false,
     },
   ];
