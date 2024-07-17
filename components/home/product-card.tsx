@@ -54,16 +54,18 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   };
 
   return (
-    <div className="bg-transparent group cursor-pointer rounded-xl border p-3 space-y-4">
+    <div className="bg-transparent group rounded-xl border p-3 space-y-4">
       {/* Images and Actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
-        <Image
-          src={data.images?.[0].url}
-          alt="Image"
-          fill
-          sizes="30vw"
-          className="aspect-square object-cover rounded-md"
-        />
+        <Link href={`/shop/${data.slug}/${data.id}`}>
+          <Image
+            src={data.images?.[0].url}
+            alt="Image"
+            fill
+            sizes="30vw"
+            className="aspect-square object-cover rounded-md"
+          />
+        </Link>
 
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
@@ -93,7 +95,12 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       </div>
       {/* Description */}
       <div>
-        <p className="font-semibold text-lg">{data.name}</p>
+        <Link
+          href={`/shop/${data.slug}/${data.id}`}
+          className="font-semibold text-lg"
+        >
+          {data.name}
+        </Link>
         <p className="text-sm text-InfinitySneakers">{data.category.name}</p>
       </div>
       {/* Price */}

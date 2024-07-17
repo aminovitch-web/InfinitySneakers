@@ -1,7 +1,6 @@
 "use server";
 
 import qs from "query-string";
-
 import axiosInstance from "@/lib/axios";
 import { Product } from "@/types";
 
@@ -12,20 +11,22 @@ interface Query {
   colorId?: string;
   sizeId?: string;
   isFeatured?: boolean;
+  sortBy?: string; // New field for sorting
+  sortOrder?: string; // New field for sorting order
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {
+  const { sortBy, sortOrder, ...filters } = query;
+
   const url = qs.stringifyUrl({
     url: URL,
     query: {
-      colorId: query.colorId,
-      sizeId: query.sizeId,
-      categoryId: query.categoryId,
-      isFeatured: query.isFeatured,
+      ...filters,
+      orderBy: sortBy && sortOrder ? `${sortBy}:${sortOrder}` : undefined,
     },
   });
 
-  const res = await axiosInstance.get("/products");
+  const res = await axiosInstance.get(url);
 
   return res.data;
 };

@@ -108,23 +108,30 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const categoryId = searchParams.get("categoryId") || undefined;
     const colorId = searchParams.get("colorId") || undefined;
-    const sizeId = searchParams.get("sizeId") || undefined;
+    const sizeNames = decodeURIComponent(searchParams.get("sizeId") || "")
+      .split(",")
+      .filter(Boolean);
     const isFeatured = searchParams.get("isFeatured");
 
-    const sizeFilter = sizeId
-      ? {
-          sizes: {
-            some: {
-              sizeId,
+    const sizeFilter =
+      sizeNames.length > 0
+        ? {
+            sizes: {
+              some: {
+                size: {
+                  id: {
+                    in: sizeNames,
+                  },
+                },
+              },
             },
-          },
-        }
-      : {};
+          }
+        : {};
 
     const products = await db.product.findMany({
       where: {
         categoryId,
-        colorId,
+        colorId: colorId ? colorId : undefined,
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
         ...sizeFilter,

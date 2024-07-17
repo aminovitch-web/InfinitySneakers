@@ -53,21 +53,23 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   };
 
   return (
-    <div className="bg-transparent group cursor-pointer rounded-xl border p-3 space-y-4">
+    <div className="bg-transparent group rounded-xl border p-3 space-y-4">
       {/* Images and Actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
-        <Image
-          src={data?.product?.images?.[0].url}
-          alt="Image"
-          fill
-          sizes="30vw"
-          className="aspect-square object-cover rounded-md"
-        />
+        <Link href={`/shop/${data?.product?.slug}/${data?.product?.id}`}>
+          <Image
+            src={data?.product?.images?.[0].url}
+            alt="Image"
+            fill
+            sizes="30vw"
+            className="aspect-square object-cover rounded-md"
+          />
+        </Link>
 
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">
             <Link
-              href={`/shop/${data?.product.slug}/${data?.product.id}`}
+              href={`/shop/${data?.product?.slug}/${data?.product?.id}`}
               className="rounded-full flex items-center justify-center bg-white border border-InfinitySneakers shadow-md p-2 hover:scale-110 transition"
             >
               <FiShoppingCart className="text-gray-600" size={20} />
@@ -92,7 +94,12 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
       </div>
       {/* Description */}
       <div>
-        <p className="font-semibold text-lg">{data?.product?.name}</p>
+        <Link
+          href={`/shop/${data?.product?.slug}/${data?.product?.id}`}
+          className="font-semibold text-lg"
+        >
+          {data?.product?.name}
+        </Link>
         <p className="text-sm text-InfinitySneakers">
           {data?.product?.category.name}
         </p>
