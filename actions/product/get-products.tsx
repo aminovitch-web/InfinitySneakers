@@ -11,18 +11,17 @@ interface Query {
   colorId?: string;
   sizeId?: string;
   isFeatured?: boolean;
-  sortBy?: string; // New field for sorting
-  sortOrder?: string; // New field for sorting order
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {
-  const { sortBy, sortOrder, ...filters } = query;
+  const { ...filters } = query;
 
   const url = qs.stringifyUrl({
     url: URL,
     query: {
       ...filters,
-      orderBy: sortBy && sortOrder ? `${sortBy}:${sortOrder}` : undefined,
     },
   });
 

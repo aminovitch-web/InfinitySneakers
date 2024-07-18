@@ -43,7 +43,7 @@ const Filter: React.FC<FilterProps> = ({
     const query = {
       ...current,
       [valueKey]:
-        updatedValues.length > 0 ? updatedValues.join(",") : undefined, // Use 'undefined' to remove the key
+        updatedValues.length > 0 ? updatedValues.join(",") : undefined,
     };
 
     const url = qs.stringifyUrl(

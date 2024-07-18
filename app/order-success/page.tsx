@@ -17,8 +17,10 @@ import Currency from "@/components/currency";
 import getOrderDetails from "@/actions/order/get-order-details";
 import { Order } from "@/types";
 import Confetti from "@/components/ui/confetti";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const OrderSuccess = () => {
+  const user = useCurrentUser();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -105,13 +107,15 @@ const OrderSuccess = () => {
               )}
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Link
-                href="/orders"
-                className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                prefetch={false}
-              >
-                View Orders
-              </Link>
+              {user !== undefined && (
+                <Link
+                  href="/profile/orders"
+                  className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                  prefetch={false}
+                >
+                  View Orders
+                </Link>
+              )}
               <Link
                 href="/"
                 className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"

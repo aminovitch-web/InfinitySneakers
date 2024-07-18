@@ -174,7 +174,7 @@ const Menu = () => {
                     setOpen(false);
                   }}
                 >
-                  <Link href="/settings">Settings</Link>
+                  <Link href="/profile">Profile</Link>
                 </Button>
                 <Button
                   variant="outline"

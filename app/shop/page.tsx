@@ -1,15 +1,17 @@
 import getColors from "@/actions/color/get-colors";
 import getProducts from "@/actions/product/get-products";
 import getSizes from "@/actions/size/get-sizes";
-import ProductCard from "@/components/home/product-card";
-import NoResults from "@/components/no-results";
 import FiltersSection from "@/components/filters-section";
-// import getCategory from "@/actions/category/get-category"; // Uncomment if needed
+import ProductList from "./_components/product-list";
 
 interface ShopPageProps {
   searchParams: {
     colorId?: string;
     sizeId?: string;
+    sortBy?: string;
+    sortOrder?: string;
+    minPrice?: string;
+    maxPrice?: string;
   };
 }
 
@@ -35,12 +37,19 @@ const ShopPage: React.FC<ShopPageProps> = async ({ searchParams }) => {
     ? colorNameToId[searchParams.colorId]
     : undefined;
 
+  const minPrice = searchParams.minPrice
+    ? parseFloat(searchParams.minPrice)
+    : undefined;
+  const maxPrice = searchParams.maxPrice
+    ? parseFloat(searchParams.maxPrice)
+    : undefined;
+
   const products = await getProducts({
     colorId,
     sizeId: sizeIds.length > 0 ? sizeIds.join(",") : undefined,
+    minPrice,
+    maxPrice,
   });
-
-  // const category = await getCategory(); // Uncomment if needed
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-10">
@@ -49,14 +58,11 @@ const ShopPage: React.FC<ShopPageProps> = async ({ searchParams }) => {
           <FiltersSection sizes={sizes} colors={colors} />
         </div>
         <div className="mt-6 lg:col-span-4 lg:mt-0">
-          <div className="mb-4">{products.length} Products</div>
-
-          {products.length === 0 && <NoResults />}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} data={product} />
-            ))}
-          </div>
+          <ProductList
+            initialProducts={products}
+            initialSortBy={searchParams.sortBy || "createdAt"}
+            initialSortOrder={searchParams.sortOrder || "desc"}
+          />
         </div>
       </div>
     </div>

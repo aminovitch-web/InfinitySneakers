@@ -3,6 +3,7 @@ import Stripe from "stripe";
 
 import { stripe } from "@/lib/stripe";
 import { db } from "@/prisma";
+import { auth } from "@/auth";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -16,6 +17,13 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
+    const userSession = await auth();
+    const userId = userSession?.user.id;
+
+    if (!userId) {
+      return new NextResponse("Unauthenticated", { status: 401 });
+    }
+
     const { products } = await req.json();
 
     if (!products || products.length === 0) {
@@ -71,6 +79,7 @@ export async function POST(req: Request) {
         isPaid: false,
         name: "",
         email: "",
+        userId: userId || "",
         totalAmount: totalAmount,
         orderItems: {
           create: products.map((product: any) => ({

@@ -4,6 +4,20 @@ export const getUserByEmail = async (email: string) => {
   try {
     const user = await db.user.findUnique({
       include: {
+        order: {
+          include: {
+            orderItems: {
+              include: {
+                product: {
+                  include: {
+                    images: true,
+                    color: true,
+                  },
+                },
+              },
+            },
+          },
+        },
         wishlist: {
           include: {
             product: {
@@ -30,6 +44,20 @@ export const getUserById = async (id: string) => {
   try {
     const user = await db.user.findUnique({
       include: {
+        order: {
+          include: {
+            orderItems: {
+              include: {
+                product: {
+                  include: {
+                    images: true,
+                    color: true,
+                  },
+                },
+              },
+            },
+          },
+        },
         wishlist: {
           include: {
             product: {

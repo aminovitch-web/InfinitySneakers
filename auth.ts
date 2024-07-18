@@ -55,6 +55,8 @@ export const {
         session.user.email = token.email as string;
         session.user.isOAuth = token.isOAuth as boolean;
         session.user.wishlist = token.wishlist;
+        session.user.createdAt = token.createdAt;
+        session.user.order = token.order;
       }
 
       return session;
@@ -74,6 +76,8 @@ export const {
       token.email = existingUser.email;
       token.role = existingUser.role;
       token.wishlist = existingUser.wishlist;
+      token.createdAt = existingUser.createdAt;
+      token.order = existingUser.order;
 
       return token;
     },

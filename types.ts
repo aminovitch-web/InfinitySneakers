@@ -23,6 +23,7 @@ export interface Product {
   images: Image[];
   stocks: Stock[];
   timestamp?: number;
+  createdAt: Date;
 }
 
 export interface Image {
