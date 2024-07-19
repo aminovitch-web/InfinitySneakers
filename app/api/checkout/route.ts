@@ -20,10 +20,6 @@ export async function POST(req: Request) {
     const userSession = await auth();
     const userId = userSession?.user.id;
 
-    if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
-    }
-
     const { products } = await req.json();
 
     if (!products || products.length === 0) {

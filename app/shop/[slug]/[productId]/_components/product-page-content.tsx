@@ -200,7 +200,7 @@ const ProductPageContent: React.FC<ProductPageContentProps> = ({
             className={`w-1/2 h-12 flex max-lg:flex-col max-lg:h-20 max-md:w-full`}
           >
             <TabsTrigger value="suggestedProducts" className="w-full h-full">
-              WE THINK YOU'LL LIKE
+              WE THINK YOU&apos;LL LIKE
             </TabsTrigger>
             <TabsTrigger value="recentlyViewedItems" className="w-full h-full">
               RECENTLY VIEWED ITEMS
