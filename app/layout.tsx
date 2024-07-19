@@ -35,9 +35,9 @@ export default async function RootLayout({
             <ParticlesBg />
           </div>
           <ClearOldRecentlyViewedItems />
-          <GoogleAnalytics gaId="G-G98RQ0S92P" />
         </Providers>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_MEASUREMENT_ID || ""} />
     </html>
   );
 }

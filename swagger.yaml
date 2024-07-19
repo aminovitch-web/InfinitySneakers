@@ -15,13 +15,26 @@ tags:
     description: "Size management"
   - name: "Users"
     description: "User management"
+  - name: "Orders"
+    description: "Order management"
+  - name: "Reviews"
+    description: "Review management"
+  - name: "Stocks"
+    description: "Stock management"
+  - name: "Wishlist"
+    description: "Wishlist management"
+  - name: "Checkout"
+    description: "Checkout management"
+  - name: "Webhook"
+    description: "Webhook management"
 components:
   securitySchemes:
     BearerAuth:
       type: "http"
       scheme: "bearer"
       bearerFormat: "JWT"
-security: []
+security:
+  - BearerAuth: []
 paths:
   /api/billboards:
     get:
@@ -31,5 +44,2190 @@ paths:
       responses:
         "200":
           description: List of billboards successfully returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    label:
+                      type: string
+                      example: "Summer Sale"
+                    imageUrl:
+                      type: string
+                      example: "https://example.com/image.jpg"
+        "500":
+          description: Internal error
+    post:
+      summary: Create Billboard
+      tags:
+        - Billboards
+      requestBody:
+        description: Billboard object to be created
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - label
+                - imageUrl
+              properties:
+                label:
+                  type: string
+                  example: "Summer Sale"
+                imageUrl:
+                  type: string
+                  example: "https://example.com/image.jpg"
+      responses:
+        "200":
+          description: Billboard created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  label:
+                    type: string
+                    example: "Summer Sale"
+                  imageUrl:
+                    type: string
+                    example: "https://example.com/image.jpg"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "500":
+          description: Internal error
+  /api/billboards/{billboardId}:
+    get:
+      summary: Get a specific billboard
+      tags:
+        - Billboards
+      parameters:
+        - in: path
+          name: billboardId
+          required: true
+          schema:
+            type: string
+          description: ID of the billboard to retrieve
+      responses:
+        "200":
+          description: Billboard successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  label:
+                    type: string
+                    example: "Summer Sale"
+                  imageUrl:
+                    type: string
+                    example: "https://example.com/image.jpg"
+        "400":
+          description: Billboard ID is required
         "404":
-          description: Billboards not found.
+          description: Billboard not found
+        "500":
+          description: Internal error
+    patch:
+      summary: Update a specific billboard
+      tags:
+        - Billboards
+      parameters:
+        - in: path
+          name: billboardId
+          required: true
+          schema:
+            type: string
+          description: ID of the billboard to update
+      requestBody:
+        description: Billboard object with updated values
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - label
+                - imageUrl
+              properties:
+                label:
+                  type: string
+                  example: "Summer Sale Updated"
+                imageUrl:
+                  type: string
+                  example: "https://example.com/image-updated.jpg"
+      responses:
+        "200":
+          description: Billboard updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  label:
+                    type: string
+                    example: "Summer Sale Updated"
+                  imageUrl:
+                    type: string
+                    example: "https://example.com/image-updated.jpg"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "404":
+          description: Billboard not found
+        "500":
+          description: Internal error
+    delete:
+      summary: Delete a specific billboard
+      tags:
+        - Billboards
+      parameters:
+        - in: path
+          name: billboardId
+          required: true
+          schema:
+            type: string
+          description: ID of the billboard to delete
+      responses:
+        "200":
+          description: Billboard deleted successfully
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Billboard ID is required
+        "404":
+          description: Billboard not found
+        "500":
+          description: Internal error
+  /api/categories:
+    get:
+      summary: List of categories
+      tags:
+        - Categories
+      responses:
+        "200":
+          description: List of categories successfully returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    name:
+                      type: string
+                      example: "Sneakers"
+                    billboardId:
+                      type: string
+                      example: "1"
+                    slug:
+                      type: string
+                      example: "sneakers"
+        "500":
+          description: Internal error
+    post:
+      summary: Create Category
+      tags:
+        - Categories
+      requestBody:
+        description: Category object to be created
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - billboardId
+              properties:
+                name:
+                  type: string
+                  example: "Sneakers"
+                billboardId:
+                  type: string
+                  example: "1"
+      responses:
+        "200":
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Sneakers"
+                  billboardId:
+                    type: string
+                    example: "1"
+                  slug:
+                    type: string
+                    example: "sneakers"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "500":
+          description: Internal error
+  /api/categories/{categoryId}:
+    get:
+      summary: Get a specific category
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+          description: ID of the category to retrieve
+      responses:
+        "200":
+          description: Category successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Sneakers"
+                  billboardId:
+                    type: string
+                    example: "1"
+                  slug:
+                    type: string
+                    example: "sneakers"
+        "400":
+          description: Category ID is required
+        "404":
+          description: Category not found
+        "500":
+          description: Internal error
+    patch:
+      summary: Update a specific category
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+          description: ID of the category to update
+      requestBody:
+        description: Category object with updated values
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - billboardId
+              properties:
+                name:
+                  type: string
+                  example: "Sneakers Updated"
+                billboardId:
+                  type: string
+                  example: "1"
+      responses:
+        "200":
+          description: Category updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Sneakers Updated"
+                  billboardId:
+                    type: string
+                    example: "1"
+                  slug:
+                    type: string
+                    example: "sneakers-updated"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "404":
+          description: Category not found
+        "500":
+          description: Internal error
+    delete:
+      summary: Delete a specific category
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: categoryId
+          required: true
+          schema:
+            type: string
+          description: ID of the category to delete
+      responses:
+        "200":
+          description: Category deleted successfully
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Category ID is required
+        "404":
+          description: Category not found
+        "500":
+          description: Internal error
+  /api/colors:
+    get:
+      summary: List of colors
+      tags:
+        - Colors
+      responses:
+        "200":
+          description: List of colors successfully returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    name:
+                      type: string
+                      example: "Red"
+                    value:
+                      type: string
+                      example: "#FF0000"
+        "500":
+          description: Internal error
+    post:
+      summary: Create Color
+      tags:
+        - Colors
+      requestBody:
+        description: Color object to be created
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - value
+              properties:
+                name:
+                  type: string
+                  example: "Red"
+                value:
+                  type: string
+                  example: "#FF0000"
+      responses:
+        "200":
+          description: Color created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Red"
+                  value:
+                    type: string
+                    example: "#FF0000"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "500":
+          description: Internal error
+  /api/colors/{colorId}:
+    get:
+      summary: Get a specific color
+      tags:
+        - Colors
+      parameters:
+        - in: path
+          name: colorId
+          required: true
+          schema:
+            type: string
+          description: ID of the color to retrieve
+      responses:
+        "200":
+          description: Color successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Red"
+                  value:
+                    type: string
+                    example: "#FF0000"
+        "400":
+          description: Color ID is required
+        "404":
+          description: Color not found
+        "500":
+          description: Internal error
+    patch:
+      summary: Update a specific color
+      tags:
+        - Colors
+      parameters:
+        - in: path
+          name: colorId
+          required: true
+          schema:
+            type: string
+          description: ID of the color to update
+      requestBody:
+        description: Color object with updated values
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - value
+              properties:
+                name:
+                  type: string
+                  example: "Red Updated"
+                value:
+                  type: string
+                  example: "#FF0001"
+      responses:
+        "200":
+          description: Color updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Red Updated"
+                  value:
+                    type: string
+                    example: "#FF0001"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "404":
+          description: Color not found
+        "500":
+          description: Internal error
+    delete:
+      summary: Delete a specific color
+      tags:
+        - Colors
+      parameters:
+        - in: path
+          name: colorId
+          required: true
+          schema:
+            type: string
+          description: ID of the color to delete
+      responses:
+        "200":
+          description: Color deleted successfully
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Color ID is required
+        "404":
+          description: Color not found
+        "500":
+          description: Internal error
+  /api/products:
+    get:
+      summary: List of products
+      tags:
+        - Products
+      parameters:
+        - in: query
+          name: categoryId
+          schema:
+            type: string
+          description: ID of the category to filter products by
+        - in: query
+          name: colorId
+          schema:
+            type: string
+          description: ID of the color to filter products by
+        - in: query
+          name: sizeId
+          schema:
+            type: string
+          description: Comma-separated list of size IDs to filter products by
+        - in: query
+          name: isFeatured
+          schema:
+            type: boolean
+          description: Filter by featured products
+        - in: query
+          name: minPrice
+          schema:
+            type: number
+            format: float
+          description: Minimum price to filter products by
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+            format: float
+          description: Maximum price to filter products by
+      responses:
+        "200":
+          description: List of products successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    name:
+                      type: string
+                      example: "Sneaker XYZ"
+                    description:
+                      type: string
+                      example: "Comfortable and stylish sneakers"
+                    price:
+                      type: number
+                      format: float
+                      example: 99.99
+                    slug:
+                      type: string
+                      example: "sneaker-xyz"
+                    isFeatured:
+                      type: boolean
+                      example: true
+                    isArchived:
+                      type: boolean
+                      example: false
+                    categoryId:
+                      type: string
+                      example: "1"
+                    colorId:
+                      type: string
+                      example: "1"
+                    images:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                            example: "https://example.com/image.jpg"
+                    sizes:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          size:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: "1"
+                              name:
+                                type: string
+                                example: "Size 42"
+        "500":
+          description: Internal error
+    post:
+      summary: Create a product
+      tags:
+        - Products
+      requestBody:
+        description: Product object to be created
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description
+                - price
+                - categoryId
+                - colorId
+                - sizes
+                - images
+              properties:
+                name:
+                  type: string
+                  example: "Sneaker XYZ"
+                description:
+                  type: string
+                  example: "Comfortable and stylish sneakers"
+                price:
+                  type: number
+                  format: float
+                  example: 99.99
+                categoryId:
+                  type: string
+                  example: "1"
+                colorId:
+                  type: string
+                  example: "1"
+                sizes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                        example: "1"
+                images:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                        example: "https://example.com/image.jpg"
+                isFeatured:
+                  type: boolean
+                  example: true
+                isArchived:
+                  type: boolean
+                  example: false
+      responses:
+        "200":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Sneaker XYZ"
+                  description:
+                    type: string
+                    example: "Comfortable and stylish sneakers"
+                  price:
+                    type: number
+                    format: float
+                    example: 99.99
+                  slug:
+                    type: string
+                    example: "sneaker-xyz"
+                  isFeatured:
+                    type: boolean
+                    example: true
+                  isArchived:
+                    type: boolean
+                    example: false
+                  categoryId:
+                    type: string
+                    example: "1"
+                  colorId:
+                    type: string
+                    example: "1"
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          example: "https://example.com/image.jpg"
+                  sizes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        size:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "1"
+                            name:
+                              type: string
+                              example: "Size 42"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "500":
+          description: Internal error
+
+  /api/products/{productId}:
+    get:
+      summary: Get a specific product
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+          description: ID of the product to retrieve
+      responses:
+        "200":
+          description: Product successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Sneaker XYZ"
+                  description:
+                    type: string
+                    example: "Comfortable and stylish sneakers"
+                  price:
+                    type: number
+                    format: float
+                    example: 99.99
+                  slug:
+                    type: string
+                    example: "sneaker-xyz"
+                  isFeatured:
+                    type: boolean
+                    example: true
+                  isArchived:
+                    type: boolean
+                    example: false
+                  categoryId:
+                    type: string
+                    example: "1"
+                  colorId:
+                    type: string
+                    example: "1"
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          example: "https://example.com/image.jpg"
+                  sizes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        size:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "1"
+                            name:
+                              type: string
+                              example: "Size 42"
+                  stocks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        size:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "1"
+                            name:
+                              type: string
+                              example: "Size 42"
+                        quantity:
+                          type: integer
+                          example: 10
+        "400":
+          description: Product ID is required
+        "404":
+          description: Product not found
+        "500":
+          description: Internal error
+    patch:
+      summary: Update a specific product
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+          description: ID of the product to update
+      requestBody:
+        description: Product object with updated values
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description
+                - price
+                - categoryId
+                - colorId
+                - sizes
+                - images
+              properties:
+                name:
+                  type: string
+                  example: "Sneaker XYZ"
+                description:
+                  type: string
+                  example: "Comfortable and stylish sneakers"
+                price:
+                  type: number
+                  format: float
+                  example: 99.99
+                categoryId:
+                  type: string
+                  example: "1"
+                colorId:
+                  type: string
+                  example: "1"
+                sizes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                        example: "1"
+                images:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                        example: "https://example.com/image.jpg"
+                isFeatured:
+                  type: boolean
+                  example: true
+                isArchived:
+                  type: boolean
+                  example: false
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Sneaker XYZ"
+                  description:
+                    type: string
+                    example: "Comfortable and stylish sneakers"
+                  price:
+                    type: number
+                    format: float
+                    example: 99.99
+                  slug:
+                    type: string
+                    example: "sneaker-xyz"
+                  isFeatured:
+                    type: boolean
+                    example: true
+                  isArchived:
+                    type: boolean
+                    example: false
+                  categoryId:
+                    type: string
+                    example: "1"
+                  colorId:
+                    type: string
+                    example: "1"
+                  images:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          example: "https://example.com/image.jpg"
+                  sizes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        size:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: "1"
+                            name:
+                              type: string
+                              example: "Size 42"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "404":
+          description: Product not found
+        "500":
+          description: Internal error
+    delete:
+      summary: Delete a specific product
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+          description: ID of the product to delete
+      responses:
+        "200":
+          description: Product deleted successfully
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Product ID is required
+        "404":
+          description: Product not found
+        "500":
+          description: Internal error
+  /api/sizes:
+    get:
+      summary: List of sizes
+      tags:
+        - Sizes
+      responses:
+        "200":
+          description: List of sizes successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    name:
+                      type: string
+                      example: "Size 42"
+        "500":
+          description: Internal error
+    post:
+      summary: Create a new size
+      tags:
+        - Sizes
+      requestBody:
+        description: Size object to be created
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  example: "Size 42"
+      responses:
+        "200":
+          description: Size created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Size 42"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "500":
+          description: Internal error
+
+  /api/sizes/{sizeId}:
+    get:
+      summary: Get a specific size
+      tags:
+        - Sizes
+      parameters:
+        - in: path
+          name: sizeId
+          required: true
+          schema:
+            type: string
+          description: ID of the size to retrieve
+      responses:
+        "200":
+          description: Size successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Size 42"
+        "400":
+          description: Size ID is required
+        "404":
+          description: Size not found
+        "500":
+          description: Internal error
+    patch:
+      summary: Update a specific size
+      tags:
+        - Sizes
+      parameters:
+        - in: path
+          name: sizeId
+          required: true
+          schema:
+            type: string
+          description: ID of the size to update
+      requestBody:
+        description: Size object with updated values
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  example: "Size 42"
+      responses:
+        "200":
+          description: Size updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "Size 42"
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "404":
+          description: Size not found
+        "500":
+          description: Internal error
+    delete:
+      summary: Delete a specific size
+      tags:
+        - Sizes
+      parameters:
+        - in: path
+          name: sizeId
+          required: true
+          schema:
+            type: string
+          description: ID of the size to delete
+      responses:
+        "200":
+          description: Size deleted successfully
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Size ID is required
+        "404":
+          description: Size not found
+        "500":
+          description: Internal error
+  /api/users:
+    get:
+      summary: List of users
+      tags:
+        - Users
+      responses:
+        "200":
+          description: List of users successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    name:
+                      type: string
+                      example: "John"
+                    surname:
+                      type: string
+                      example: "Doe"
+                    email:
+                      type: string
+                      example: "john.doe@example.com"
+                    role:
+                      type: string
+                      example: "ADMIN"
+                    active:
+                      type: boolean
+                      example: true
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "500":
+          description: Internal error
+
+  /api/users/{userId}:
+    get:
+      summary: Get a specific user
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user to retrieve
+      responses:
+        "200":
+          description: User successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "John"
+                  surname:
+                    type: string
+                    example: "Doe"
+                  email:
+                    type: string
+                    example: "john.doe@example.com"
+                  role:
+                    type: string
+                    example: "ADMIN"
+                  active:
+                    type: boolean
+                    example: true
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: User ID is required
+        "404":
+          description: User not found
+        "500":
+          description: Internal error
+    patch:
+      summary: Update a specific user
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user to update
+      requestBody:
+        description: User object with updated values
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - role
+              properties:
+                name:
+                  type: string
+                  example: "John"
+                surname:
+                  type: string
+                  example: "Doe"
+                email:
+                  type: string
+                  example: "john.doe@example.com"
+                role:
+                  type: string
+                  example: "ADMIN"
+                active:
+                  type: boolean
+                  example: true
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  name:
+                    type: string
+                    example: "John"
+                  surname:
+                    type: string
+                    example: "Doe"
+                  email:
+                    type: string
+                    example: "john.doe@example.com"
+                  role:
+                    type: string
+                    example: "ADMIN"
+                  active:
+                    type: boolean
+                    example: true
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: Bad request
+        "404":
+          description: User not found
+        "500":
+          description: Internal error
+    delete:
+      summary: Delete a specific user
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user to delete
+      responses:
+        "200":
+          description: User deleted successfully
+        "401":
+          description: Unauthenticated
+        "403":
+          description: Unauthorized
+        "400":
+          description: User ID is required or you cannot delete your own account
+        "404":
+          description: User not found
+        "500":
+          description: Internal error
+  /api/orders:
+    get:
+      summary: List of orders
+      tags:
+        - Orders
+      responses:
+        "200":
+          description: List of orders successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    userId:
+                      type: string
+                      example: "123"
+                    address:
+                      type: object
+                      properties:
+                        street:
+                          type: string
+                          example: "123 Main St"
+                        city:
+                          type: string
+                          example: "Metropolis"
+                        postalCode:
+                          type: string
+                          example: "12345"
+                    email:
+                      type: string
+                      example: "user@example.com"
+                    paymentStatus:
+                      type: string
+                      example: "Completed"
+                    name:
+                      type: string
+                      example: "John Doe"
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          productId:
+                            type: string
+                            example: "456"
+                          quantity:
+                            type: integer
+                            example: 2
+                          size:
+                            type: string
+                            example: "M"
+        "500":
+          description: Internal error
+
+  /api/orders/{orderId}:
+    get:
+      summary: Get a specific order
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema:
+            type: string
+          description: ID of the order to retrieve
+      responses:
+        "200":
+          description: Order successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  userId:
+                    type: string
+                    example: "123"
+                  address:
+                    type: object
+                    properties:
+                      street:
+                        type: string
+                        example: "123 Main St"
+                      city:
+                        type: string
+                        example: "Metropolis"
+                      postalCode:
+                        type: string
+                        example: "12345"
+                  email:
+                    type: string
+                    example: "user@example.com"
+                  paymentStatus:
+                    type: string
+                    example: "Completed"
+                  name:
+                    type: string
+                    example: "John Doe"
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productId:
+                          type: string
+                          example: "456"
+                        quantity:
+                          type: integer
+                          example: 2
+                        size:
+                          type: string
+                          example: "M"
+        "400":
+          description: Order ID is required
+        "404":
+          description: Order not found
+        "500":
+          description: Internal error
+  /api/reviews:
+    post:
+      summary: Create a review
+      tags:
+        - Reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                  example: "456"
+                content:
+                  type: string
+                  example: "Great product, would buy again!"
+                rating:
+                  type: integer
+                  example: 5
+      responses:
+        "200":
+          description: Review successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "789"
+                  userId:
+                    type: string
+                    example: "123"
+                  productId:
+                    type: string
+                    example: "456"
+                  content:
+                    type: string
+                    example: "Great product, would buy again!"
+                  rating:
+                    type: integer
+                    example: 5
+                  isApproved:
+                    type: boolean
+                    example: false
+        "400":
+          description: Missing required fields
+        "403":
+          description: User must purchase the product to leave a review
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+
+    get:
+      summary: List approved reviews for a product
+      tags:
+        - Reviews
+      parameters:
+        - in: query
+          name: productId
+          required: true
+          schema:
+            type: string
+          description: ID of the product to retrieve reviews for
+      responses:
+        "200":
+          description: List of reviews successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "789"
+                    userId:
+                      type: string
+                      example: "123"
+                    productId:
+                      type: string
+                      example: "456"
+                    content:
+                      type: string
+                      example: "Great product, would buy again!"
+                    rating:
+                      type: integer
+                      example: 5
+                    isApproved:
+                      type: boolean
+                      example: true
+                    user:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "John Doe"
+                        image:
+                          type: string
+                          example: "https://example.com/image.jpg"
+        "400":
+          description: Product ID is required
+        "500":
+          description: Internal error
+
+  /api/reviews/{reviewId}:
+    get:
+      summary: Get a specific review
+      tags:
+        - Reviews
+      parameters:
+        - in: path
+          name: reviewId
+          required: true
+          schema:
+            type: string
+          description: ID of the review to retrieve
+      responses:
+        "200":
+          description: Review successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "789"
+                  userId:
+                    type: string
+                    example: "123"
+                  productId:
+                    type: string
+                    example: "456"
+                  content:
+                    type: string
+                    example: "Great product, would buy again!"
+                  rating:
+                    type: integer
+                    example: 5
+                  isApproved:
+                    type: boolean
+                    example: true
+                  product:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "456"
+                      name:
+                        type: string
+                        example: "Product Name"
+        "400":
+          description: Review ID is required
+        "404":
+          description: Review not found
+        "500":
+          description: Internal error
+
+    patch:
+      summary: Update a review's approval status
+      tags:
+        - Reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isApproved:
+                  type: boolean
+                  example: true
+      responses:
+        "200":
+          description: Review successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "789"
+                  userId:
+                    type: string
+                    example: "123"
+                  productId:
+                    type: string
+                    example: "456"
+                  content:
+                    type: string
+                    example: "Great product, would buy again!"
+                  rating:
+                    type: integer
+                    example: 5
+                  isApproved:
+                    type: boolean
+                    example: true
+        "400":
+          description: Review ID is required
+        "403":
+          description: User is unauthorized to update review
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+
+    delete:
+      summary: Delete a review
+      tags:
+        - Reviews
+      parameters:
+        - in: path
+          name: reviewId
+          required: true
+          schema:
+            type: string
+          description: ID of the review to delete
+      responses:
+        "200":
+          description: Review successfully deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "789"
+                  userId:
+                    type: string
+                    example: "123"
+                  productId:
+                    type: string
+                    example: "456"
+                  content:
+                    type: string
+                    example: "Great product, would buy again!"
+                  rating:
+                    type: integer
+                    example: 5
+                  isApproved:
+                    type: boolean
+                    example: false
+        "400":
+          description: Review ID is required
+        "403":
+          description: User is unauthorized to delete review
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+  /api/stocks:
+    get:
+      summary: List all stocks
+      tags:
+        - Stocks
+      responses:
+        "200":
+          description: List of stocks successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    productId:
+                      type: string
+                      example: "456"
+                    sizeId:
+                      type: string
+                      example: "789"
+                    quantity:
+                      type: integer
+                      example: 50
+                    product:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "Product Name"
+                    size:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "Large"
+        "401":
+          description: User is unauthenticated
+        "403":
+          description: User is unauthorized
+        "500":
+          description: Internal error
+
+  /api/stocks/{stockId}:
+    get:
+      summary: Get a specific stock
+      tags:
+        - Stocks
+      parameters:
+        - in: path
+          name: stockId
+          required: true
+          schema:
+            type: string
+          description: ID of the stock to retrieve
+      responses:
+        "200":
+          description: Stock successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  productId:
+                    type: string
+                    example: "456"
+                  sizeId:
+                    type: string
+                    example: "789"
+                  quantity:
+                    type: integer
+                    example: 50
+                  product:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Product Name"
+                  size:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Large"
+        "400":
+          description: Stock ID is required
+        "404":
+          description: Stock not found
+        "500":
+          description: Internal error
+
+    patch:
+      summary: Update stock quantity
+      tags:
+        - Stocks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  example: 30
+      responses:
+        "200":
+          description: Stock successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  productId:
+                    type: string
+                    example: "456"
+                  sizeId:
+                    type: string
+                    example: "789"
+                  quantity:
+                    type: integer
+                    example: 30
+                  product:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Product Name"
+                  size:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Large"
+        "400":
+          description: Stock ID or quantity is required
+        "403":
+          description: User is unauthorized
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+
+    delete:
+      summary: Delete a stock
+      tags:
+        - Stocks
+      parameters:
+        - in: path
+          name: stockId
+          required: true
+          schema:
+            type: string
+          description: ID of the stock to delete
+      responses:
+        "200":
+          description: Stock successfully deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  productId:
+                    type: string
+                    example: "456"
+                  sizeId:
+                    type: string
+                    example: "789"
+                  quantity:
+                    type: integer
+                    example: 50
+        "400":
+          description: Stock ID is required
+        "403":
+          description: User is unauthorized
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+  /api/wishlist:
+    get:
+      summary: List all wishlists
+      tags:
+        - Wishlist
+      responses:
+        "200":
+          description: List of wishlists successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    userId:
+                      type: string
+                      example: "123"
+                    productId:
+                      type: string
+                      example: "456"
+                    product:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "Product Name"
+                        category:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: "Category Name"
+                        images:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              url:
+                                type: string
+                                example: "https://example.com/image.jpg"
+        "401":
+          description: User is unauthenticated
+        "403":
+          description: User is unauthorized
+        "500":
+          description: Internal error
+
+  /api/wishlist/{userId}:
+    get:
+      summary: Get a specific user's wishlist
+      tags:
+        - Wishlist
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user whose wishlist is to be retrieved
+      responses:
+        "200":
+          description: Wishlist for the specified user successfully returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    userId:
+                      type: string
+                      example: "123"
+                    productId:
+                      type: string
+                      example: "456"
+                    product:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "Product Name"
+                        category:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: "Category Name"
+                        images:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              url:
+                                type: string
+                                example: "https://example.com/image.jpg"
+        "400":
+          description: User ID is required
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+
+    post:
+      summary: Add or remove a product from the user's wishlist
+      tags:
+        - Wishlist
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user whose wishlist is to be updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                  example: "456"
+      responses:
+        "200":
+          description: Wishlist successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1"
+                  userId:
+                    type: string
+                    example: "123"
+                  productId:
+                    type: string
+                    example: "456"
+        "400":
+          description: User ID or Product ID is required
+        "401":
+          description: User is unauthenticated
+        "500":
+          description: Internal error
+  /api/checkout:
+    options:
+      summary: CORS preflight request
+      tags:
+        - Checkout
+      responses:
+        "200":
+          description: CORS headers set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "OK"
+        "500":
+          description: Internal server error
+
+    post:
+      summary: Create a Stripe Checkout session
+      tags:
+        - Checkout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "productId123"
+                      quantity:
+                        type: integer
+                        example: 2
+                      size:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: "Large"
+      responses:
+        "200":
+          description: Stripe Checkout session URL successfully returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: "https://checkout.stripe.com/pay/xyz123"
+        "400":
+          description: Bad request - missing products or invalid data
+        "500":
+          description: Internal server error
+  /api/webhook:
+    post:
+      summary: Handle Stripe webhook events
+      tags:
+        - Webhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  description: The raw body of the webhook event
+                signature:
+                  type: string
+                  description: The Stripe-Signature header for event verification
+      responses:
+        "200":
+          description: Webhook event successfully processed
+        "400":
+          description: Bad request - Error in processing the webhook
+        "500":
+          description: Internal server error - Database or other server issues
