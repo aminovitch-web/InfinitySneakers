@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { useRouter } from "next/navigation";
-import { Form, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { ReviewSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -61,6 +59,7 @@ const ReviewForm: React.FC<BillboardFormProps> = ({ productId }) => {
   return (
     <div>
       <div className="grid gap-4">
+        <h3 className="text-xl font-bold max-sm:text-lg">Share your Review</h3>
         <div className="grid gap-4">
           <FormProvider {...formMethods}>
             <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -69,10 +68,11 @@ const ReviewForm: React.FC<BillboardFormProps> = ({ productId }) => {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid gap-2">
-                      <FormLabel>Content</FormLabel>
+                      <FormLabel htmlFor="content">Content</FormLabel>
                       <FormControl>
                         <Textarea
                           id="content"
+                          rows={3}
                           placeholder="Share your thoughts..."
                           disabled={loading}
                           {...field}
@@ -88,7 +88,7 @@ const ReviewForm: React.FC<BillboardFormProps> = ({ productId }) => {
                 name="rating"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Star Rating</FormLabel>
+                    <FormLabel>Rating</FormLabel>
                     <FormControl>
                       <div className="flex items-center">
                         {[1, 2, 3, 4, 5].map((value) => (
@@ -110,6 +110,8 @@ const ReviewForm: React.FC<BillboardFormProps> = ({ productId }) => {
                 disabled={loading}
                 type="submit"
                 variant="infinitySneakers"
+                className="w-fit"
+                size="xl"
               >
                 Submit Review
               </Button>

@@ -42,6 +42,7 @@ export const columns: ColumnDef<UserColumn>[] = [
   {
     accessorKey: "active",
     header: "Active",
+    cell: ({ row }) => <div>{row.original.active === true ? "✅" : "❌"}</div>,
   },
   {
     accessorKey: "createdAt",

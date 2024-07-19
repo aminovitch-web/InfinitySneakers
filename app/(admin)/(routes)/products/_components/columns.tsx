@@ -27,10 +27,16 @@ export const columns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: "isArchived",
     header: "Archived",
+    cell: ({ row }) => (
+      <div>{row.original.isArchived === true ? "✅" : "❌"}</div>
+    ),
   },
   {
     accessorKey: "isFeatured",
     header: "Featured",
+    cell: ({ row }) => (
+      <div>{row.original.isFeatured === true ? "✅" : "❌"}</div>
+    ),
   },
   {
     accessorKey: "price",

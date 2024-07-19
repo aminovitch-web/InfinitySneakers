@@ -158,3 +158,10 @@ export const ReviewSchema = z.object({
   content: z.string().min(1),
   rating: z.number().min(1),
 });
+
+export const ReviewFormSchema = z.object({
+  productId: z.string().min(1),
+  content: z.string().min(1),
+  rating: z.number().min(1),
+  isApproved: z.boolean(),
+});

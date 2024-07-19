@@ -30,13 +30,15 @@ export const ApiList: React.FC<ApiListProps> = ({
         description={`${baseUrl}/${entityName}/{${entityIdName}}`}
       />
 
-      {entityName !== "users" && entityName !== "stocks" && (
-        <ApiAlert
-          title="POST"
-          variant="admin"
-          description={`${baseUrl}/${entityName}`}
-        />
-      )}
+      {entityName !== "users" &&
+        entityName !== "stocks" &&
+        entityName !== "reviews" && (
+          <ApiAlert
+            title="POST"
+            variant="admin"
+            description={`${baseUrl}/${entityName}`}
+          />
+        )}
 
       <ApiAlert
         title="PATCH"

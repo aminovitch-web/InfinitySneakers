@@ -55,6 +55,11 @@ const Navbar = () => {
       isActive: pathname === "/stocks" ? true : false,
     },
     {
+      href: "/reviews",
+      name: "Reviews",
+      isActive: pathname === "/reviews" ? true : false,
+    },
+    {
       href: "/users",
       name: "Users",
       isActive: pathname === "/users" ? true : false,

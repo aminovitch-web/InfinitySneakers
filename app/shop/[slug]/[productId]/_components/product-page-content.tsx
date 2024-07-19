@@ -18,6 +18,7 @@ import ReviewForm from "./review-form";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import axiosInstance from "@/lib/axios";
+import ReviewsSort from "@/components/reviews-sort";
 
 interface ProductPageContentProps {
   product: Product;
@@ -30,6 +31,8 @@ const ProductPageContent: React.FC<ProductPageContentProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [reviews, setReviews] = useState<any[]>([]);
+  const [sortBy, setSortBy] = useState<string>("createdAt");
+  const [sortOrder, setSortOrder] = useState<string>("desc");
   const user = useCurrentUser();
 
   useEffect(() => {
@@ -60,6 +63,24 @@ const ProductPageContent: React.FC<ProductPageContentProps> = ({
   const hasPurchasedProduct = user?.order?.some((order: any) =>
     order.orderItems.some((item: any) => item.productId === product.id)
   );
+
+  // Sort reviews based on the selected criteria
+  const sortedReviews = reviews.sort((a, b) => {
+    if (sortBy === "createdAt") {
+      return sortOrder === "asc"
+        ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        : new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    } else if (sortBy === "rating") {
+      return sortOrder === "asc" ? a.rating - b.rating : b.rating - a.rating;
+    }
+    return 0;
+  });
+
+  const handleSortChange = (value: string) => {
+    const [sortField, sortDirection] = value.split(":");
+    setSortBy(sortField);
+    setSortOrder(sortDirection);
+  };
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-10">
@@ -114,12 +135,23 @@ const ProductPageContent: React.FC<ProductPageContentProps> = ({
       </div>
 
       <div className="mt-16 flex flex-col gap-y-4">
-        <Separator />
-        <h2 className="text-3xl font-bold mb-4">Product Reviews</h2>
-
         {user && hasPurchasedProduct && <ReviewForm productId={product.id} />}
-        <ul className="flex flex-col gap-4 mt-12">
-          {reviews?.map((review) => (
+
+        {reviews?.length > 0 && (
+          <div className="mt-4">
+            <Separator />
+            <div className="flex items-center justify-between mt-4">
+              <h2 className="text-3xl font-bold max-sm:text-lg">Product Reviews</h2>
+              <ReviewsSort
+                sortBy={sortBy}
+                sortOrder={sortOrder}
+                onChange={handleSortChange}
+              />
+            </div>
+          </div>
+        )}
+        <ul className="flex flex-col gap-4 mt-6">
+          {sortedReviews?.map((review) => (
             <div key={review.id} className="flex gap-4">
               <Avatar className="w-10 h-10 border">
                 <AvatarImage src={review?.user?.image || ""} />
