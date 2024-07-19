@@ -2,8 +2,11 @@ import Link from "next/link";
 import { FiFacebook } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLogoInstagram } from "react-icons/io5";
+import getCategories from "@/actions/category/get-categories";
 
-const Footer = () => {
+const Footer = async () => {
+  const categories = await getCategories();
+
   return (
     <footer className="bg-primary-foreground py-12 md:py-16 lg:py-20 mt-10">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -13,30 +16,15 @@ const Footer = () => {
               Categories
             </h3>
             <nav className="grid gap-2">
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
-              >
-                Women
-              </Link>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
-              >
-                Men
-              </Link>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
-              >
-                Kids
-              </Link>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
-              >
-                Accessories
-              </Link>
+              {categories?.map((category) => (
+                <Link
+                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                  href={`/category/${category.slug}`}
+                  key={category.id}
+                >
+                  {category.name}
+                </Link>
+              ))}
             </nav>
           </div>
           <div className="grid gap-4">
@@ -69,12 +57,6 @@ const Footer = () => {
               Contact
             </h3>
             <nav className="grid gap-2">
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
-              >
-                Help Center
-              </Link>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
@@ -117,7 +99,8 @@ const Footer = () => {
         </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 dark:text-gray-400">
-            © 2024 InfinitySneakers. All rights reserved.
+            &copy; {new Date().getFullYear()} InfinitySneakers. All rights
+            reserved.
           </p>
         </div>
       </div>

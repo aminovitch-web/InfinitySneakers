@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { db } from "@/prisma";
+import { createSlug } from "@/hooks/use-create-slug";
 
 export async function POST(req: Request) {
   try {
@@ -28,10 +29,13 @@ export async function POST(req: Request) {
       return new NextResponse("Billboard id is required", { status: 400 });
     }
 
+    const slug = createSlug(name);
+
     const category = await db.category.create({
       data: {
         name,
         billboardId,
+        slug,
       },
     });
 
@@ -44,7 +48,17 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const categories = await db.category.findMany();
+    const categories = await db.category.findMany({
+      include: {
+        billboard: true,
+        products: {
+          include: {
+            images: true,
+            color: true,
+          },
+        },
+      },
+    });
 
     return NextResponse.json(categories);
   } catch (error) {

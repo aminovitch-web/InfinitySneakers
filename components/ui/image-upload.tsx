@@ -13,6 +13,8 @@ interface ImageUploadProps {
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
+  multiple?: boolean;
+  isProfile?: boolean;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -20,6 +22,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   onChange,
   onRemove,
   value,
+  multiple = true,
+  isProfile,
 }) => {
   // to prevent hydration error
   const [isMounted, setIsMounted] = useState(false);
@@ -42,9 +46,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         {value.map((url) => (
           <div
             key={url}
-            className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
+            className={`relative overflow-hidden ${
+              isProfile
+                ? "w-40 h-40 rounded-md"
+                : "w-[200px] h-[200px] rounded-md"
+            }`}
           >
-            <div className="z-10 absolute top-2 right-2">
+            <div className={`z-10 absolute top-2 right-2`}>
               <Button
                 type="button"
                 onClick={() => onRemove(url)}
@@ -60,8 +68,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       </div>
       <CldUploadWidget
         onSuccess={onUpload}
-        uploadPreset="qgwkfwrn"
-        options={{ multiple: true }}
+        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || ""}
+        options={{ multiple: multiple }}
       >
         {({ open }) => {
           const onClick = () => {

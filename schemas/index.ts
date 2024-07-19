@@ -78,9 +78,12 @@ export const SearchSchema = z.object({
 
 export const SettingSchema = z
   .object({
+    image: z.string().url(),
     name: z.optional(z.string()),
     surname: z.optional(z.string()),
     email: z.optional(z.string().email()),
+    phone: z.optional(z.string()),
+    address: z.optional(z.string()),
     password: z.optional(
       z.string().min(6, {
         message: "Minimum 6 characters required!",
@@ -148,4 +151,10 @@ export const UserSchema = z.object({
   email: z.string().email(),
   role: z.nativeEnum(UserRole),
   active: z.boolean().default(false),
+});
+
+export const ReviewSchema = z.object({
+  productId: z.string().min(1),
+  content: z.string().min(1),
+  rating: z.number().min(1),
 });

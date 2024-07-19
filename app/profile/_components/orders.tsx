@@ -35,8 +35,8 @@ const Orders = () => {
 
   return (
     <>
-      <div className="grid gap-4 rounded-lg bg-background mt-6 shadow-sm">
-        <h3 className="text-lg font-semibold">Recent Orders</h3>
+      <div className="grid gap-4 rounded-lg bg-background mt-8 shadow-sm">
+        <h3 className="font-bold text-2xl max-md:mt-6">Recent Orders</h3>
         <Table>
           <TableHeader>
             <TableRow>
@@ -62,7 +62,7 @@ const Orders = () => {
                 </TableCell>
                 <TableCell>${item.totalAmount.toFixed(2)}</TableCell>
                 <TableCell>
-                  <Badge variant={item.isPaid ? "secondary" : "outline"}>
+                  <Badge variant={item.isPaid ? "green" : "outline"}>
                     {item.isPaid ? "Delivered" : "Pending"}
                   </Badge>
                 </TableCell>

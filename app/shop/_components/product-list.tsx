@@ -48,16 +48,19 @@ const ProductList: React.FC<ProductListProps> = ({
     <div>
       <div className="flex justify-between items-center mb-4">
         <div className="text-sm">{products.length} Products</div>
-        <div className="text-sm">
-          <SortSelect
-            sortBy={sortBy}
-            sortOrder={sortOrder}
-            onChange={(value) => {
-              const [newSortBy, newSortOrder] = value.split(":");
-              setSortBy(newSortBy);
-              setSortOrder(newSortOrder);
-            }}
-          />
+        <div>
+          
+          <div className="text-sm">
+            <SortSelect
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onChange={(value) => {
+                const [newSortBy, newSortOrder] = value.split(":");
+                setSortBy(newSortBy);
+                setSortOrder(newSortOrder);
+              }}
+            />
+          </div>
         </div>
       </div>
       {products.length === 0 ? (

@@ -5,6 +5,8 @@ export type ExtendedUser = DefaultSession["user"] & {
   id: string;
   role: UserRole;
   surname: string;
+  address: string;
+  phone: string;
   isOAuth: boolean;
   wishlist: Array;
   createdAt: any;

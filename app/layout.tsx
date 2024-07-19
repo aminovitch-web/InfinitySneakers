@@ -26,7 +26,7 @@ export default async function RootLayout({
         <Providers>
           <div className="max-w-[2100px] mx-auto">
             <Navbar />
-            <div className="min-h-screen ">{children}</div>
+            <div className="min-h-screen">{children}</div>
           </div>
           <Footer />
           <div className="hidden sm:block relative z-0">

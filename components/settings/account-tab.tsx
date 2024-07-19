@@ -16,12 +16,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import FormSuccess from "@/components/form-success";
 import FormError from "@/components/form-error";
+import { PhoneInput } from "@/components/ui/phone-input";
+import ImageUpload from "../ui/image-upload";
 
 const AccountTab = () => {
   const user = useCurrentUser();
@@ -35,9 +38,12 @@ const AccountTab = () => {
   const form = useForm<z.infer<typeof SettingSchema>>({
     resolver: zodResolver(SettingSchema),
     defaultValues: {
+      image: user?.image || undefined,
       name: user?.name || undefined,
       surname: user?.surname || undefined,
       email: user?.email || undefined,
+      address: user?.address || undefined,
+      phone: user?.phone || undefined,
     },
   });
 
@@ -75,6 +81,26 @@ const AccountTab = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Profile Picture</FormLabel>
+                      <FormControl>
+                        <ImageUpload
+                          value={field.value ? [field.value] : []}
+                          disabled={isPending}
+                          onChange={(url) => field.onChange(url)}
+                          onRemove={() => field.onChange("")}
+                          multiple={false}
+                          isProfile={true}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="name"
@@ -129,6 +155,41 @@ const AccountTab = () => {
                     />
                   </>
                 )}
+                <FormField
+                  control={form.control}
+                  name="address"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="address">Address</FormLabel>
+                      <FormControl>
+                        <Input {...field} disabled={isPending} id="address" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-start">
+                      <FormLabel className="text-left" htmlFor="phone">
+                        Phone Number
+                      </FormLabel>
+                      <FormControl className="w-full">
+                        <PhoneInput
+                          placeholder="Enter a phone number"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription className="text-left">
+                        Enter a phone number
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
               <FormSuccess message={success} />

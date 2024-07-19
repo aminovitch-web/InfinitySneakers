@@ -134,11 +134,6 @@ export async function GET(req: Request) {
           }
         : {};
 
-    const priceFilter = {
-      ...(minPrice !== undefined && { price: { gte: minPrice } }),
-      ...(maxPrice !== undefined && { price: { lte: maxPrice } }),
-    };
-
     const products = await db.product.findMany({
       where: {
         categoryId,
@@ -146,7 +141,10 @@ export async function GET(req: Request) {
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
         ...sizeFilter,
-        ...priceFilter,
+        price: {
+          gte: minPrice !== undefined ? minPrice : undefined,
+          lte: maxPrice !== undefined ? maxPrice : undefined,
+        },
       },
       include: {
         images: true,

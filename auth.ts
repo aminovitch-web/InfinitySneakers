@@ -53,6 +53,9 @@ export const {
         session.user.name = token.name;
         session.user.surname = token.surname;
         session.user.email = token.email as string;
+        session.user.image = token.picture;
+        session.user.address = token.address as string;
+        session.user.phone = token.phone as string;
         session.user.isOAuth = token.isOAuth as boolean;
         session.user.wishlist = token.wishlist;
         session.user.createdAt = token.createdAt;
@@ -71,9 +74,12 @@ export const {
       const existingAccount = await getAccountByUserId(existingUser.id);
 
       token.isOAuth = !!existingAccount;
+      token.picture = existingUser.image;
       token.name = existingUser.name;
       token.surname = existingUser.surname as string;
       token.email = existingUser.email;
+      token.address = existingUser.address;
+      token.phone = existingUser.phone;
       token.role = existingUser.role;
       token.wishlist = existingUser.wishlist;
       token.createdAt = existingUser.createdAt;

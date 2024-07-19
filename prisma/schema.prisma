@@ -26,6 +26,8 @@ model User {
   emailVerified DateTime?  @map("email_verified")
   image         String?
   password      String?
+  address       String?
+  phone         String?
   role          UserRole   @default(CUSTOMER)
   active        Boolean    @default(true)
   accounts      Account[]
@@ -33,6 +35,7 @@ model User {
   order         Order[]
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
+  Review        Review[]
 }
 
 model Wishlist {
@@ -107,6 +110,7 @@ model Category {
   billboardId String
   billboard   Billboard @relation(fields: [billboardId], references: [id])
   name        String
+  slug        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   products    Product[] @relation("CategoryToProduct")
@@ -149,6 +153,7 @@ model Product {
   Wishlist    Wishlist[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+  Review      Review[]
 }
 
 model ProductSize {
@@ -204,4 +209,18 @@ model OrderItem {
   orderId   String?
   product   Product @relation(fields: [productId], references: [id])
   productId String
+}
+
+model Review {
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  productId  String
+  content    String
+  rating     Int
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }

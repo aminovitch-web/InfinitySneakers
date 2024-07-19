@@ -54,7 +54,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 
   const action = initialData ? "Save Changes" : "Create Billboard";
 
-  //   const origin = useOrigin();
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(BillboardSchema),
     defaultValues: initialData || {

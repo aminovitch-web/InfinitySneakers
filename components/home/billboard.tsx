@@ -8,7 +8,7 @@ const Billboard: React.FC<BillboardProps> = ({ data }) => {
   return (
     <div className="rounded-xl overflow-hidden mt-6 relative z-10">
       <div
-        className="rounded-xl relative aspect-square md:aspect-[2.4/1] overflow-hidden bg-cover"
+        className="rounded-xl relative aspect-square md:aspect-[2.6/1] overflow-hidden bg-cover"
         style={{ backgroundImage: `url(${data?.imageUrl})` }}
       >
         <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">

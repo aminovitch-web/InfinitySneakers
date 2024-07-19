@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
 import { db } from "@/prisma";
+import { createSlug } from "@/hooks/use-create-slug";
 
 export async function GET(
   req: Request,
@@ -57,6 +58,8 @@ export async function PATCH(
       return new NextResponse("Category id is required", { status: 400 });
     }
 
+    const slug = createSlug(name);
+
     const category = await db.category.updateMany({
       where: {
         id: params.categoryId,
@@ -64,6 +67,7 @@ export async function PATCH(
       data: {
         name,
         billboardId,
+        slug,
       },
     });
 

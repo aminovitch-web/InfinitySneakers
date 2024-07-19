@@ -22,6 +22,7 @@ export const settings = async (values: z.infer<typeof SettingSchema>) => {
   if (!dbUser) {
     return { error: "Unauthorized!" };
   }
+console.log(values);
 
   if (user.isOAuth) {
     values.email = undefined;

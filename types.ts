@@ -6,8 +6,12 @@ export interface Billboard {
 
 export interface Category {
   id: string;
-  name: string;
+  billboardId: string;
   billboard: Billboard;
+  name: string;
+  slug: string;
+  createdAt: Date;
+  products: Product[];
 }
 
 export interface Product {

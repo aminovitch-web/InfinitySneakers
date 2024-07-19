@@ -162,7 +162,7 @@ const NavbarIcons = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/wishlist"
+                href="/profile/wishlist"
                 className="flex items-center justify-center"
               >
                 <FaRegHeart className="w-5 h-5 cursor-pointer" />

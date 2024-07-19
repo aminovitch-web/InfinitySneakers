@@ -1,14 +1,15 @@
+import { notFound } from "next/navigation";
+
 import getColors from "@/actions/color/get-colors";
 import getProducts from "@/actions/product/get-products";
 import getSizes from "@/actions/size/get-sizes";
 import FiltersSection from "@/components/filters-section";
-import ProductList from "./_components/product-list";
+import ProductList from "@/app/shop/_components/product-list";
 import getCategories from "@/actions/category/get-categories";
 import Billboard from "@/components/home/billboard";
-import getBillboards from "@/actions/billboard/get-billboards";
 import BreadcrumbComponent from "@/components/breadcrumb-component";
 
-interface ShopPageProps {
+interface SingleCategoryPageProps {
   searchParams: {
     colorId?: string;
     sizeId?: string;
@@ -16,13 +17,30 @@ interface ShopPageProps {
     sortOrder?: string;
     priceRange?: string;
   };
+  params: {
+    slug: string;
+  };
 }
 
-const ShopPage: React.FC<ShopPageProps> = async ({ searchParams }) => {
+const SingleCategoryPage: React.FC<SingleCategoryPageProps> = async ({
+  searchParams,
+  params,
+}) => {
   const sizes = await getSizes();
   const colors = await getColors();
   const categories = await getCategories();
-  const billboards = await getBillboards();
+
+  const categorySlug = decodeURIComponent(params.slug || "");
+
+  // Find category ID based on the category name
+  const category = categories.find(
+    (category) => category.slug.toLowerCase() === categorySlug.toLowerCase()
+  );
+  const categoryId = category?.id;
+
+  if (!categoryId) {
+    notFound();
+  }
 
   const sizeNameToId = Object.fromEntries(
     sizes.map((size) => [size.name, size.id])
@@ -50,19 +68,25 @@ const ShopPage: React.FC<ShopPageProps> = async ({ searchParams }) => {
   const maxPrice = priceRange ? priceRange[1] : undefined;
 
   const products = await getProducts({
+    categoryId,
     colorId,
     sizeId: sizeIds.length > 0 ? sizeIds.join(",") : undefined,
     minPrice,
     maxPrice,
   });
 
-  const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Shop" }];
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Category" },
+    { label: `${category.name}` },
+  ];
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mt-10">
       <div className="space-y-10 pb-10">
-        <Billboard data={billboards[0]} />
+        <Billboard data={category?.billboard} />
         <BreadcrumbComponent items={breadcrumbs} />
+
         <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
           <div className="hidden lg:flex lg:flex-col lg:gap-y-4">
             <FiltersSection
@@ -85,4 +109,4 @@ const ShopPage: React.FC<ShopPageProps> = async ({ searchParams }) => {
   );
 };
 
-export default ShopPage;
+export default SingleCategoryPage;
