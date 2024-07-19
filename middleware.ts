@@ -43,6 +43,10 @@ export default auth((req): Response | void => {
     return;
   }
 
+  if (nextUrl.pathname.startsWith("/category")) {
+    return;
+  }
+
   if (!isLoggedIn && !isPublicRoute) {
     return Response.redirect(new URL("/login", nextUrl));
   }
