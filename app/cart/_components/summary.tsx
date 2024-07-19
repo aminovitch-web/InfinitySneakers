@@ -19,7 +19,7 @@ const Summary = ({ cartItems }: any) => {
     if (searchParams.get("canceled")) {
       toast.error("Something went wrong!");
     }
-  }, [searchParams, removeAll]);
+  }, [searchParams]);
 
   const onClick = () => {
     onCheckout(cartItems?.items).then(() => {

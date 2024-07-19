@@ -15,7 +15,7 @@ const ClearOldRecentlyViewedItems = () => {
     }, CLEAR_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [dispatch]);
+  }, [dispatch, CLEAR_INTERVAL]); // CLEAR_INTERVAL added to dependencies
 
   return null;
 };

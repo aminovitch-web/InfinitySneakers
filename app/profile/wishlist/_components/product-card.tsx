@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
     if (session?.data?.user?.id) {
       checkWishlist();
     }
-  }, [session, data.id]);
+  }, [session, data?.product?.id]);
 
   const handleWishlistClick = async () => {
     try {

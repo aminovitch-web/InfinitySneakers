@@ -43,7 +43,7 @@ const SliderFilter: React.FC<SliderFilterProps> = ({
       return;
     }
     updateURLParams(debouncedLocalPriceRange);
-  }, [debouncedLocalPriceRange]);
+  }, [debouncedLocalPriceRange, isFirstRender]);
 
   useEffect(() => {
     const priceRangeParam = searchParams.get("priceRange");
@@ -53,7 +53,7 @@ const SliderFilter: React.FC<SliderFilterProps> = ({
         : initialValue;
       setLocalPriceRange(newPriceRange);
     }
-  }, [searchParams]);
+  }, [searchParams, initialValue]);
 
   const handlePriceChange = (value: number[]) => {
     setLocalPriceRange(value as [number, number]);
