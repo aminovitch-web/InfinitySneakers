@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineLocalShipping } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
-import { IoIosMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -17,7 +16,6 @@ import {
   DrawerContent,
   DrawerClose,
   DrawerHeader,
-  DrawerFooter,
 } from "@/components/ui/drawer"; // Import drawer components from Shadcn UI
 import { Badge } from "@/components/ui/badge";
 

@@ -15,7 +15,7 @@ export const getSettingsTokenByToken = async (token: string) => {
 export const getSettingsTokenByEmail = async (email: string) => {
   try {
     const settingsToken = await db.settingsToken.findFirst({
-      where: { email },
+      where: { currentEmail: email },
     });
 
     return settingsToken;

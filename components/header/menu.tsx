@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosMenu, IoMdClose } from "react-icons/io";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -19,6 +19,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import SearchBar from "./search-bar";
+import ThemeToogle from "./theme-toogle";
 
 const Menu = () => {
   const { data } = useSession();
@@ -158,6 +160,10 @@ const Menu = () => {
                     {link.name}
                   </Link>
                 ))}
+            <SearchBar />
+            <div className="flex items-center justify-center w-full">
+              <ThemeToogle />
+            </div>
           </DrawerHeader>
           <DrawerFooter className="flex flex-col gap-4">
             {!isLoggedIn ? (
