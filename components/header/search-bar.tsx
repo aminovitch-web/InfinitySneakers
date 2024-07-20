@@ -43,6 +43,7 @@ const SearchBar = () => {
                   {...field}
                   inputMode="search"
                   autoComplete="off"
+                  autoFocus={false}
                   type="text"
                   placeholder="Search"
                   className="bg-transparent border-none outline-none shadow-none focus:border-none focus:outline-none focus-visible:border-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"

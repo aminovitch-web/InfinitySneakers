@@ -88,7 +88,7 @@ const SingleCategoryPage: React.FC<SingleCategoryPageProps> = async ({
         <BreadcrumbComponent items={breadcrumbs} />
 
         <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
-          <div className="hidden lg:flex lg:flex-col lg:gap-y-4">
+          <div className="lg:flex lg:flex-col lg:gap-y-4">
             <FiltersSection
               sizes={sizes}
               colors={colors}

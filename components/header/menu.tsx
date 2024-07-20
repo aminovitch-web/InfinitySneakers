@@ -15,12 +15,24 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTrigger,
+  DrawerOverlay,
+  DrawerPortal,
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import SearchBar from "./search-bar";
 import ThemeToogle from "./theme-toogle";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Menu = () => {
   const { data } = useSession();
@@ -115,20 +127,20 @@ const Menu = () => {
 
   return (
     <nav>
-      <Drawer direction="right" open={open} onClose={() => setOpen(false)}>
-        <DrawerTrigger onClick={() => setOpen(true)}>
-          <IoIosMenu className="w-7 h-7 cursor-pointer" />
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerClose
-            className="right-2 top-2 absolute"
-            onClick={() => setOpen(false)}
-          >
-            <Button variant="ghost">
+      <Sheet open={open} onOpenChange={setOpen} >
+        <SheetTrigger>
+          <IoIosMenu
+            className="w-7 h-7 cursor-pointer"
+            onClick={() => setOpen(true)}
+          />
+        </SheetTrigger>
+        <SheetContent className="DialogContent">
+          <SheetClose className="right-2 top-2 absolute">
+            <Button variant="ghost" onClick={() => setOpen(false)}>
               <IoMdClose className="w-5 h-5" />
             </Button>
-          </DrawerClose>
-          <DrawerHeader className="w-full flex flex-col items-center gap-6 mt-8">
+          </SheetClose>
+          <SheetHeader className="w-full flex flex-col items-center gap-6 mt-8">
             <h4 className="text-xl font-medium">InfinitySneakers</h4>
             <Separator />
             {data?.user?.role === "ADMIN"
@@ -138,9 +150,7 @@ const Menu = () => {
                     className={`hover:text-InfinitySneakers text-lg ${
                       link.isActive && "text-InfinitySneakers"
                     }`}
-                    onClick={() => {
-                      setOpen(false);
-                    }}
+                    onClick={() => setOpen(false)}
                     key={link.name}
                   >
                     {link.name}
@@ -152,9 +162,7 @@ const Menu = () => {
                     className={`hover:text-InfinitySneakers text-lg ${
                       link.isActive && "text-InfinitySneakers"
                     }`}
-                    onClick={() => {
-                      setOpen(false);
-                    }}
+                    onClick={() => setOpen(false)}
                     key={link.name}
                   >
                     {link.name}
@@ -164,8 +172,8 @@ const Menu = () => {
             <div className="flex items-center justify-center w-full">
               <ThemeToogle />
             </div>
-          </DrawerHeader>
-          <DrawerFooter className="flex flex-col gap-4">
+          </SheetHeader>
+          <SheetFooter className="flex flex-col gap-4">
             {!isLoggedIn ? (
               <>
                 <Button
@@ -200,9 +208,9 @@ const Menu = () => {
                 </Button>
               </>
             )}
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </nav>
   );
 };
