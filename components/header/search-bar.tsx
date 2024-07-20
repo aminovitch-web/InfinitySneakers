@@ -22,7 +22,6 @@ const SearchBar = () => {
   });
 
   const onSubmit = (values: z.infer<typeof SearchSchema>) => {
-    console.log(values);
     if (values.search) {
       router.push(`/search?s=${values.search}`);
     }

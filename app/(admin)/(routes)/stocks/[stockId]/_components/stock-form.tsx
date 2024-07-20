@@ -75,8 +75,6 @@ export const StockForm: React.FC<StockFormProps> = ({ initialData }) => {
     }
   };
 
-  console.log(form.getValues());
-
   return (
     <>
       <div className="flex items-center justify-between">

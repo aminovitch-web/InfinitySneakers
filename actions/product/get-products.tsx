@@ -13,6 +13,7 @@ interface Query {
   isFeatured?: boolean;
   minPrice?: number;
   maxPrice?: number;
+  search?: string;
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {

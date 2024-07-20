@@ -62,8 +62,8 @@ const ContactPage = () => {
             <div className="space-y-2">
               <h2 className="text-3xl font-bold">Get in Touch</h2>
               <p className="text-muted-foreground">
-                Have a question or need assistance? Fill out the form and we'll
-                get back to you as soon as possible.
+                Have a question or need assistance? Fill out the form and
+                we&apos;ll get back to you as soon as possible.
               </p>
             </div>
             <Form {...form}>

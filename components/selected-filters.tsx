@@ -43,6 +43,9 @@ const SelectedFilters = () => {
   const getFilterDisplayName = (key: string, value: string) => {
     if (key === "sizeId") return `Size: ${value}`;
     if (key === "colorId") return `Color: ${value}`;
+    if (key === "s") return `Search: ${value}`;
+    if (key === "priceRange") return `Price Range: ${value}`;
+
     return value;
   };
 

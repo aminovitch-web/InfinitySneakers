@@ -21,7 +21,7 @@ export default auth((req): Response | void => {
     if (process.env.NODE_ENV === "development" && isLoggedIn) {
       return; // Allow access to Swagger route in development
     }
-    if (process.env.NODE_ENV !== "development" && !isLoggedIn) {
+    if (process.env.NODE_ENV !== "development") {
       return Response.redirect(new URL("/login", nextUrl)); // Redirect if not logged in
     }
   }

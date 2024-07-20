@@ -106,6 +106,8 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
+
+    const search = searchParams.get("search") || "";
     const categoryId = searchParams.get("categoryId") || undefined;
     const colorId = searchParams.get("colorId") || undefined;
     const sizeNames = decodeURIComponent(searchParams.get("sizeId") || "")
@@ -136,6 +138,10 @@ export async function GET(req: Request) {
 
     const products = await db.product.findMany({
       where: {
+        name: {
+          contains: search,
+          mode: "insensitive",
+        },
         categoryId,
         colorId: colorId ? colorId : undefined,
         isFeatured: isFeatured ? true : undefined,

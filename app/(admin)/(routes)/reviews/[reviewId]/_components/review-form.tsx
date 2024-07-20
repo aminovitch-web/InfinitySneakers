@@ -95,7 +95,6 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ initialData }) => {
       setOpen(false);
     }
   };
-  console.log(initialData);
 
   return (
     <>

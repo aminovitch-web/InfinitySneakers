@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "@/app/globals.css";
 import Navbar from "@/components/header/navbar";
@@ -8,6 +7,7 @@ import Footer from "@/components/footer";
 import Providers from "@/app/providers";
 import ParticlesBg from "@/components/particles-bg";
 import ClearOldRecentlyViewedItems from "@/components/clear-old-recently-viewed-items";
+import GoogleAnalytics from "@/components/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +20,10 @@ export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {  
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <GoogleAnalytics />
       <body className={inter.className}>
         <Providers>
           <div className="max-w-[2100px] mx-auto">
@@ -37,7 +38,6 @@ export default async function RootLayout({
           <ClearOldRecentlyViewedItems />
         </Providers>
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_MEASUREMENT_ID || ""} />
     </html>
   );
 }
