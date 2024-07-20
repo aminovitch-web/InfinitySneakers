@@ -55,7 +55,11 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
               <Badge className="lg:hidden">Open Filters</Badge>
             </div>
           </SheetTrigger>
-          <SheetContent className="DialogContent px-2" side="left">
+          <SheetContent
+            className="DialogContent px-2"
+            side="left"
+            onOpenAutoFocus={(e) => e.preventDefault()}
+          >
             <SheetHeader className="w-full flex flex-col items-center gap-4 mt-4 mb-4">
               <div className="grid gap-1 text-center">
                 <SheetTitle className="text-xl font-semibold">

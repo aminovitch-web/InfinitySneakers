@@ -134,7 +134,10 @@ const Menu = () => {
             onClick={() => setOpen(true)}
           />
         </SheetTrigger>
-        <SheetContent className="DialogContent flex flex-col justify-between">
+        <SheetContent
+          className="DialogContent flex flex-col justify-between"
+          onOpenAutoFocus={(e) => e.preventDefault()}
+        >
           <SheetHeader className="w-full flex flex-col items-center gap-6 mt-8">
             <h4 className="text-xl font-medium">InfinitySneakers</h4>
             <Separator />
@@ -170,7 +173,7 @@ const Menu = () => {
           </SheetHeader>
           <SheetFooter className="flex flex-col gap-4">
             {!isLoggedIn ? (
-              <>
+              <div className="flex flex-col gap-4">
                 <Button
                   asChild
                   variant="outline"
@@ -181,9 +184,9 @@ const Menu = () => {
                 <Button asChild onClick={() => setOpen(false)}>
                   <Link href="/register">Register</Link>
                 </Button>
-              </>
+              </div>
             ) : (
-              <>
+              <div className="flex flex-col gap-4">
                 <Button
                   asChild
                   onClick={() => {
@@ -201,7 +204,7 @@ const Menu = () => {
                 >
                   Sign out
                 </Button>
-              </>
+              </div>
             )}
           </SheetFooter>
         </SheetContent>
