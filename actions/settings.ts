@@ -17,12 +17,15 @@ export const settings = async (values: z.infer<typeof SettingSchema>) => {
     return { error: "Unauthorized!" };
   }
 
+  if (!user.email) {
+    return { error: "User email is not defined!" }; // or handle this case appropriately
+  }
+
   const dbUser = await getUserById(user.id);
 
   if (!dbUser) {
     return { error: "Unauthorized!" };
   }
-console.log(values);
 
   if (user.isOAuth) {
     values.email = undefined;
@@ -38,10 +41,11 @@ console.log(values);
       return { error: "Email already in use!" };
     }
 
-    const settingsToken = await generateSettingsToken(values.email);
+    // Generate settings token and send email
+    const settingsToken = await generateSettingsToken(user.email, values.email);
 
     await sendSettingsEmail(
-      settingsToken.email,
+      values.email,
       settingsToken.token,
       settingsToken.code
     );

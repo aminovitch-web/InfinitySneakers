@@ -13,14 +13,22 @@ import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/alert-modal";
 import deleteAccount from "@/actions/user/delete-account";
 import { logout } from "@/actions/logout";
+import { useSession } from "next-auth/react";
 
 const ProfilePage = () => {
   const user = useCurrentUser();
+  const { update } = useSession();
 
   const breadcrumbs = [{ label: "Home", href: "/" }, { label: "Profile" }];
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const logoutUser = () => {
+    logout().then(() => {
+      window.location.replace("/login");
+    });
+  };
 
   const onDelete = async () => {
     try {
@@ -34,7 +42,7 @@ const ProfilePage = () => {
     } finally {
       setLoading(false);
       setOpen(false);
-      await logout();
+      logoutUser();
     }
   };
 
@@ -48,7 +56,9 @@ const ProfilePage = () => {
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
                   <AvatarImage src={user?.image || ""} />
-                  <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+                  <AvatarFallback>
+                    {user?.name?.charAt(0)} {user?.surname?.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
                   <h2 className="text-xl font-semibold">{user?.name}</h2>

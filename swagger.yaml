@@ -21,12 +21,16 @@ tags:
     description: "Review management"
   - name: "Stocks"
     description: "Stock management"
+  - name: "Profile"
+    description: "Profile management"
   - name: "Wishlist"
     description: "Wishlist management"
   - name: "Checkout"
     description: "Checkout management"
   - name: "Webhook"
     description: "Webhook management"
+  - name: "Contact"
+    description: "Contact management"
 components:
   securitySchemes:
     BearerAuth:
@@ -2231,3 +2235,151 @@ paths:
           description: Bad request - Error in processing the webhook
         "500":
           description: Internal server error - Database or other server issues
+  /api/profile/{userId}:
+    get:
+      summary: Get user profile
+      description: Fetches user profile information by userId.
+      tags:
+        - Profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user to fetch.
+      responses:
+        "200":
+          description: User profile fetched successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: User ID
+                  name:
+                    type: string
+                    description: User's name
+                  surname:
+                    type: string
+                    description: User's surname
+                  email:
+                    type: string
+                    description: User's email
+        "401":
+          description: Unauthorized. Authentication required.
+        "400":
+          description: Bad Request. User ID is required.
+        "500":
+          description: Internal Server Error.
+
+    patch:
+      summary: Update user profile
+      description: Updates user profile information for a given userId.
+      tags:
+        - Profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: User's name
+                surname:
+                  type: string
+                  description: User's surname
+      responses:
+        "200":
+          description: User profile updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: User ID
+                  name:
+                    type: string
+                    description: User's name
+                  surname:
+                    type: string
+                    description: User's surname
+        "401":
+          description: Unauthorized. Authentication required.
+        "400":
+          description: Bad Request. Name and User ID are required.
+        "500":
+          description: Internal Server Error.
+
+    delete:
+      summary: Delete user profile
+      description: Deletes the user profile and associated accounts for a given userId.
+      tags:
+        - Profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user to delete.
+      responses:
+        "200":
+          description: User profile deleted successfully.
+        "401":
+          description: Unauthorized. Authentication required.
+        "400":
+          description: Bad Request. User ID is required.
+        "500":
+          description: Internal Server Error.
+  /api/contact:
+    post:
+      summary: Submit contact form
+      description: Sends an email with the contact form details.
+      tags:
+        - Contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the person submitting the form.
+                email:
+                  type: string
+                  description: Email address of the person submitting the form.
+                subject:
+                  type: string
+                  description: Subject of the contact form.
+                message:
+                  type: string
+                  description: Message body of the contact form.
+      responses:
+        "200":
+          description: Email sent successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates if the email was sent successfully.
+        "500":
+          description: Internal Server Error. Failed to send email.

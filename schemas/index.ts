@@ -78,7 +78,7 @@ export const SearchSchema = z.object({
 
 export const SettingSchema = z
   .object({
-    image: z.string().url(),
+    image: z.optional(z.string().url()),
     name: z.optional(z.string()),
     surname: z.optional(z.string()),
     email: z.optional(z.string().email()),
@@ -164,4 +164,13 @@ export const ReviewFormSchema = z.object({
   content: z.string().min(1),
   rating: z.number().min(1),
   isApproved: z.boolean(),
+});
+
+export const ContactSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email({
+    message: "Email is required!",
+  }),
+  subject: z.string().min(1),
+  message: z.string().min(1),
 });

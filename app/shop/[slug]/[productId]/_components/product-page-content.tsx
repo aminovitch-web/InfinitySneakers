@@ -137,11 +137,25 @@ const ProductPageContent: React.FC<ProductPageContentProps> = ({
       <div className="mt-16 flex flex-col gap-y-4">
         {user && hasPurchasedProduct && <ReviewForm productId={product.id} />}
 
+        {reviews?.length < 1 && (
+          <div className="mt-4">
+            <Separator />
+            <div className="flex flex-col gap-2 mt-4">
+              <h2 className="text-3xl font-bold max-sm:text-lg">
+                Product Reviews
+              </h2>
+              <p>There are no comments yet for this product.</p>
+            </div>
+          </div>
+        )}
+
         {reviews?.length > 0 && (
           <div className="mt-4">
             <Separator />
             <div className="flex items-center justify-between mt-4">
-              <h2 className="text-3xl font-bold max-sm:text-lg">Product Reviews</h2>
+              <h2 className="text-3xl font-bold max-sm:text-lg">
+                Product Reviews
+              </h2>
               <ReviewsSort
                 sortBy={sortBy}
                 sortOrder={sortOrder}

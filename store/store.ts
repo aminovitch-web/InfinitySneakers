@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
+import { encryptTransform } from "redux-persist-transform-encrypt";
 
 import { cartReducer } from "./slices/cart-slice";
 import { recentlyViewedReducer } from "./slices/recently-viewed-slice";
@@ -19,12 +20,28 @@ import { recentlyViewedReducer } from "./slices/recently-viewed-slice";
 const cartPersistConfig = {
   key: "cart",
   storage,
+  transforms: [
+    encryptTransform({
+      secretKey: "m9INwKQFIAzxYHrz3i2I29PtJRtNJBWC",
+      onError: function (error) {
+        // Handle the error.
+      },
+    }),
+  ],
 };
 
 // Persist config for recentlyViewed
 const recentlyViewedPersistConfig = {
   key: "recentlyViewed",
   storage,
+  transforms: [
+    encryptTransform({
+      secretKey: "m9INwKQFIAzxYHrz3i2I29PtJRtNJBWC",
+      onError: function (error) {
+        // Handle the error.
+      },
+    }),
+  ],
 };
 
 const rootReducer = combineReducers({

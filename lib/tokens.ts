@@ -4,7 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "@/prisma";
 import { getVerificationTokenByEmail } from "@/data/verification-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
-import { getSettingsTokenByEmail } from "@/data/settings-token";
+import {
+  getSettingsTokenByEmail,
+  getSettingsTokenByToken,
+} from "@/data/settings-token";
 
 export const generatePasswordResetToken = async (email: string) => {
   const token = uuidv4();
@@ -57,13 +60,15 @@ export const generateVerificationToken = async (email: string) => {
   return verificationToken;
 };
 
-export const generateSettingsToken = async (email: string) => {
+export const generateSettingsToken = async (
+  currentEmail: string,
+  newEmail: string
+) => {
   const token = uuidv4();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
-
   const code = crypto.randomInt(100_000, 1_000_000).toString();
 
-  const existingToken = await getSettingsTokenByEmail(email);
+  const existingToken = await getSettingsTokenByToken(token);
 
   if (existingToken) {
     await db.settingsToken.delete({
@@ -75,7 +80,8 @@ export const generateSettingsToken = async (email: string) => {
 
   const settingsToken = await db.settingsToken.create({
     data: {
-      email,
+      currentEmail,
+      newEmail,
       token,
       expires,
       code,

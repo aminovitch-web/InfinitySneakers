@@ -106,7 +106,9 @@ const Menu = () => {
   ];
 
   const logoutUser = () => {
-    logout();
+    logout().then(() => {
+      window.location.replace("/login");
+    });
   };
 
   return (

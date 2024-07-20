@@ -1,12 +1,24 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const transport = nodemailer.createTransport({
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
+  secure: true,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: process.env.NODE_ENV !== "development" ? true : false,
+  },
+} as SMTPTransport.Options);
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetLink = `http://localhost:3000/reset-password?token=${token}`;
+  const resetLink = `${process.env.NEXT_FRONTEND_URL}/reset-password?token=${token}`;
 
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  await transport.sendMail({
+    from: process.env.MAIL_USER,
     to: email,
     subject: "Reset your password",
     html: `<p>Click <a href="${resetLink}">here</a> to reset password.</p>`,
@@ -18,10 +30,10 @@ export const sendVerificationEmail = async (
   token: string,
   code: string
 ) => {
-  const confirmLink = `http://localhost:3000/new-verification?token=${token}`;
+  const confirmLink = `${process.env.NEXT_FRONTEND_URL}/new-verification?token=${token}`;
 
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  await transport.sendMail({
+    from: process.env.MAIL_USER,
     to: email,
     subject: "Confirm your email",
     html: `<p>Your Code: ${code}<br/>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
@@ -33,12 +45,31 @@ export const sendSettingsEmail = async (
   token: string,
   code: string
 ) => {
-  const confirmLink = `http://localhost:3000/new-email?token=${token}`;
+  const confirmLink = `${process.env.NEXT_FRONTEND_URL}/new-email?token=${token}`;
 
-  await resend.emails.send({
-    from: "onboarding@resend.dev",
+  await transport.sendMail({
+    from: process.env.MAIL_USER,
     to: email,
     subject: "Confirm your email",
     html: `<p>Your Code: ${code}<br/>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
   });
 };
+
+// export const sendContactEmail = async (
+//   name: string,
+//   email: string,
+//   subject: string,
+//   message: string
+// ) => {
+//   await transport.sendMail({
+//     from: email,
+//     to: process.env.MAIL_HOST,
+//     subject: `Contact Form Submission: ${subject}`,
+//     html: `
+//       <p><strong>Name:</strong> ${name}</p>
+//       <p><strong>Email:</strong> ${email}</p>
+//       <p><strong>Subject:</strong> ${subject}</p>
+//       <p><strong>Message:</strong><br/>${message}</p>
+//     `,
+//   });
+// };
