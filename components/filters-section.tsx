@@ -54,14 +54,14 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
               <Badge className="lg:hidden">Open Filters</Badge>
             </div>
           </DrawerTrigger>
-          <DrawerContent className="px-1">
+          <DrawerContent className="DialogContent px-1">
             <DrawerClose
               className="right-2 top-2 absolute"
               onClick={() => setDrawerOpen(false)}
             >
               <IoMdClose className="w-5 h-5" />
             </DrawerClose>
-            <DrawerHeader className="w-full flex flex-col items-center gap-6 mt-8">
+            <DrawerHeader className="w-full flex flex-col items-center gap-4 mt-4 mb-4">
               <div className="grid gap-1 text-center">
                 <h2 className="text-xl font-semibold">Filters</h2>
               </div>

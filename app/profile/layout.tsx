@@ -100,7 +100,7 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
                 <Badge className="md:hidden">Open Menu</Badge>
               </div>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="DialogContent">
               <DrawerClose
                 className="right-2 top-2 absolute"
                 onClick={() => setDrawerOpen(false)}

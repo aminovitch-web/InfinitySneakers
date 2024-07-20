@@ -127,20 +127,20 @@ const Menu = () => {
 
   return (
     <nav>
-      <Sheet open={open} onOpenChange={setOpen} >
-        <SheetTrigger>
-          <IoIosMenu
-            className="w-7 h-7 cursor-pointer"
-            onClick={() => setOpen(true)}
-          />
-        </SheetTrigger>
-        <SheetContent className="DialogContent">
-          <SheetClose className="right-2 top-2 absolute">
-            <Button variant="ghost" onClick={() => setOpen(false)}>
+      <Drawer direction="right" open={open} onClose={() => setOpen(false)}>
+        <DrawerTrigger onClick={() => setOpen(true)}>
+          <IoIosMenu className="w-7 h-7 cursor-pointer" />
+        </DrawerTrigger>
+        <DrawerContent className="DialogContent">
+          <DrawerClose
+            className="right-2 top-2 absolute"
+            onClick={() => setOpen(false)}
+          >
+            <Button variant="ghost">
               <IoMdClose className="w-5 h-5" />
             </Button>
-          </SheetClose>
-          <SheetHeader className="w-full flex flex-col items-center gap-6 mt-8">
+          </DrawerClose>
+          <DrawerHeader className="w-full flex flex-col items-center gap-6 mt-8">
             <h4 className="text-xl font-medium">InfinitySneakers</h4>
             <Separator />
             {data?.user?.role === "ADMIN"
@@ -150,7 +150,9 @@ const Menu = () => {
                     className={`hover:text-InfinitySneakers text-lg ${
                       link.isActive && "text-InfinitySneakers"
                     }`}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                    }}
                     key={link.name}
                   >
                     {link.name}
@@ -162,7 +164,9 @@ const Menu = () => {
                     className={`hover:text-InfinitySneakers text-lg ${
                       link.isActive && "text-InfinitySneakers"
                     }`}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                    }}
                     key={link.name}
                   >
                     {link.name}
@@ -172,8 +176,8 @@ const Menu = () => {
             <div className="flex items-center justify-center w-full">
               <ThemeToogle />
             </div>
-          </SheetHeader>
-          <SheetFooter className="flex flex-col gap-4">
+          </DrawerHeader>
+          <DrawerFooter className="flex flex-col gap-4">
             {!isLoggedIn ? (
               <>
                 <Button
@@ -208,9 +212,9 @@ const Menu = () => {
                 </Button>
               </>
             )}
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </nav>
   );
 };
