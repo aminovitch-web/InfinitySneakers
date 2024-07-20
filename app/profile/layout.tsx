@@ -90,13 +90,7 @@ const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
             onOpenChange={setDrawerOpen}
           >
             <DrawerTrigger onClick={() => setDrawerOpen(true)}>
-              <div className="flex items-center gap-1">
-                <Avatar className="w-10 h-10 cursor-pointer md:hidden">
-                  <AvatarImage src={user?.image || ""} />
-                  <AvatarFallback>
-                    {user?.name?.charAt(0)} {user?.surname?.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
+              <div className="flex items-center gap-1 mb-3">
                 <Badge className="md:hidden">Open Menu</Badge>
               </div>
             </DrawerTrigger>

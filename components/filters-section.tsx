@@ -7,12 +7,13 @@ import { Color, Size, Category, Product } from "@/types";
 import SliderFilter from "./slider-filter";
 import CategoryFilter from "./category-filter";
 import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerClose,
-  DrawerHeader,
-} from "@/components/ui/drawer";
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { IoMdClose } from "react-icons/io";
 import { Separator } from "@/components/ui/separator";
@@ -30,7 +31,7 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
   categories,
   products,
 }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   // Calculate max price from products
   const calculateMaxPrice = (products: Product[]) => {
@@ -48,22 +49,18 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
   return (
     <div className="flex flex-col gap-y-4">
       <div className="lg:hidden">
-        <Drawer direction="left" open={drawerOpen} onOpenChange={setDrawerOpen}>
-          <DrawerTrigger onClick={() => setDrawerOpen(true)}>
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+          <SheetTrigger>
             <div className="flex items-center gap-1">
               <Badge className="lg:hidden">Open Filters</Badge>
             </div>
-          </DrawerTrigger>
-          <DrawerContent className="DialogContent px-1">
-            <DrawerClose
-              className="right-2 top-2 absolute"
-              onClick={() => setDrawerOpen(false)}
-            >
-              <IoMdClose className="w-5 h-5" />
-            </DrawerClose>
-            <DrawerHeader className="w-full flex flex-col items-center gap-4 mt-4 mb-4">
+          </SheetTrigger>
+          <SheetContent className="DialogContent px-2" side="left">
+            <SheetHeader className="w-full flex flex-col items-center gap-4 mt-4 mb-4">
               <div className="grid gap-1 text-center">
-                <h2 className="text-xl font-semibold">Filters</h2>
+                <SheetTitle className="text-xl font-semibold">
+                  Filters
+                </SheetTitle>
               </div>
               <Separator className="my-6" />
               <nav className="flex flex-col w-full justify-center gap-2">
@@ -83,9 +80,9 @@ const FiltersSection: React.FC<FiltersSectionProps> = ({
                   step={10}
                 />
               </nav>
-            </DrawerHeader>
-          </DrawerContent>
-        </Drawer>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </div>
       <div className="hidden lg:flex flex-col gap-y-4">
         <SelectedFilters />

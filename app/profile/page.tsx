@@ -52,7 +52,7 @@ const ProfilePage = () => {
         <div className="grid gap-2">
           <BreadcrumbComponent items={breadcrumbs} />
           <div className="grid gap-4 rounded-lg mt-6 shadow-sm">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center max-sm:flex-col max-sm:items-start gap-4">
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
                   <AvatarImage src={user?.image || ""} />
