@@ -131,6 +131,7 @@ const Menu = () => {
         <SheetTrigger>
           <IoIosMenu
             className="w-7 h-7 cursor-pointer"
+            aria-label="Open Menu"
             onClick={() => setOpen(true)}
           />
         </SheetTrigger>

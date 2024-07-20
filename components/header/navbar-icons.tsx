@@ -100,7 +100,7 @@ const NavbarIcons = () => {
           onOpenChange={setIsUserCardOpen}
         >
           <HoverCardTrigger asChild>
-            <Button variant="icon" className="p-0">
+            <Button variant="icon" className="p-0" aria-label="User Menu Icon">
               <FaRegUser className="w-5 h-5" />
             </Button>
           </HoverCardTrigger>
@@ -124,6 +124,7 @@ const NavbarIcons = () => {
                         key={link.name}
                         className="w-full"
                         onClick={handleLinkClick}
+                        aria-label="User Link"
                       >
                         <Button
                           variant="ghost"
@@ -163,6 +164,7 @@ const NavbarIcons = () => {
             <TooltipTrigger asChild>
               <Link
                 href="/profile/wishlist"
+                aria-label="Wish List"
                 className="flex items-center justify-center"
               >
                 <FaRegHeart className="w-5 h-5 cursor-pointer" />
@@ -183,7 +185,10 @@ const NavbarIcons = () => {
               <div className="cursor-pointer">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="flex items-center justify-center">
+                    <button
+                      className="flex items-center justify-center"
+                      aria-label="Shopping Cart"
+                    >
                       <FiShoppingCart
                         className="w-5 h-5"
                         onClick={(prev) => !prev}
@@ -205,7 +210,11 @@ const NavbarIcons = () => {
                   <div className="flex flex-col gap-4">
                     <div>Cart is Empty</div>
                     <Button asChild variant="infinitySneakers">
-                      <Link href="/shop" onClick={handleLinkClick}>
+                      <Link
+                        href="/shop"
+                        onClick={handleLinkClick}
+                        aria-label="Shop page"
+                      >
                         Go Shop
                       </Link>
                     </Button>
@@ -236,6 +245,7 @@ const NavbarIcons = () => {
                                 <Link
                                   href={`/shop/${item.product.slug}/${item.product.id}`}
                                   onClick={handleLinkClick}
+                                  aria-label="Product"
                                 >
                                   <h3 className="font-semibold">
                                     {item.product.name}
@@ -293,7 +303,11 @@ const NavbarIcons = () => {
                       </div>
                       <div className="flex justify-between text-sm mt-6">
                         <Button asChild variant="secondary">
-                          <Link href="/cart" onClick={handleLinkClick}>
+                          <Link
+                            href="/cart"
+                            onClick={handleLinkClick}
+                            aria-label="View Cart"
+                          >
                             View Cart
                           </Link>
                         </Button>

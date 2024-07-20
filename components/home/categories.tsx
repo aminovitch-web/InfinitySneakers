@@ -25,7 +25,7 @@ const Categories: React.FC<CategoriesProps> = ({ categories }) => {
               <Link href={`/category/${category.slug}`}>
                 <Image
                   src={category.billboard.imageUrl}
-                  alt={category.name}
+                  alt="Category Billboard"
                   fill
                   sizes="30vw"
                   className="aspect-video object-cover rounded-md transition-transform duration-300 brightness-[.6]"

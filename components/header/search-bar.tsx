@@ -52,7 +52,7 @@ const SearchBar = () => {
             </FormItem>
           )}
         />
-        <Button variant="icon">
+        <Button variant="icon" aria-label="Search Icon">
           <IoSearch className="w-4 h-4" />
         </Button>
       </form>

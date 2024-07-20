@@ -35,18 +35,21 @@ const Footer = async () => {
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
+                aria-label="About Link"
               >
                 Our Story
               </Link>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
+                aria-label="About Link"
               >
                 Careers
               </Link>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
+                aria-label="About Link"
               >
                 Sustainability
               </Link>
@@ -59,13 +62,8 @@ const Footer = async () => {
             <nav className="grid gap-2">
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
-              >
-                Shipping & Returns
-              </Link>
-              <Link
-                className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                href="#"
+                href="/contact"
+                aria-label="Contact Link"
               >
                 Contact Us
               </Link>
@@ -79,18 +77,21 @@ const Footer = async () => {
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
+                aria-label="Social Link"
               >
                 <FiFacebook className="w-6 h-6" />
               </Link>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
+                aria-label="Social Link"
               >
                 <FaXTwitter className="w-6 h-6" />
               </Link>
               <Link
                 className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                 href="#"
+                aria-label="Social Link"
               >
                 <IoLogoInstagram className="w-6 h-6" />
               </Link>

@@ -57,7 +57,10 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
     <div className="bg-transparent group rounded-xl border p-3 space-y-4">
       {/* Images and Actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
-        <Link href={`/shop/${data.slug}/${data.id}`}>
+        <Link
+          href={`/shop/${data.slug}/${data.id}`}
+          aria-label="Single Product Page"
+        >
           <Image
             src={data.images?.[0].url}
             alt="Image"
@@ -71,6 +74,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
           <div className="flex gap-x-6 justify-center">
             <Link
               href={`/shop/${data.slug}/${data.id}`}
+              aria-label="Single Product Page"
               className="rounded-full flex items-center justify-center bg-white border border-InfinitySneakers shadow-md p-2 hover:scale-110 transition"
             >
               <FiShoppingCart className="text-gray-600" size={20} />
@@ -98,6 +102,7 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
         <Link
           href={`/shop/${data.slug}/${data.id}`}
           className="font-semibold text-lg"
+          aria-label="Single Product Page"
         >
           {data.name}
         </Link>
